@@ -23,6 +23,14 @@ doctrine:
                     charset: utf8mb4
                     collate: utf8mb4_unicode_ci
 
+            pgsql:
+                url: '%env(DATABASE_URL)%'
+                driver: 'pdo_pgsql'
+                # this setting prevents automatic database detection and finds a lot of false-negatives on doctrine:migrations:diff
+                # for null columns with MariaDB. Each migration tries to convert EVERY nullable column.
+                server_version: '%env(string:DATABASE_VERSION)%'
+                charset: utf8
+
         types:
             datetime: App\Doctrine\UTCDateTimeType
     orm:
@@ -161,3 +169,37 @@ doctrine:
                         substring_index: DoctrineExtensions\Query\Mysql\SubstringIndex
                         unhex: DoctrineExtensions\Query\Mysql\Unhex
                         uuid_short: DoctrineExtensions\Query\Mysql\UuidShort
+            
+            pgsql:
+                connection: pgsql
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                mappings:
+                    App:
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: Kimai
+                dql:
+                    datetime_functions:
+                        at_time_zone: DoctrineExtensions\Query\Postgresql\AtTimeZoneFunction
+                        date: DoctrineExtensions\Query\Postgresql\Date
+                        date_format: DoctrineExtensions\Query\Postgresql\DateFormat
+                        date_part: DoctrineExtensions\Query\Postgresql\DatePart
+                        date_trunc: DoctrineExtensions\Query\Postgresql\DateTrunc
+                        day: DoctrineExtensions\Query\Postgresql\Day
+                        extract: DoctrineExtensions\Query\Postgresql\ExtractFunction
+                        hour: DoctrineExtensions\Query\Postgresql\Hour
+                        minute: DoctrineExtensions\Query\Postgresql\Minute
+                        month: DoctrineExtensions\Query\Postgresql\Month
+                        second: DoctrineExtensions\Query\Postgresql\Second
+                        year: DoctrineExtensions\Query\Postgresql\Year
+
+                    numeric_functions:
+                        count_filter: DoctrineExtensions\Query\Postgresql\CountFilterFunction
+                        greatest: DoctrineExtensions\Query\Postgresql\Greatest
+                        least: DoctrineExtensions\Query\Postgresql\Least
+
+                    string_functions:
+                        regexp_replace: DoctrineExtensions\Query\Postgresql\RegexpReplace
+                        string_agg: DoctrineExtensions\Query\Postgresql\StringAgg
+                        string_to_date: DoctrineExtensions\Query\Postgresql\StrToDate

@@ -95,6 +95,11 @@ abstract class AbstractMigration extends BaseAbstractMigration
         return ($this->getPlatform() === 'mysql');
     }
 
+    protected function isPlatformPgsql(): bool
+    {
+        return ($this->getPlatform() == 'pgsql');
+    }
+
     /**
      * @return string
      * @throws Exception
