@@ -75,7 +75,7 @@ abstract class AbstractMigration extends BaseAbstractMigration
     protected function abortIfPlatformNotSupported()
     {
         $platform = $this->getPlatform();
-        if (!$this->isPlatformMysql()) {
+        if (!in_array($platform, ['mysql', 'postgresql'])) {
             $this->abortIf(true, 'Unsupported database platform: ' . $platform);
         }
     }
@@ -95,9 +95,9 @@ abstract class AbstractMigration extends BaseAbstractMigration
         return ($this->getPlatform() === 'mysql');
     }
 
-    protected function isPlatformPgsql(): bool
+    protected function isPlatformPostgresql(): bool
     {
-        return ($this->getPlatform() == 'pgsql');
+        return ($this->getPlatform() == 'postgresql');
     }
 
     /**
