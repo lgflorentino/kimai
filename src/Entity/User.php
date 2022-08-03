@@ -156,8 +156,9 @@ class User implements UserInterface, EquatableInterface, \Serializable
      */
     private $apiToken;
     /**
-     * @var string
+     * @var string|null
      * @internal to be set via form, must not be persisted
+     *
      * @Assert\NotBlank(groups={"ApiTokenUpdate"})
      * @Assert\Length(min="8", max="60", groups={"ApiTokenUpdate"})
      */
@@ -848,6 +849,7 @@ class User implements UserInterface, EquatableInterface, \Serializable
     public function eraseCredentials()
     {
         $this->plainPassword = null;
+        $this->plainApiToken = null;
     }
 
     /**
@@ -1046,6 +1048,17 @@ class User implements UserInterface, EquatableInterface, \Serializable
         return true;
     }
 
+    public function __serialize(): array
+    {
+        return [
+            'id' => $this->id,
+            'username' => $this->username,
+            'enabled' => $this->enabled,
+            'email' => $this->email,
+            'password' => $this->password,
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -1058,6 +1071,18 @@ class User implements UserInterface, EquatableInterface, \Serializable
             $this->id,
             $this->email,
         ]);
+    }
+
+    public function __unserialize(array $data): void
+    {
+        if (!\array_key_exists('id', $data)) {
+            return;
+        }
+        $this->id = $data['id'];
+        $this->username = $data['username'];
+        $this->enabled = $data['enabled'];
+        $this->email = $data['email'];
+        $this->password = $data['password'];
     }
 
     /**

@@ -203,7 +203,7 @@ class Project implements EntityWithMetaFields, EntityWithBudget
      *
      * @Exporter\Expose(label="label.billable", type="boolean")
      *
-     * @ORM\Column(name="billable", type="boolean", nullable=false)
+     * @ORM\Column(name="billable", type="boolean", nullable=false, options={"default": true})
      * @Assert\NotNull()
      */
     private $billable = true;
@@ -246,6 +246,21 @@ class Project implements EntityWithMetaFields, EntityWithBudget
      * )
      */
     private $teams;
+    /**
+     * @var string|null
+     *
+     * @ORM\Column(name="invoice_text", type="text", nullable=true)
+     */
+    private $invoiceText;
+    /**
+     * Whether this project allows booking of global activities
+     *
+     * @var bool
+     *
+     * @ORM\Column(name="global_activities", type="boolean", nullable=false, options={"default": true})
+     * @Assert\NotNull()
+     */
+    private $globalActivities = true;
 
     public function __construct()
     {
@@ -413,6 +428,16 @@ class Project implements EntityWithMetaFields, EntityWithBudget
         return $this;
     }
 
+    public function isGlobalActivities(): bool
+    {
+        return $this->globalActivities;
+    }
+
+    public function setGlobalActivities(bool $globalActivities): void
+    {
+        $this->globalActivities = $globalActivities;
+    }
+
     /**
      * @return Collection|MetaTableTypeInterface[]
      */
@@ -518,6 +543,16 @@ class Project implements EntityWithMetaFields, EntityWithBudget
         }
 
         return true;
+    }
+
+    public function getInvoiceText(): ?string
+    {
+        return $this->invoiceText;
+    }
+
+    public function setInvoiceText(?string $invoiceText): void
+    {
+        $this->invoiceText = $invoiceText;
     }
 
     /**

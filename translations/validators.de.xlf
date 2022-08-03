@@ -38,6 +38,10 @@
         <source>The begin date cannot be in the future.</source>
         <target>Das Startdatum darf nicht in der Zukunft liegen.</target>
       </trans-unit>
+      <trans-unit id="ePrqiLN" resname="Duration cannot be zero.">
+        <source>Duration cannot be zero.</source>
+        <target>Eine leere Dauer ist nicht erlaubt.</target>
+      </trans-unit>
       <trans-unit id="1V6BsD_" resname="You must select at least one user or team.">
         <source>You must select at least one user or team.</source>
         <target>Sie müssen mindestens einen Benutzer oder ein Team auswählen.</target>
@@ -62,6 +66,10 @@
         <source>The budget is completely used.</source>
         <target>Das Budget ist aufgebraucht. Von den vorhandenen %budget% wurden bisher %used% gebucht, noch nutzbar sind %free%.</target>
       </trans-unit>
+      <trans-unit id="dcPei9G" resname="Sorry, the budget is used up.">
+        <source>Sorry, the budget is used up.</source>
+        <target>Entschuldigung, das Budget ist aufgebraucht.</target>
+      </trans-unit>
       <trans-unit id="6rO8GZ1" resname="Maximum duration of {{ value }} hours exceeded.">
         <source>Maximum duration of {{ value }} hours exceeded.</source>
         <target>Erlaubt sind max. {{ value }} Stunden.</target>
@@ -77,6 +85,10 @@
       <trans-unit id="mjlH0la" resname="This timesheet is already exported.">
         <source>This timesheet is already exported.</source>
         <target>Dieser Eintrag wurde bereits exportiert.</target>
+      </trans-unit>
+      <trans-unit id="mjlHwer0la" resname="Global activities are forbidden for the selected project.">
+        <source>Global activities are forbidden for the selected project.</source>
+        <target>Globale Aktivitäten sind in dem gewählten Projekt nicht erlaubt.</target>
       </trans-unit>
     </body>
   </file>

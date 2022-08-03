@@ -18,7 +18,7 @@ use App\Event\InvoiceCreatedMultipleEvent;
 use App\Event\InvoiceDocumentsEvent;
 use App\Event\InvoiceMetaDefinitionEvent;
 use App\Event\InvoiceMetaDisplayEvent;
-use App\Export\Spreadsheet\AnnotatedObjectExporter;
+use App\Export\Spreadsheet\EntityWithMetaFieldsExporter;
 use App\Export\Spreadsheet\Writer\BinaryFileResponseWriter;
 use App\Export\Spreadsheet\Writer\XlsxWriter;
 use App\Form\InvoiceDocumentUploadForm;
@@ -359,7 +359,7 @@ final class InvoiceController extends AbstractController
      * @Route(path="/export", name="invoice_export", methods={"GET"})
      * @Security("is_granted('view_invoice')")
      */
-    public function exportAction(Request $request, AnnotatedObjectExporter $exporter)
+    public function exportAction(Request $request, EntityWithMetaFieldsExporter $exporter)
     {
         $query = new InvoiceArchiveQuery();
         $query->setCurrentUser($this->getUser());
@@ -370,7 +370,11 @@ final class InvoiceController extends AbstractController
 
         $entries = $this->invoiceRepository->getInvoicesForQuery($query);
 
-        $spreadsheet = $exporter->export(Invoice::class, $entries);
+        $spreadsheet = $exporter->export(
+            Invoice::class,
+            $entries,
+            new InvoiceMetaDisplayEvent($query, InvoiceMetaDisplayEvent::INVOICE)
+        );
         $writer = new BinaryFileResponseWriter(new XlsxWriter(), 'kimai-invoices');
 
         return $writer->getFileResponse($spreadsheet);
@@ -669,6 +673,7 @@ final class InvoiceController extends AbstractController
             'action' => $this->generateUrl('invoice', []),
             'method' => 'GET',
             'include_user' => $this->isGranted('view_other_timesheet'),
+            'include_export' => $this->isGranted('edit_export_other_timesheet'),
             'timezone' => $this->getDateTimeFactory()->getTimezone()->getName(),
             'attr' => [
                 'id' => 'invoice-print-form'

@@ -27,8 +27,8 @@ It is built with modern technologies such as [Symfony](https://github.com/symfon
 
 ### Requirements
 
-- PHP 7.4 or higher (PHP 8 supported, PHP 8.1 does not support LDAP yet)
-- MariaDB / MySQL or PostgreSQL
+- PHP 7.4, 8.0 or 8.1
+- MariaDB / MySQL
 - A webserver and subdomain
 - PHP extensions: `gd`, `intl`, `json`, `mbstring`, `pdo`, `xsl`, `zip`
 
