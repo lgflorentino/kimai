@@ -298,7 +298,7 @@
         <source>label.user_auth_registration</source>
         <target>사용자 등록</target>
       </trans-unit>
-      <trans-unit id="z4tQEPb" resname="label.timesheet.rules.allow_zero_duration">
+      <trans-unit id="g1q7hKi" resname="label.timesheet.rules.allow_zero_duration">
         <source>label.timesheet.rules.allow_zero_duration</source>
         <target state="translated">시간 항목을 비워두는 것을 허용</target>
       </trans-unit>
@@ -313,6 +313,14 @@
       <trans-unit id="MXabpD7" resname="label.calendar.title_pattern">
         <source>label.calendar.title_pattern</source>
         <target state="translated">달력 항목의 제목 표시</target>
+      </trans-unit>
+      <trans-unit id="eiQKW2A" resname="label.calendar.dragdrop_data">
+        <source>Copies data when adding via drag and drop</source>
+        <target state="translated">끌어서 놓기를 통해 추가할 때 데이터 복사하기</target>
+      </trans-unit>
+      <trans-unit id="MXasdfgbpD7" resname="label.copy_teams_on_create" approved="no">
+        <source>label.copy_teams_on_create</source>
+        <target state="translated">신규가입을 할 때 로그인 된 사용자로부터 팀을 인계받으십시오</target>
       </trans-unit>
     </body>
   </file>

@@ -168,7 +168,7 @@ final class InvoiceController extends AbstractController
                 $query->setCustomers([$customer]);
                 $model = $this->service->createModel($query);
 
-                return $this->service->renderInvoiceWithModel($model, $this->dispatcher);
+                return $this->service->renderInvoiceWithModel($model, $this->dispatcher, true);
             } catch (Exception $ex) {
                 $this->logException($ex);
                 $this->flashError('action.update.error', ['%reason%' => $ex->getMessage()]);
@@ -525,13 +525,17 @@ final class InvoiceController extends AbstractController
 
         foreach ($documentRepository->findBuiltIn() as $doc) {
             if ($doc->getId() === $id) {
-                throw new \Exception('Document is built-in and cannot be deleted');
+                $this->flashError('Document is built-in and cannot be deleted.');
+
+                return $this->redirectToRoute('admin_invoice_document_upload');
             }
         }
 
         foreach ($this->templateRepository->findAll() as $template) {
             if ($template->getRenderer() === $id) {
-                throw new \Exception('Document is used and cannot be deleted');
+                $this->flashError('Document is used and cannot be deleted.');
+
+                return $this->redirectToRoute('admin_invoice_document_upload');
             }
         }
 

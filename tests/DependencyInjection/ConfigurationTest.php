@@ -361,6 +361,7 @@ class ConfigurationTest extends TestCase
                 ],
                 'weekends' => true,
                 'dragdrop_amount' => 10,
+                'dragdrop_data' => false,
                 'title_pattern' => '{activity}',
             ],
             'theme' => [
@@ -467,6 +468,9 @@ class ConfigurationTest extends TestCase
                 'recent_activities' => 5,
                 'recent_activity_weeks' => null,
                 'minimum_rows' => 3,
+            ],
+            'project' => [
+                'copy_teams_on_create' => false,
             ],
         ];
 

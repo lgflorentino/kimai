@@ -533,6 +533,11 @@ final class SystemConfigurationController extends AbstractController
                         ->setName('project.choice_pattern')
                         ->setLabel('choice_pattern')
                         ->setType(ProjectTypePatternType::class),
+                    (new Configuration())
+                        ->setName('project.copy_teams_on_create')
+                        ->setLabel('copy_teams_on_create')
+                        ->setType(YesNoType::class)
+                        ->setTranslationDomain('system-configuration'),
                 ]),
             (new SystemConfigurationModel('activity'))
                 ->setConfiguration([
@@ -650,6 +655,10 @@ final class SystemConfigurationController extends AbstractController
                         ->setTranslationDomain('system-configuration')
                         ->setType(IntegerType::class)
                         ->setConstraints([new Range(['min' => 0, 'max' => 20]), new NotNull()]),
+                    (new Configuration())
+                        ->setName('calendar.dragdrop_data')
+                        ->setTranslationDomain('system-configuration')
+                        ->setType(CheckboxType::class),
                     (new Configuration())
                         ->setName('calendar.title_pattern')
                         ->setTranslationDomain('system-configuration')

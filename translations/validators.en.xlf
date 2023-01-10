@@ -31,14 +31,14 @@
         <target>This value is not a valid role.</target>
       </trans-unit>
       <trans-unit id="CLHaByy" resname="End date must not be earlier then start date.">
-        <source>End date must not be earlier then start date.</source>
-        <target>End date must not be earlier then start date.</target>
+        <source>The end date must not be before the start date.</source>
+        <target state="translated">The end date must not be before the start date.</target>
       </trans-unit>
       <trans-unit id="ePrqiLM" resname="The begin date cannot be in the future.">
         <source>The begin date cannot be in the future.</source>
         <target>The begin date cannot be in the future.</target>
       </trans-unit>
-      <trans-unit id="ePrqiLN" resname="Duration cannot be zero.">
+      <trans-unit id="Jz1y3yB" resname="Duration cannot be zero.">
         <source>Duration cannot be zero.</source>
         <target>An empty duration is not allowed.</target>
       </trans-unit>

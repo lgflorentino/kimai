@@ -7,7 +7,8 @@
     <a href="https://codecov.io/gh/kevinpapst/kimai2"><img alt="Code Coverage" src="https://codecov.io/gh/kevinpapst/kimai2/branch/master/graph/badge.svg"></a>
     <a href="https://packagist.org/packages/kevinpapst/kimai2"><img alt="Latest stable version" src="https://poser.pugx.org/kevinpapst/kimai2/v/stable"></a>
     <a href="https://packagist.org/packages/kevinpapst/kimai2"><img alt="License" src="https://poser.pugx.org/kevinpapst/kimai2/license"></a>
-    <a href="https://twitter.com/kimai_org"><img alt="Twitter" src="https://img.shields.io/badge/follow-%40kimai__org-00acee"></a>
+    <a href="https://twitter.com/kimai_org" rel="me"><img alt="Twitter" src="https://img.shields.io/badge/follow-%40kimai__org-00acee"></a>
+    <a href="https://phpc.social/@kimai" rel="me"><img alt="Mastodon" src="https://img.shields.io/badge/toot-%40kimai-8c8dff"></a>
 </p>
 
 <h1 align="center">Kimai - time-tracker</h1>
@@ -67,9 +68,9 @@ It is open for changes and input from the community, your [ideas and questions](
 > You can upgrade Kimai at any time, you don't need to wait for the next official release.
 > The master branch is always deployable, release tags are only snapshots of the current development version.
 
-Release versions will be created on a regular base (approx. one release every 2 months).
+Release versions will be created on a regular basis, every couple of weeks.
 Every code change, whether it's a new feature or a bugfix, will be done on the master branch. 
-Kimai is actively developed in my spare time, I put my effort into the software instead of backporting changes.
+Kimai is actively developed in my spare time, I put my effort into the software instead of back-porting changes.
 
 ## Contributing
 

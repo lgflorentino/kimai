@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file source-language="en" target-language="de" datatype="plaintext" original="validators.en.xlf">
     <body>
@@ -31,14 +31,14 @@
         <target>Dieser Wert ist keine gültige Rolle.</target>
       </trans-unit>
       <trans-unit id="CLHaByy" resname="End date must not be earlier then start date.">
-        <source>End date must not be earlier then start date.</source>
-        <target>Das Enddatum darf nicht vor dem Startdatum liegen.</target>
+        <source>The end date must not be before the start date.</source>
+        <target state="translated">Das Enddatum darf nicht vor dem Startdatum liegen.</target>
       </trans-unit>
       <trans-unit id="ePrqiLM" resname="The begin date cannot be in the future.">
         <source>The begin date cannot be in the future.</source>
         <target>Das Startdatum darf nicht in der Zukunft liegen.</target>
       </trans-unit>
-      <trans-unit id="ePrqiLN" resname="Duration cannot be zero.">
+      <trans-unit id="Jz1y3yB" resname="Duration cannot be zero.">
         <source>Duration cannot be zero.</source>
         <target>Eine leere Dauer ist nicht erlaubt.</target>
       </trans-unit>
@@ -86,7 +86,7 @@
         <source>This timesheet is already exported.</source>
         <target>Dieser Eintrag wurde bereits exportiert.</target>
       </trans-unit>
-      <trans-unit id="mjlHwer0la" resname="Global activities are forbidden for the selected project.">
+      <trans-unit id="FtWbd_F" resname="Global activities are forbidden for the selected project.">
         <source>Global activities are forbidden for the selected project.</source>
         <target>Globale Aktivitäten sind in dem gewählten Projekt nicht erlaubt.</target>
       </trans-unit>
