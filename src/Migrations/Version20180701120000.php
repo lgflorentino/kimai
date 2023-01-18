@@ -26,14 +26,14 @@ final class Version20180701120000 extends AbstractMigration
         $this->createUsersTable($schema);
         $this->createUserPreferencesTable($schema);
         $this->createCustomersTable($schema);
+        $this->createProjectsTable($schema);
+        $this->createActivitiesTable($schema);
+        $this->createTimesheetTable($schema);
+        $this->createInvoiceTemplatesTable($schema);
     }
 
     public function oldSql(): void
     {
-        $this->addSql('CREATE TABLE kimai2_projects (id INT AUTO_INCREMENT NOT NULL, customer_id INT DEFAULT NULL, name VARCHAR(150) NOT NULL, order_number TINYTEXT DEFAULT NULL, comment TEXT DEFAULT NULL, visible TINYINT(1) NOT NULL, budget NUMERIC(10, 2) NOT NULL, INDEX IDX_407F12069395C3F3 (customer_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE kimai2_activities (id INT AUTO_INCREMENT NOT NULL, project_id INT DEFAULT NULL, name VARCHAR(150) NOT NULL, comment TEXT DEFAULT NULL, visible TINYINT(1) NOT NULL, INDEX IDX_8811FE1C166D1F9C (project_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE kimai2_timesheet (id INT AUTO_INCREMENT NOT NULL, user INT DEFAULT NULL, activity_id INT DEFAULT NULL, start_time DATETIME NOT NULL, end_time DATETIME DEFAULT NULL, duration INT DEFAULT NULL, description TEXT DEFAULT NULL, rate NUMERIC(10, 2) NOT NULL, INDEX IDX_4F60C6B18D93D649 (user), INDEX IDX_4F60C6B181C06096 (activity_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE kimai2_invoice_templates (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(60) NOT NULL, title VARCHAR(255) NOT NULL, company VARCHAR(255) NOT NULL, address TEXT DEFAULT NULL, due_days INT NOT NULL, vat INT DEFAULT NULL, calculator VARCHAR(20) NOT NULL, number_generator VARCHAR(20) NOT NULL, renderer VARCHAR(20) NOT NULL, payment_terms TEXT DEFAULT NULL, UNIQUE INDEX UNIQ_1626CFE95E237E06 (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('ALTER TABLE kimai2_user_preferences ADD CONSTRAINT FK_8D08F631A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE kimai2_projects ADD CONSTRAINT FK_407F12069395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE kimai2_activities ADD CONSTRAINT FK_8811FE1C166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE');
@@ -98,6 +98,70 @@ final class Version20180701120000 extends AbstractMigration
         $table->addColumn("timezone", "string", ["length" => 255]);
         $table->setPrimaryKey(["id"]);
         
+    }
+
+    /* $this->addSql('CREATE TABLE kimai2_projects (id INT AUTO_INCREMENT NOT NULL, customer_id INT DEFAULT NULL, name VARCHAR(150) NOT NULL, order_number TINYTEXT DEFAULT NULL, comment TEXT DEFAULT NULL, visible TINYINT(1) NOT NULL, budget NUMERIC(10, 2) NOT NULL, INDEX IDX_407F12069395C3F3 (customer_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB'); */
+    public function createProjectsTable(Schema $schema)
+    {
+        $table = $schema->createTable("kimai2_projects");
+        $table->addColumn("id", "integer", ["autoincrement" => true]);
+        $table->addColumn("customer_id", "integer", ["notnull" => false]);
+        $table->addColumn("name", "string", ["length" => 150]);
+        $table->addColumn("order_number", "text", ["notnull" => false]); // will map to tinytext https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/types.html#mapping-matrix
+        $table->addColumn("comment", "text", ["notnull" => false]);
+        $table->addColumn("visible", "smallint"); // original=tinyint
+        $table->addColumn("budget", "decimal", ["precision" => 10, "scale" => 2]); // decimal is saved as string in php
+        $table->addIndex(["customer_id"], "IDX_407F12069395C3F3");
+        $table->setPrimaryKey(["id"]);
+    }
+
+    /* $this->addSql('CREATE TABLE kimai2_activities (id INT AUTO_INCREMENT NOT NULL, project_id INT DEFAULT NULL, name VARCHAR(150) NOT NULL, comment TEXT DEFAULT NULL, visible TINYINT(1) NOT NULL, INDEX IDX_8811FE1C166D1F9C (project_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB'); */
+    public function createActivitiesTable(Schema $schema)
+    {
+        $table = $schema->createTable("kimai2_activities");
+        $table->addColumn("id", "integer", ["autoincrement" => true]);
+        $table->addColumn("project_id", "integer", ["notnull" => false]);
+        $table->addColumn("name", "string", ["length" => 150]);
+        $table->addColumn("comment", "text", ["notnull" => false]);
+        $table->addColumn("visible", "smallint"); // original=tinyint
+        $table->addIndex(["project_id"], "IDX_8811FE1C166D1F9C");
+        $table->setPrimaryKey(["id"]);
+    }
+
+    /* $this->addSql('CREATE TABLE kimai2_timesheet (id INT AUTO_INCREMENT NOT NULL, user INT DEFAULT NULL, activity_id INT DEFAULT NULL, start_time DATETIME NOT NULL, end_time DATETIME DEFAULT NULL, duration INT DEFAULT NULL, description TEXT DEFAULT NULL, rate NUMERIC(10, 2) NOT NULL, INDEX IDX_4F60C6B18D93D649 (user), INDEX IDX_4F60C6B181C06096 (activity_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB'); */
+    public function createTimesheetTable($schema)
+    {
+        $table = $schema->createTable("kimai2_timesheet");
+        $table->addColumn("id", "integer", ["autoincrement" => true]);
+        $table->addColumn("user", "integer", ["notnull" => false]);
+        $table->addColumn("activity_id", "integer", ["notnull" => false]);
+        $table->addColumn("start_time", "datetime");
+        $table->addColumn("end_time", "datetime", ["notnull" => false]);
+        $table->addColumn("duration", "integer", ["notnull" => false]);
+        $table->addColumn("description", "text", ["notnull" => false]);
+        $table->addColumn("rate", "decimal", ["precision" => 10, "scale" => 2]);
+        $table->addIndex(["user"], "IDX_4F60C6B18D93D649");
+        $table->addIndex(["activity_id"], "IDX_4F60C6B181C06096");
+        $table->setPrimaryKey(["id"]);
+    }
+
+    /* $this->addSql('CREATE TABLE kimai2_invoice_templates (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(60) NOT NULL, title VARCHAR(255) NOT NULL, company VARCHAR(255) NOT NULL, address TEXT DEFAULT NULL, due_days INT NOT NULL, vat INT DEFAULT NULL, calculator VARCHAR(20) NOT NULL, number_generator VARCHAR(20) NOT NULL, renderer VARCHAR(20) NOT NULL, payment_terms TEXT DEFAULT NULL, UNIQUE INDEX UNIQ_1626CFE95E237E06 (name), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB'); */
+    public function createInvoiceTemplatesTable($schema)
+    {
+        $table = $schema->createTable("kimai2_invoice_templates");
+        $table->addColumn("id", "integer", ["autoincrement" => true]);
+        $table->addColumn("name", "string", ["length" => 60]);
+        $table->addColumn("title", "string", ["length" => 255]);
+        $table->addColumn("company", "string", ["length" => 255]);
+        $table->addColumn("address", "text", ["notnull" => false]);
+        $table->addColumn("due_days", "integer");
+        $table->addColumn("vat", "integer", ["notnull" => false]);
+        $table->addColumn("calculator", "string", ["length" => 20]);
+        $table->addColumn("number_generator", "string", ["length" => 20]);
+        $table->addColumn("renderer", "string", ["length" => 20]);
+        $table->addColumn("payment_terms", "text", ["notnull" => false]);
+        $table->addUniqueIndex(["name"], "UNIQ_1626CFE95E237E06");
+        $table->setPrimaryKey(["id"]);
     }
 
     public function down(Schema $schema): void
