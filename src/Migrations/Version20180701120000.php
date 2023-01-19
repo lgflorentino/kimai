@@ -30,17 +30,19 @@ final class Version20180701120000 extends AbstractMigration
         $this->createActivitiesTable($schema);
         $this->createTimesheetTable($schema);
         $this->createInvoiceTemplatesTable($schema);
+        $this->createForeignKeyConstraints($schema);
     }
-
-    public function oldSql(): void
+    
+    public function down(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE kimai2_user_preferences ADD CONSTRAINT FK_8D08F631A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE kimai2_projects ADD CONSTRAINT FK_407F12069395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE kimai2_activities ADD CONSTRAINT FK_8811FE1C166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE');
-        $this->addSql('ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B18D93D649 FOREIGN KEY (user) REFERENCES kimai2_users (id)');
-        $this->addSql('ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B181C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE');
+        $schema->dropTable('kimai2_invoice_templates');
+        $schema->dropTable('kimai2_timesheet');
+        $schema->dropTable('kimai2_user_preferences');
+        $schema->dropTable('kimai2_users');
+        $schema->dropTable('kimai2_activities');
+        $schema->dropTable('kimai2_projects');
+        $schema->dropTable('kimai2_customers');
     }
-
 
     /* $this->addSql('CREATE TABLE kimai2_users (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(60) NOT NULL, mail VARCHAR(160) NOT NULL, password VARCHAR(254) DEFAULT NULL, alias VARCHAR(60) DEFAULT NULL, active TINYINT(1) NOT NULL, registration_date DATETIME DEFAULT NULL, title VARCHAR(50) DEFAULT NULL, avatar VARCHAR(255) DEFAULT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', UNIQUE INDEX UNIQ_B9AC5BCE5E237E06 (name), UNIQUE INDEX UNIQ_B9AC5BCE5126AC48 (mail), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB'); */
     public function createUsersTable(Schema $schema): void
@@ -163,15 +165,28 @@ final class Version20180701120000 extends AbstractMigration
         $table->addUniqueIndex(["name"], "UNIQ_1626CFE95E237E06");
         $table->setPrimaryKey(["id"]);
     }
-
-    public function down(Schema $schema): void
+    
+    /* 
+       $this->addSql('ALTER TABLE kimai2_user_preferences ADD CONSTRAINT FK_8D08F631A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE');
+       $this->addSql('ALTER TABLE kimai2_projects ADD CONSTRAINT FK_407F12069395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE');
+       $this->addSql('ALTER TABLE kimai2_activities ADD CONSTRAINT FK_8811FE1C166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE');
+       $this->addSql('ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B18D93D649 FOREIGN KEY (user) REFERENCES kimai2_users (id)');
+       $this->addSql('ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B181C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE');
+     */
+    public function createForeignKeyConstraints(Schema $schema)
     {
-        $schema->dropTable('kimai2_invoice_templates');
-        $schema->dropTable('kimai2_timesheet');
-        $schema->dropTable('kimai2_user_preferences');
-        $schema->dropTable('kimai2_users');
-        $schema->dropTable('kimai2_activities');
-        $schema->dropTable('kimai2_projects');
-        $schema->dropTable('kimai2_customers');
+        $userPreferencesTable = $schema->getTable("kimai2_user_preferences");
+        $usersTable = $schema->getTable("kimai2_users");
+        $projectsTable = $schema->getTable("kimai2_projects");
+        $customersTable = $schema->getTable("kimai2_customers");
+        $activitiesTable = $schema->getTable("kimai2_activities");
+        $timesheetTable = $schema->getTable("kimai2_timesheet");
+
+        $userPreferencesTable->addForeignKeyConstraint($usersTable, ["user_id"], ["id"], ["onDelete" => "CASCADE"], "FK_8D08F631A76ED395");
+        $projectsTable->addForeignKeyConstraint($usersTable, ["customer_id"], ["id"], ["onDelete" => "CASCADE"], "FK_407F12069395C3F3");
+        $activitiesTable->addForeignKeyConstraint($usersTable, ["project_id"], ["id"], ["onDelete" => "CASCADE"], "FK_8811FE11C166D1F9C");
+        $timesheetTable->addForeignKeyConstraint($usersTable, ["user"], ["id"], [], "FK_4F60C6B18D93D649");
+        $timesheetTable->addForeignKeyConstraint($usersTable, ["activity_id"], ["id"], ["onDelete" => "CASCADE"], "FK_4F60C6B181C06096");
     }
+
 }
