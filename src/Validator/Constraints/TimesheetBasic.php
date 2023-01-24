@@ -9,13 +9,7 @@
 
 namespace App\Validator\Constraints;
 
-use Doctrine\Common\Annotations\Annotation\Target;
-
-/**
- * @Annotation
- * @Target({"CLASS", "PROPERTY", "METHOD", "ANNOTATION"})
- */
-class TimesheetBasic extends TimesheetConstraint
+final class TimesheetBasic extends TimesheetConstraint
 {
     public const MISSING_BEGIN_ERROR = 'kimai-timesheet-81';
     public const END_BEFORE_BEGIN_ERROR = 'kimai-timesheet-82';
@@ -29,7 +23,7 @@ class TimesheetBasic extends TimesheetConstraint
     public const PROJECT_ALREADY_ENDED = 'kimai-timesheet-92';
     public const PROJECT_DISALLOWS_GLOBAL_ACTIVITY = 'kimai-timesheet-93';
 
-    protected static $errorNames = [
+    protected const ERROR_NAMES = [
         self::MISSING_BEGIN_ERROR => 'You must submit a begin date.',
         self::END_BEFORE_BEGIN_ERROR => 'End date must not be earlier then start date.',
         self::MISSING_ACTIVITY_ERROR => 'An activity needs to be selected.',
@@ -43,9 +37,9 @@ class TimesheetBasic extends TimesheetConstraint
         self::PROJECT_DISALLOWS_GLOBAL_ACTIVITY => 'Global activities are forbidden for the selected project.',
     ];
 
-    public $message = 'This timesheet has invalid settings.';
+    public string $message = 'This timesheet has invalid settings.';
 
-    public function getTargets()
+    public function getTargets(): string|array
     {
         return self::CLASS_CONSTRAINT;
     }

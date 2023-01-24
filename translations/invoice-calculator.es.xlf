@@ -2,13 +2,13 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file source-language="en" target-language="es" datatype="plaintext" original="invoice-calculator.en.xlf">
     <body>
-      <trans-unit id="1inO2IF" resname="label.invoice_calculator">
-        <source>label.invoice_calculator</source>
+      <trans-unit id="MviRJeB" resname="invoice_calculator">
+        <source>invoice_calculator</source>
         <target state="translated">Cálculo de la suma</target>
       </trans-unit>
       <trans-unit id="N6juwc4" resname="default">
         <source>default</source>
-        <target state="translated">Por defecto: unha entrada por rexistro de tempo</target>
+        <target state="translated">Predeterminado: una entrada por registro de tiempo</target>
       </trans-unit>
       <trans-unit id="_bAHi13" resname="short">
         <source>short</source>
@@ -24,7 +24,7 @@
       </trans-unit>
       <trans-unit id="JEIQ5IQ" resname="project">
         <source>project</source>
-        <target state="translated">Proyecto: una entrada por proyecto</target>
+        <target state="translated">Proyecto: una inscripción por proyecto</target>
       </trans-unit>
       <trans-unit id="DodjLNR" resname="date">
         <source>date</source>

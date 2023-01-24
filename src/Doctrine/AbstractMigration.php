@@ -10,6 +10,8 @@
 namespace App\Doctrine;
 
 use Doctrine\DBAL\Exception;
+use Doctrine\DBAL\Platforms\MySQLPlatform;
+use Doctrine\DBAL\Platforms\PostgresSqlPlatform;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration as BaseAbstractMigration;
 
@@ -21,32 +23,11 @@ use Doctrine\Migrations\AbstractMigration as BaseAbstractMigration;
 abstract class AbstractMigration extends BaseAbstractMigration
 {
     /**
-     * @param string $name
-     * @return string
-     */
-    protected function getTableName($name)
-    {
-        @trigger_error('AbstractMigration::getTableName() is deprecated and will be removed with 2.0', E_USER_DEPRECATED);
-
-        return 'kimai2_' . $name;
-    }
-
-    /**
      * @see https://github.com/doctrine/migrations/issues/1104
      */
     public function isTransactional(): bool
     {
         return false;
-    }
-
-    /**
-     * @deprecated since 1.14 - will be removed with 2.0
-     */
-    protected function isSupportingForeignKeys(): bool
-    {
-        @trigger_error('isSupportingForeignKeys() is deprecated and will be removed with 2.0', E_USER_DEPRECATED);
-
-        return true;
     }
 
     /**
@@ -74,20 +55,11 @@ abstract class AbstractMigration extends BaseAbstractMigration
      */
     protected function abortIfPlatformNotSupported()
     {
-        $platform = $this->getPlatform();
-        if (!in_array($platform, ['mysql', 'postgresql'])) {
-            $this->abortIf(true, 'Unsupported database platform: ' . $platform);
+        $platform = $this->connection->getDatabasePlatform();
+        if (!($platform instanceof MySQLPlatform) && 
+            !($platform instanceof PostgreSqlPlatform)) {
+            $this->abortIf(true, 'Unsupported database platform: ' . \get_class($platform));
         }
-    }
-
-    /**
-     * @deprecated since 1.14 - will be removed with 2.0
-     */
-    protected function isPlatformSqlite(): bool
-    {
-        @trigger_error('isPlatformSqlite() is deprecated and will be removed with 2.0', E_USER_DEPRECATED);
-
-        return ($this->getPlatform() === 'sqlite');
     }
 
     protected function isPlatformMysql(): bool
@@ -109,14 +81,6 @@ abstract class AbstractMigration extends BaseAbstractMigration
         return $this->connection->getDatabasePlatform()->getName();
     }
 
-    /**
-     * @deprecated since 1.14 - will be removed with 2.0
-     */
-    protected function addSqlDropIndex($indexName, $tableName)
-    {
-        @trigger_error('addSqlDropIndex() is deprecated and will be removed with 2.0', E_USER_DEPRECATED);
-
-        $this->addSql('DROP INDEX ' . $indexName . ' ON ' . $tableName);
     }
 
     protected function preventEmptyMigrationWarning(): void

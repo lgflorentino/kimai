@@ -1,13 +1,12 @@
 <p align="center">
-    <img src="https://raw.githubusercontent.com/kimai/images/master/repository-header.png" alt="Kimai logo">
+    <img src="https://raw.githubusercontent.com/kimai/images/main/repository-header.png" alt="Kimai logo">
 </p>
 
 <p align="center">
-    <a href="https://github.com/kevinpapst/kimai2/actions"><img alt="CI Status" src="https://github.com/kevinpapst/kimai2/workflows/CI/badge.svg"></a>
-    <a href="https://codecov.io/gh/kevinpapst/kimai2"><img alt="Code Coverage" src="https://codecov.io/gh/kevinpapst/kimai2/branch/master/graph/badge.svg"></a>
-    <a href="https://packagist.org/packages/kevinpapst/kimai2"><img alt="Latest stable version" src="https://poser.pugx.org/kevinpapst/kimai2/v/stable"></a>
-    <a href="https://packagist.org/packages/kevinpapst/kimai2"><img alt="License" src="https://poser.pugx.org/kevinpapst/kimai2/license"></a>
-    <a href="https://twitter.com/kimai_org" rel="me"><img alt="Twitter" src="https://img.shields.io/badge/follow-%40kimai__org-00acee"></a>
+    <a href="https://github.com/kimai/kimai/actions"><img alt="CI Status" src="https://github.com/kimai/kimai/workflows/CI/badge.svg"></a>
+    <a href="https://codecov.io/gh/kimai/kimai"><img alt="Code Coverage" src="https://codecov.io/gh/kimai/kimai/branch/main/graph/badge.svg"></a>
+    <a href="https://packagist.org/packages/kimai/kimai"><img alt="Latest stable version" src="https://poser.pugx.org/kimai/kimai/v/stable"></a>
+    <a href="https://www.gnu.org/licenses/agpl-3.0.en.html"><img alt="License" src="https://poser.pugx.org/kimai/kimai/license"></a>
     <a href="https://phpc.social/@kimai" rel="me"><img alt="Mastodon" src="https://img.shields.io/badge/toot-%40kimai-8c8dff"></a>
 </p>
 
@@ -16,7 +15,7 @@
 Kimai is a free, open source and online time-tracking software designed for small businesses and freelancers. 
 It is built with modern technologies such as [Symfony](https://github.com/symfony/symfony), [Bootstrap](https://github.com/twbs/bootstrap), 
 [RESTful API](https://github.com/FriendsOfSymfony/FOSRestBundle), [Doctrine](https://github.com/doctrine/),
-[AdminLTE](https://github.com/kevinpapst/AdminLTEBundle/), [Webpack](https://github.com/webpack/webpack), ES6 and [many](composer.json) [more](package.json).
+[Tabler](https://github.com/kevinpapst/TablerBundle/), [Webpack](https://github.com/webpack/webpack), ES6 and [many](composer.json) [more](package.json).
 
 ## Introduction
 
@@ -28,8 +27,8 @@ It is built with modern technologies such as [Symfony](https://github.com/symfon
 
 ### Requirements
 
-- PHP 7.4, 8.0 or 8.1
-- MariaDB / MySQL
+- PHP 8.1 minimum
+- MariaDB or MySQL
 - A webserver and subdomain
 - PHP extensions: `gd`, `intl`, `json`, `mbstring`, `pdo`, `xsl`, `zip`
 
@@ -61,29 +60,24 @@ user specific rates, advanced search & filtering, money and time budgets, report
 
 ## Roadmap and releases
 
-You can see a rough development roadmap in the [Milestones](https://github.com/kevinpapst/kimai2/milestones) sections.
-It is open for changes and input from the community, your [ideas and questions](https://github.com/kevinpapst/kimai2/issues) are welcome.
-
-> Kimai 2 uses a rolling release concept for delivering updates.
-> You can upgrade Kimai at any time, you don't need to wait for the next official release.
-> The master branch is always deployable, release tags are only snapshots of the current development version.
+You can see a rough development roadmap in the [Milestones](https://github.com/kimai/kimai/milestones) sections.
+It is open for changes and input from the community, your [ideas and questions](https://github.com/kimai/kimai/issues) are welcome.
 
 Release versions will be created on a regular basis, every couple of weeks.
-Every code change, whether it's a new feature or a bugfix, will be done on the master branch. 
-Kimai is actively developed in my spare time, I put my effort into the software instead of back-porting changes.
+Every code change, whether it's a new feature or a bugfix, will be done on the `main` branch. 
 
 ## Contributing
 
 You want to contribute to this repository? This is so great!
-The best way to start is to [open a new issue](https://github.com/kevinpapst/kimai2/issues) for bugs or feature requests or a [discussion](https://github.com/kevinpapst/kimai2/discussions) for questions, support and such.
+The best way to start is to [open a new issue](https://github.com/kimai/kimai/issues) for bugs or feature requests or a [discussion](https://github.com/kimai/kimai/discussions) for questions, support and such.
 
 In case you want to contribute, but you wouldn't know how, here are some suggestions:
 
-- Spread the word: More user means more people testing and contributing to Kimai - which in turn means better stability and more and better features. Please vote for Kimai on platforms like Slant, Product Hunt, Softpedia or AlternativeTo, you can tweet about it, share it on LinkedIn, reddit or any of your favorite social media platforms. Every bit helps!
-- Answer questions: You know the answer to another user's problem? Share your knowledge!
-- Make a feature request: Something can be done better? Something essential missing? Let us know!
-- Report bugs
-- Contribute: You don't have to be programmer to help. The documentation and translation could use some love as well.
-- Sponsor the project
+- Spread the word: More user means more people testing and contributing to Kimai - which in turn means better stability and more and better features. Please vote for Kimai on platforms like Slant, Product Hunt, Softpedia or AlternativeTo, you can toot or tweet about it, share it on LinkedIn, reddit or any of your favorite social media platforms. Every bit helps!
+- Answer questions: You know the answer to another user's problem? Share your knowledge.
+- Something can be done better? An essential feature is missing? Create a feature request.
+- Report bugs: that shouldn't happen too often.
+- You don't have to be programmer, the documentation and translation could use some love as well.
+- Sponsor the project: free software costs money to create!
 
 There is one simple rule in our "Code of conduct": Don't be an ass! 

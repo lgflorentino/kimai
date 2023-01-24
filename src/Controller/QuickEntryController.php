@@ -16,32 +16,23 @@ use App\Model\QuickEntryWeek;
 use App\Repository\Query\TimesheetQuery;
 use App\Repository\TimesheetRepository;
 use App\Timesheet\TimesheetService;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use App\Utils\PageSetup;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 /**
  * Controller used to enter times in weekly form.
- *
- * @Route(path="/quick_entry")
- * @Security("is_granted('quick-entry')")
  */
-class QuickEntryController extends AbstractController
+#[Route(path: '/quick_entry')]
+#[IsGranted('quick-entry')]
+final class QuickEntryController extends AbstractController
 {
-    private $configuration;
-    private $timesheetService;
-    private $repository;
-
-    public function __construct(SystemConfiguration $configuration, TimesheetService $timesheetService, TimesheetRepository $repository)
+    public function __construct(private SystemConfiguration $configuration, private TimesheetService $timesheetService, private TimesheetRepository $repository)
     {
-        $this->configuration = $configuration;
-        $this->timesheetService = $timesheetService;
-        $this->repository = $repository;
     }
 
-    /**
-     * @Route(path="/{begin}", name="quick_entry", methods={"GET", "POST"})
-     */
+    #[Route(path: '/{begin}', name: 'quick_entry', methods: ['GET', 'POST'])]
     public function quickEntry(Request $request, ?string $begin = null)
     {
         $factory = $this->getDateTimeFactory();
@@ -67,7 +58,7 @@ class QuickEntryController extends AbstractController
         $query->setBegin($startWeek);
         $query->setEnd($endWeek);
         $query->setName('quickEntryForm');
-        $query->setUser($this->getUser());
+        $query->setUser($user);
 
         $result = $this->repository->getTimesheetResult($query);
 
@@ -104,7 +95,7 @@ class QuickEntryController extends AbstractController
             $startFrom = clone $startWeek;
             $startFrom->modify(sprintf('-%s weeks', $takeOverWeeks));
         }
-        $timesheets = $this->repository->getRecentActivities($this->getUser(), $startFrom, $amount);
+        $timesheets = $this->repository->getRecentActivities($user, $startFrom, $amount);
         foreach ($timesheets as $timesheet) {
             $id = $timesheet->getProject()->getId() . '_' . $timesheet->getActivity()->getId();
             if (\array_key_exists($id, $rows)) {
@@ -112,7 +103,7 @@ class QuickEntryController extends AbstractController
             }
             // there is an edge case possible with a project that starts and ends between the start and end date
             // user could still select it from the dropdown, but it is better to hide a row than displaying already ended projects
-            if (!$timesheet->getProject()->isVisibleAtDate($startWeek) && !$timesheet->getProject()->isVisibleAtDate($endWeek)) {
+            if ($timesheet->getProject() !== null && (!$timesheet->getProject()->isVisibleAtDate($startWeek) && !$timesheet->getProject()->isVisibleAtDate($endWeek))) {
                 continue;
             }
             $rows[$id] = [
@@ -134,12 +125,12 @@ class QuickEntryController extends AbstractController
             foreach ($row['days'] as $dayId => $day) {
                 if (!\array_key_exists('entry', $day)) {
                     // fill all rows and columns to make sure we do not have missing records
-                    $tmp = new Timesheet();
-                    $tmp->setUser($user);
+                    $tmp = $this->timesheetService->createNewTimesheet($user);
                     $tmp->setProject($row['project']);
                     $tmp->setActivity($row['activity']);
                     $tmp->setBegin(clone $day['day']);
                     $tmp->getBegin()->setTime($defaultHour, $defaultMinute, 0, 0);
+                    $this->timesheetService->prepareNewTimesheet($tmp);
                     $model->addTimesheet($tmp);
                 } else {
                     $model->addTimesheet($day['entry']);
@@ -151,10 +142,10 @@ class QuickEntryController extends AbstractController
         $empty = $formModel->createRow($user);
         $empty->markAsPrototype();
         foreach ($week as $dayId => $day) {
-            $tmp = new Timesheet();
-            $tmp->setUser($user);
+            $tmp = $this->timesheetService->createNewTimesheet($user);
             $tmp->setBegin(clone $day['day']);
             $tmp->getBegin()->setTime($defaultHour, $defaultMinute, 0, 0);
+            $this->timesheetService->prepareNewTimesheet($tmp);
             $empty->addTimesheet($tmp);
         }
 
@@ -165,10 +156,10 @@ class QuickEntryController extends AbstractController
             for ($a = 0; $a < $newRows; $a++) {
                 $model = $formModel->addRow($user);
                 foreach ($week as $dayId => $day) {
-                    $tmp = new Timesheet();
-                    $tmp->setUser($user);
+                    $tmp = $this->timesheetService->createNewTimesheet($user);
                     $tmp->setBegin(clone $day['day']);
                     $tmp->getBegin()->setTime($defaultHour, $defaultMinute, 0, 0);
+                    $this->timesheetService->prepareNewTimesheet($tmp);
                     $model->addTimesheet($tmp);
                 }
             }
@@ -225,12 +216,15 @@ class QuickEntryController extends AbstractController
                     return $this->redirectToRoute('quick_entry', ['begin' => $begin->format('Y-m-d')]);
                 }
             } catch (\Exception $ex) {
-                $this->flashError('action.update.error');
-                $this->logException($ex);
+                $this->flashUpdateException($ex);
             }
         }
 
+        $page = new PageSetup('quick_entry.title');
+        $page->setHelp('weekly-times.html');
+
         return $this->render('quick-entry/index.html.twig', [
+            'page_setup' => $page,
             'days' => $week,
             'form' => $form->createView(),
         ]);
