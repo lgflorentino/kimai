@@ -30,8 +30,6 @@ final class Version20180715160326 extends AbstractMigration
      */
     protected $indexesOld = [];
 
-    protected $typeRegistry;
-
     /**
      * @param Schema $schema
      * @throws \Doctrine\DBAL\Exception
@@ -39,43 +37,16 @@ final class Version20180715160326 extends AbstractMigration
      */
     public function up(Schema $schema): void
     {
-
-        $usersTable = $schema->getTable("kimai2_users");
-
         // delete all existing indexes
-        $indexesOld = $usersTable->getIndexes();
+        $indexesOld = $schema->getTable('kimai2_users')->getIndexes();
         foreach ($indexesOld as $index) {
             if (\in_array('name', $index->getColumns()) || \in_array('mail', $index->getColumns())) {
                 $this->indexesOld[] = $index;
-                $usersTable->dropIndex($index->getName());
+                $this->addSql('DROP INDEX ' . $index->getName() . ' ON kimai2_users');
             }
         }
 
-        /* 
-         $this->addSql('ALTER TABLE kimai2_users CHANGE name username VARCHAR(180) NOT NULL, ADD username_canonical VARCHAR(180) NOT NULL, CHANGE mail email VARCHAR(180) NOT NULL, ADD email_canonical VARCHAR(180) NOT NULL, ADD salt VARCHAR(255) DEFAULT NULL, ADD last_login DATETIME DEFAULT NULL, ADD confirmation_token VARCHAR(180) DEFAULT NULL, ADD password_requested_at DATETIME DEFAULT NULL, CHANGE password password VARCHAR(255) NOT NULL, CHANGE alias alias VARCHAR(60) DEFAULT NULL, CHANGE registration_date registration_date DATETIME DEFAULT NULL, CHANGE title title VARCHAR(50) DEFAULT NULL, CHANGE avatar avatar VARCHAR(255) DEFAULT NULL, CHANGE roles roles LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', CHANGE active enabled TINYINT(1) NOT NULL'); 
-         */
-        // Columns cannot be renamed with Doctrine. See \Doctrine\DBAL\Schema\Table::renameColumn()
-        $usersTable->addColumn("username", ["length" => 180]);
-        $usersTable->addColumn("username_canonical", "string", ["length" => 180]);
-        $usersTable->addColumn("email", ["type" => "string", "length" => 180]);
-        $usersTable->addColumn("email_canonical", "string", ["length" => 180]);
-        $usersTable->addColumn("salt", "string", ["length" => 255, "notnull" => false]);
-        $usersTable->addColumn("last_login", "datetime", ["notnull" => false]);
-        $usersTable->addColumn("confirmation_token", "string", ["length" => 180, "notnull" => false]);
-        $usersTable->addColumn("password_requested_at", "datetime", ["notnull" => false]);
-        $usersTable->addColumn("enabled", "smallint");
-        $usersTable->changeColumn("password", ["type" => "string", "length" => 255]);
-        $usersTable->changeColumn("alias", ["type" => "string", "length" => 60, "notnull" => false]);
-        $usersTable->changeColumn("registration_date", ["type" => "datetime", "notnull" => false]);
-        $usersTable->changeColumn("title", ["type" => "string", "length" => 50, "notnull" => false]);
-        $usersTable->changeColumn("avatar", ["type" => "string", "length" => 255, "notnull" => false]);
-        $usersTable->changeColumn("roles", ["type" => "text", "comment" => "(DC2Type:array)"]);
-        $usersTable->changeColumn("active", ["type" => "smallint", "notnull" => false]); // original=tinyint
-
-        // These statements should be portable
-        $this->addSql('UPDATE kimai2_users set username = name');
-        $this->addSql('UPDATE kimai2_users set email = mail');
-        $this->addSql('UPDATE kimai2_users set enabled = active');
+        $this->addSql('ALTER TABLE kimai2_users CHANGE name username VARCHAR(180) NOT NULL, ADD username_canonical VARCHAR(180) NOT NULL, CHANGE mail email VARCHAR(180) NOT NULL, ADD email_canonical VARCHAR(180) NOT NULL, ADD salt VARCHAR(255) DEFAULT NULL, ADD last_login DATETIME DEFAULT NULL, ADD confirmation_token VARCHAR(180) DEFAULT NULL, ADD password_requested_at DATETIME DEFAULT NULL, CHANGE password password VARCHAR(255) NOT NULL, CHANGE alias alias VARCHAR(60) DEFAULT NULL, CHANGE registration_date registration_date DATETIME DEFAULT NULL, CHANGE title title VARCHAR(50) DEFAULT NULL, CHANGE avatar avatar VARCHAR(255) DEFAULT NULL, CHANGE roles roles LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', CHANGE active enabled TINYINT(1) NOT NULL');
         $this->addSql('UPDATE kimai2_users set username_canonical = username');
         $this->addSql('UPDATE kimai2_users set email_canonical = email');
 
@@ -85,24 +56,11 @@ final class Version20180715160326 extends AbstractMigration
         $this->addSql('UPDATE kimai2_users SET roles = \'a:0:{}\' WHERE roles LIKE \'%ROLE_USER%\'');
         $this->addSql('UPDATE kimai2_users SET roles = \'a:1:{i:0;s:13:"ROLE_CUSTOMER";}\' WHERE roles LIKE \'%ROLE_CUSTOMER%\'');
 
-        // $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCE92FC23A8 ON kimai2_users (username_canonical)');
-        $usersTable->addUniqueIndex(["username_canonical"], "UNIQ_B9AC5BCE92FC23A8");
-        // $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCEA0D96FBF ON kimai2_users (email_canonical)');
-        $usersTable->addUniqueIndex(["email_canonical"], "UNIQ_B9AC5BCEA0D96FBF");
-        // $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCEC05FB297 ON kimai2_users (confirmation_token)');
-        $usersTable->addUniqueIndex(["confirmation_token"], "UNIQ_B9AC5BCEC05FB297");
-        // $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCEF85E0677 ON kimai2_users (username)');
-        $usersTable->addUniqueIndex(["username"], "UNIQ_B9AC5BCEF85E0677");
-        // $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCEE7927C74 ON kimai2_users (email)');
-        $usersTable->addUniqueIndex(["email"], "UNIQ_B9AC5BCEE7927C74");
-    }
-
-    public function postUp(Schema $schema) {
-        $usersTable = $schema->getTable('kimai2_users');
-
-        $usersTable->dropColumn("name");
-        $usersTable->dropColumn("email");
-        $usersTable->dropColumn("active");
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCE92FC23A8 ON kimai2_users (username_canonical)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCEA0D96FBF ON kimai2_users (email_canonical)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCEC05FB297 ON kimai2_users (confirmation_token)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCEF85E0677 ON kimai2_users (username)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCEE7927C74 ON kimai2_users (email)');
     }
 
     /**
@@ -112,34 +70,13 @@ final class Version20180715160326 extends AbstractMigration
      */
     public function down(Schema $schema): void
     {
-        $usersTable = $schema->getTable("kimai2_users");
-
         $indexToDelete = ['UNIQ_B9AC5BCE92FC23A8', 'UNIQ_B9AC5BCEA0D96FBF', 'UNIQ_B9AC5BCEC05FB297', 'UNIQ_B9AC5BCEF85E0677', 'UNIQ_B9AC5BCEE7927C74'];
         foreach ($indexToDelete as $indexName) {
-            $usersTable->dropIndex($indexName);
+            $this->addSql('DROP INDEX ' . $indexName . ' ON kimai2_users');
         }
 
-        /* $this->addSql('ALTER TABLE kimai2_users CHANGE username name VARCHAR(60) NOT NULL COLLATE utf8mb4_unicode_ci, CHANGE email mail VARCHAR(160) NOT NULL COLLATE utf8mb4_unicode_ci, DROP username_canonical, DROP email_canonical, DROP salt, DROP last_login, DROP confirmation_token, DROP password_requested_at, CHANGE password password VARCHAR(254) DEFAULT NULL COLLATE utf8mb4_unicode_ci, CHANGE roles roles LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', CHANGE alias alias VARCHAR(60) DEFAULT NULL COLLATE utf8mb4_unicode_ci, CHANGE registration_date registration_date DATETIME DEFAULT NULL, CHANGE title title VARCHAR(50) DEFAULT NULL COLLATE utf8mb4_unicode_ci, CHANGE avatar avatar VARCHAR(255) DEFAULT NULL COLLATE utf8mb4_unicode_ci, CHANGE enabled active TINYINT(1) NOT NULL'); */
-        // Columns cannot be renamed with Doctrine. See \Doctrine\DBAL\Schema\Table::renameColumn()
-        $usersTable->addColumn("name", "string", ["length" => 60]);
-        $usersTable->addColumn("mail", "string", ["length" => 160]);
-        $usersTable->addColumn("active", "smallint");
+        $this->addSql('ALTER TABLE kimai2_users CHANGE username name VARCHAR(60) NOT NULL COLLATE utf8mb4_unicode_ci, CHANGE email mail VARCHAR(160) NOT NULL COLLATE utf8mb4_unicode_ci, DROP username_canonical, DROP email_canonical, DROP salt, DROP last_login, DROP confirmation_token, DROP password_requested_at, CHANGE password password VARCHAR(254) DEFAULT NULL COLLATE utf8mb4_unicode_ci, CHANGE roles roles LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', CHANGE alias alias VARCHAR(60) DEFAULT NULL COLLATE utf8mb4_unicode_ci, CHANGE registration_date registration_date DATETIME DEFAULT NULL, CHANGE title title VARCHAR(50) DEFAULT NULL COLLATE utf8mb4_unicode_ci, CHANGE avatar avatar VARCHAR(255) DEFAULT NULL COLLATE utf8mb4_unicode_ci, CHANGE enabled active TINYINT(1) NOT NULL');
 
-        $usersTable->dropColumn("username_canonical");
-        $usersTable->dropColumn("email_canonical");
-        $usersTable->dropColumn("salt");
-        $usersTable->dropColumn("last_login");
-        $usersTable->dropColumn("confirmation_token");
-        $usersTable->dropColumn("password_requested_at");
-        $usersTable->changeColumn("password", ["type" => "string", "length" => 254, "notnull" => false]);
-        $usersTable->changeColumn("alias", ["type" => "string", "length" => 60, "notnull" => false]);
-        $usersTable->changeColumn("registration_date", ["type" => "datetime", "notnull" => false]);
-        $usersTable->changeColumn("title", ["type" => "string", "length" => 50, "notnull" => false]);
-        $usersTable->changeColumn("avatar", ["type" => "string", "length" => 255, "notnull" => false]);
-        $usersTable->changeColumn("roles", ["type" => "text", "comment" => "(DC2Type:array)"]);
-        $usersTable->changeColumn("active", ["type" => "smallint", "notnull" => false]); // original=tinyint
-
-        // These statements should be portable
         $this->addSql('UPDATE kimai2_users SET roles = \'["ROLE_SUPER_ADMIN"]\' WHERE roles LIKE \'%ROLE_SUPER_ADMIN%\'');
         $this->addSql('UPDATE kimai2_users SET roles = \'["ROLE_ADMIN"]\' WHERE roles LIKE \'%ROLE_ADMIN%\'');
         $this->addSql('UPDATE kimai2_users SET roles = \'["ROLE_TEAMLEAD"]\' WHERE roles LIKE \'%ROLE_TEAMLEAD%\'');
@@ -149,6 +86,7 @@ final class Version20180715160326 extends AbstractMigration
         $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCE5E237E06 ON kimai2_users (name)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_B9AC5BCE5126AC48 ON kimai2_users (mail)');
 
+        $usersTable = $schema->getTable('kimai2_users');
         foreach ($this->indexesOld as $index) {
             $usersTable->addIndex($index->getColumns(), $index->getName(), $index->getFlags(), $index->getOptions());
         }

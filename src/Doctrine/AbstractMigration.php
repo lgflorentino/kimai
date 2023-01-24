@@ -81,8 +81,6 @@ abstract class AbstractMigration extends BaseAbstractMigration
         return $this->connection->getDatabasePlatform()->getName();
     }
 
-    }
-
     protected function preventEmptyMigrationWarning(): void
     {
         $this->addSql('#prevent empty warning - no SQL to execute');
