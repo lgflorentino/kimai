@@ -10,7 +10,6 @@
 namespace App\Tests\Database;
 
 use Doctrine\DBAL\Connection;
-
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
