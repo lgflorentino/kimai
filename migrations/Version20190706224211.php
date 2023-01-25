@@ -28,21 +28,25 @@ final class Version20190706224211 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $timesheetMeta = $schema->getTable('kimai2_timesheet_meta');
-        $timesheetMeta->changeColumn('visible', ['notnull' => true, 'default' => false]);
-        $timesheetMeta->changeColumn('timesheet_id', ['notnull' => true]);
+        if ($this->isPlatformMySQL()) {
+            $timesheetMeta = $schema->getTable('kimai2_timesheet_meta');
+            $timesheetMeta->changeColumn('visible', ['notnull' => true, 'default' => false]);
+            $timesheetMeta->changeColumn('timesheet_id', ['notnull' => true]);
 
-        $projectMeta = $schema->getTable('kimai2_projects_meta');
-        $projectMeta->changeColumn('visible', ['notnull' => true, 'default' => false]);
-        $projectMeta->changeColumn('project_id', ['notnull' => true]);
+            $projectMeta = $schema->getTable('kimai2_projects_meta');
+            $projectMeta->changeColumn('visible', ['notnull' => true, 'default' => false]);
+            $projectMeta->changeColumn('project_id', ['notnull' => true]);
 
-        $customerMeta = $schema->getTable('kimai2_customers_meta');
-        $customerMeta->changeColumn('visible', ['notnull' => true, 'default' => false]);
-        $customerMeta->changeColumn('customer_id', ['notnull' => true]);
+            $customerMeta = $schema->getTable('kimai2_customers_meta');
+            $customerMeta->changeColumn('visible', ['notnull' => true, 'default' => false]);
+            $customerMeta->changeColumn('customer_id', ['notnull' => true]);
 
-        $activityMeta = $schema->getTable('kimai2_activities_meta');
-        $activityMeta->changeColumn('visible', ['notnull' => true, 'default' => false]);
-        $activityMeta->changeColumn('activity_id', ['notnull' => true]);
+            $activityMeta = $schema->getTable('kimai2_activities_meta');
+            $activityMeta->changeColumn('visible', ['notnull' => true, 'default' => false]);
+            $activityMeta->changeColumn('activity_id', ['notnull' => true]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void

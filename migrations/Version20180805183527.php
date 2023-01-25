@@ -25,7 +25,11 @@ final class Version20180805183527 extends AbstractMigration
      */
     public function up(Schema $schema): void
     {
-        $schema->getTable('kimai2_users')->addColumn('api_token', 'string', ['length' => 255, 'notnull' => false, 'default' => null]);
+        if ($this->isPlatformMySQL()) {
+            $schema->getTable('kimai2_users')->addColumn('api_token', 'string', ['length' => 255, 'notnull' => false, 'default' => null]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     /**
@@ -34,6 +38,10 @@ final class Version20180805183527 extends AbstractMigration
      */
     public function down(Schema $schema): void
     {
-        $schema->getTable('kimai2_users')->dropColumn('api_token');
+        if ($this->isPlatformMySQL()) {
+            $schema->getTable('kimai2_users')->dropColumn('api_token');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

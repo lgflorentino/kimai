@@ -23,11 +23,19 @@ final class Version20190124004014 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $schema->getTable('kimai2_timesheet')->addColumn('exported', 'boolean', ['notnull' => true, 'default' => false]);
+        if ($this->isPlatformMySQL()) {
+            $schema->getTable('kimai2_timesheet')->addColumn('exported', 'boolean', ['notnull' => true, 'default' => false]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $schema->getTable('kimai2_timesheet')->dropColumn('exported');
+        if ($this->isPlatformMySQL()) {
+            $schema->getTable('kimai2_timesheet')->dropColumn('exported');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

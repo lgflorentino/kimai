@@ -28,13 +28,17 @@ final class Version20190729162655 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $timesheetTags = $schema->getTable('kimai2_timesheet_tags');
+        if ($this->isPlatformMySQL()) {
+            $timesheetTags = $schema->getTable('kimai2_timesheet_tags');
 
-        if (!$timesheetTags->hasForeignKey('FK_732EECA9ABDD46BE')) {
-            $timesheetTags->addForeignKeyConstraint('kimai2_timesheet', ['timesheet_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_732EECA9ABDD46BE');
-        }
-        if (!$timesheetTags->hasForeignKey('FK_732EECA9BAD26311')) {
-            $timesheetTags->addForeignKeyConstraint('kimai2_tags', ['tag_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_732EECA9BAD26311');
+            if (!$timesheetTags->hasForeignKey('FK_732EECA9ABDD46BE')) {
+                $timesheetTags->addForeignKeyConstraint('kimai2_timesheet', ['timesheet_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_732EECA9ABDD46BE');
+            }
+            if (!$timesheetTags->hasForeignKey('FK_732EECA9BAD26311')) {
+                $timesheetTags->addForeignKeyConstraint('kimai2_tags', ['tag_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_732EECA9BAD26311');
+            }
+        } else {
+            $this->preventEmptyMigrationWarning();
         }
     }
 

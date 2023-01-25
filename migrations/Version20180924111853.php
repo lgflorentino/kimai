@@ -23,12 +23,20 @@ final class Version20180924111853 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->addSql('UPDATE kimai2_invoice_templates SET name=SUBSTRING(name, 1, 60)');
-        $this->addSql('ALTER TABLE kimai2_invoice_templates CHANGE name name VARCHAR(60) NOT NULL, CHANGE vat vat DOUBLE PRECISION DEFAULT 0');
+        if ($this->isPlatformMySQL()) {
+            $this->addSql('UPDATE kimai2_invoice_templates SET name=SUBSTRING(name, 1, 60)');
+            $this->addSql('ALTER TABLE kimai2_invoice_templates CHANGE name name VARCHAR(60) NOT NULL, CHANGE vat vat DOUBLE PRECISION DEFAULT 0');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE kimai2_invoice_templates CHANGE name name VARCHAR(255) NOT NULL COLLATE utf8mb4_unicode_ci, CHANGE vat vat INT DEFAULT NULL');
+        if ($this->isPlatformMySQL()) {
+            $this->addSql('ALTER TABLE kimai2_invoice_templates CHANGE name name VARCHAR(255) NOT NULL COLLATE utf8mb4_unicode_ci, CHANGE vat vat INT DEFAULT NULL');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

@@ -28,25 +28,33 @@ final class Version20190502161758 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $customers = $schema->getTable('kimai2_customers');
-        $customers->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+        if ($this->isPlatformMySQL()) {
+            $customers = $schema->getTable('kimai2_customers');
+            $customers->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
 
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
 
-        $activities = $schema->getTable('kimai2_activities');
-        $activities->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+            $activities = $schema->getTable('kimai2_activities');
+            $activities->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $customers = $schema->getTable('kimai2_customers');
-        $customers->dropColumn('color');
+        if ($this->isPlatformMySQL()) {
+            $customers = $schema->getTable('kimai2_customers');
+            $customers->dropColumn('color');
 
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->dropColumn('color');
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->dropColumn('color');
 
-        $activities = $schema->getTable('kimai2_activities');
-        $activities->dropColumn('color');
+            $activities = $schema->getTable('kimai2_activities');
+            $activities->dropColumn('color');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

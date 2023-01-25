@@ -28,30 +28,38 @@ final class Version20190605171157 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $customers = $schema->getTable('kimai2_customers');
-        $customers->addColumn('time_budget', 'integer', ['notnull' => true, 'default' => 0]);
-        $customers->addColumn('budget', 'float', ['notnull' => true, 'default' => 0]);
+        if ($this->isPlatformMySQL()) {
+            $customers = $schema->getTable('kimai2_customers');
+            $customers->addColumn('time_budget', 'integer', ['notnull' => true, 'default' => 0]);
+            $customers->addColumn('budget', 'float', ['notnull' => true, 'default' => 0]);
 
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->addColumn('time_budget', 'integer', ['notnull' => true, 'default' => 0]);
-        $projects->getColumn('budget')->setDefault(0);
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->addColumn('time_budget', 'integer', ['notnull' => true, 'default' => 0]);
+            $projects->getColumn('budget')->setDefault(0);
 
-        $activities = $schema->getTable('kimai2_activities');
-        $activities->addColumn('time_budget', 'integer', ['notnull' => true, 'default' => 0]);
-        $activities->addColumn('budget', 'float', ['notnull' => true, 'default' => 0]);
+            $activities = $schema->getTable('kimai2_activities');
+            $activities->addColumn('time_budget', 'integer', ['notnull' => true, 'default' => 0]);
+            $activities->addColumn('budget', 'float', ['notnull' => true, 'default' => 0]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $customers = $schema->getTable('kimai2_customers');
-        $customers->dropColumn('time_budget');
-        $customers->dropColumn('budget');
+        if ($this->isPlatformMySQL()) {
+            $customers = $schema->getTable('kimai2_customers');
+            $customers->dropColumn('time_budget');
+            $customers->dropColumn('budget');
 
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->dropColumn('time_budget');
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->dropColumn('time_budget');
 
-        $activities = $schema->getTable('kimai2_activities');
-        $activities->dropColumn('time_budget');
-        $activities->dropColumn('budget');
+            $activities = $schema->getTable('kimai2_activities');
+            $activities->dropColumn('time_budget');
+            $activities->dropColumn('budget');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

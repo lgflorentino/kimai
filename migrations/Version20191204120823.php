@@ -28,17 +28,25 @@ final class Version20191204120823 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->addColumn('start', 'datetime', ['notnull' => false]);
-        $projects->addColumn('end', 'datetime', ['notnull' => false]);
-        $projects->addColumn('timezone', 'string', ['notnull' => false, 'length' => 64]);
+        if ($this->isPlatformMySQL()) {
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->addColumn('start', 'datetime', ['notnull' => false]);
+            $projects->addColumn('end', 'datetime', ['notnull' => false]);
+            $projects->addColumn('timezone', 'string', ['notnull' => false, 'length' => 64]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->dropColumn('timezone');
-        $projects->dropColumn('end');
-        $projects->dropColumn('start');
+        if ($this->isPlatformMySQL()) {
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->dropColumn('timezone');
+            $projects->dropColumn('end');
+            $projects->dropColumn('start');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

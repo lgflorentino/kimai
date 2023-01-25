@@ -11,7 +11,7 @@ namespace App\Doctrine;
 
 use Doctrine\DBAL\Exception;
 use Doctrine\DBAL\Platforms\MySQLPlatform;
-use Doctrine\DBAL\Platforms\PostgresSqlPlatform;
+use Doctrine\DBAL\Platforms\PostgreSQLPlatform;
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration as BaseAbstractMigration;
 
@@ -57,32 +57,30 @@ abstract class AbstractMigration extends BaseAbstractMigration
     {
         $platform = $this->connection->getDatabasePlatform();
         if (!($platform instanceof MySQLPlatform) && 
-            !($platform instanceof PostgreSqlPlatform)) {
+            !($platform instanceof PostgreSQLPlatform)) {
             $this->abortIf(true, 'Unsupported database platform: ' . \get_class($platform));
         }
     }
 
-    protected function isPlatformMysql(): bool
+    protected function isPlatformMySQL(): bool
     {
-        return ($this->getPlatform() === 'mysql');
+        $platform = $this->connection->getDatabasePlatform();
+        return $platform instanceof MySQLPlatform;
     }
 
-    protected function isPlatformPostgresql(): bool
+    protected function isPlatformPostgreSQL(): bool
     {
-        return ($this->getPlatform() == 'postgresql');
-    }
-
-    /**
-     * @return string
-     * @throws Exception
-     */
-    protected function getPlatform()
-    {
-        return $this->connection->getDatabasePlatform()->getName();
+        $platform = $this->connection->getDatabasePlatform();
+        return $platform instanceof MySQLPlatform;
     }
 
     protected function preventEmptyMigrationWarning(): void
     {
-        $this->addSql('#prevent empty warning - no SQL to execute');
+        if($this->isPlatformMySQL()) {
+            $this->addSql('#prevent empty warning - no SQL to execute');
+        }
+        else if ($this->isPlatformPostgreSQL()) {
+            $this->addSql('-- prevent empty warning - no SQL to execute');
+        }
     }
 }

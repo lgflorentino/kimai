@@ -26,13 +26,21 @@ final class Version20190201150324 extends AbstractMigration
     {
         $timezone = date_default_timezone_get();
 
-        $this->addSql('ALTER TABLE kimai2_timesheet ADD timezone VARCHAR(64) NOT NULL');
+        if ($this->isPlatformMySQL()) {
+            $this->addSql('ALTER TABLE kimai2_timesheet ADD timezone VARCHAR(64) NOT NULL');
 
-        $this->addSql("UPDATE kimai2_timesheet SET timezone = '" . $timezone . "'");
+            $this->addSql("UPDATE kimai2_timesheet SET timezone = '" . $timezone . "'");
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $schema->getTable('kimai2_timesheet')->dropColumn('timezone');
+        if ($this->isPlatformMySQL()) {
+            $schema->getTable('kimai2_timesheet')->dropColumn('timezone');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

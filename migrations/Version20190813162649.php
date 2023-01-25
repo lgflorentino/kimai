@@ -28,36 +28,44 @@ final class Version20190813162649 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $activity = $schema->getTable('kimai2_activities');
-        $name = $activity->getColumn('name');
-        if ($name->getLength() !== 150) {
-            $name->setLength(150);
-        }
+        if ($this->isPlatformMySQL()) {
+            $activity = $schema->getTable('kimai2_activities');
+            $name = $activity->getColumn('name');
+            if ($name->getLength() !== 150) {
+                $name->setLength(150);
+            }
 
-        $project = $schema->getTable('kimai2_projects');
-        $name = $project->getColumn('name');
-        if ($name->getLength() !== 150) {
-            $name->setLength(150);
-        }
+            $project = $schema->getTable('kimai2_projects');
+            $name = $project->getColumn('name');
+            if ($name->getLength() !== 150) {
+                $name->setLength(150);
+            }
 
-        $customer = $schema->getTable('kimai2_customers');
-        $name = $customer->getColumn('name');
-        if ($name->getLength() !== 150) {
-            $name->setLength(150);
+            $customer = $schema->getTable('kimai2_customers');
+            $name = $customer->getColumn('name');
+            if ($name->getLength() !== 150) {
+                $name->setLength(150);
+            }
+            $customer->getColumn('timezone')->setLength(64);
+        } else {
+            $this->preventEmptyMigrationWarning();
         }
-        $customer->getColumn('timezone')->setLength(64);
     }
 
     public function down(Schema $schema): void
     {
-        $activity = $schema->getTable('kimai2_activities');
-        $activity->getColumn('name')->setLength(255);
+        if ($this->isPlatformMySQL()) {
+            $activity = $schema->getTable('kimai2_activities');
+            $activity->getColumn('name')->setLength(255);
 
-        $project = $schema->getTable('kimai2_projects');
-        $project->getColumn('name')->setLength(255);
+            $project = $schema->getTable('kimai2_projects');
+            $project->getColumn('name')->setLength(255);
 
-        $customer = $schema->getTable('kimai2_customers');
-        $customer->getColumn('name')->setLength(255);
-        $customer->getColumn('timezone')->setLength(255);
+            $customer = $schema->getTable('kimai2_customers');
+            $customer->getColumn('name')->setLength(255);
+            $customer->getColumn('timezone')->setLength(255);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

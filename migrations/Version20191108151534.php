@@ -28,25 +28,33 @@ final class Version20191108151534 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $roles = $schema->createTable('kimai2_roles');
-        $roles->addColumn('id', 'integer', ['autoincrement' => true, 'notnull' => true]);
-        $roles->addColumn('name', 'string', ['notnull' => true, 'length' => 50]);
-        $roles->setPrimaryKey(['id']);
-        $roles->addUniqueIndex(['name'], 'roles_name');
+        if ($this->isPlatformMySQL()) {
+            $roles = $schema->createTable('kimai2_roles');
+            $roles->addColumn('id', 'integer', ['autoincrement' => true, 'notnull' => true]);
+            $roles->addColumn('name', 'string', ['notnull' => true, 'length' => 50]);
+            $roles->setPrimaryKey(['id']);
+            $roles->addUniqueIndex(['name'], 'roles_name');
 
-        $rolePermissions = $schema->createTable('kimai2_roles_permissions');
-        $rolePermissions->addColumn('id', 'integer', ['autoincrement' => true, 'notnull' => true]);
-        $rolePermissions->addColumn('role_id', 'integer', ['length' => 11, 'notnull' => true]);
-        $rolePermissions->addColumn('permission', 'string', ['notnull' => true, 'length' => 50]);
-        $rolePermissions->addColumn('allowed', 'boolean', ['notnull' => true, 'default' => false]);
-        $rolePermissions->setPrimaryKey(['id']);
-        $rolePermissions->addUniqueIndex(['role_id', 'permission'], 'role_permission');
-        $rolePermissions->addForeignKeyConstraint('kimai2_roles', ['role_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_D263A3B8D60322AC');
+            $rolePermissions = $schema->createTable('kimai2_roles_permissions');
+            $rolePermissions->addColumn('id', 'integer', ['autoincrement' => true, 'notnull' => true]);
+            $rolePermissions->addColumn('role_id', 'integer', ['length' => 11, 'notnull' => true]);
+            $rolePermissions->addColumn('permission', 'string', ['notnull' => true, 'length' => 50]);
+            $rolePermissions->addColumn('allowed', 'boolean', ['notnull' => true, 'default' => false]);
+            $rolePermissions->setPrimaryKey(['id']);
+            $rolePermissions->addUniqueIndex(['role_id', 'permission'], 'role_permission');
+            $rolePermissions->addForeignKeyConstraint('kimai2_roles', ['role_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_D263A3B8D60322AC');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $schema->dropTable('kimai2_roles_permissions');
-        $schema->dropTable('kimai2_roles');
+        if ($this->isPlatformMySQL()) {
+            $schema->dropTable('kimai2_roles_permissions');
+            $schema->dropTable('kimai2_roles');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

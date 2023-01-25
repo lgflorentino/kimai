@@ -21,15 +21,23 @@ final class Version20180903202256 extends AbstractMigration
 {
     public function up(Schema $schema): void
     {
-        $this->addSql('ALTER TABLE kimai2_timesheet ADD COLUMN fixed_rate NUMERIC(10, 2) DEFAULT NULL');
-        $this->addSql('ALTER TABLE kimai2_timesheet ADD COLUMN hourly_rate NUMERIC(10, 2) DEFAULT NULL');
+        if ($this->isPlatformMySQL()) {
+            $this->addSql('ALTER TABLE kimai2_timesheet ADD COLUMN fixed_rate NUMERIC(10, 2) DEFAULT NULL');
+            $this->addSql('ALTER TABLE kimai2_timesheet ADD COLUMN hourly_rate NUMERIC(10, 2) DEFAULT NULL');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $timesheet = $schema->getTable('kimai2_timesheet');
+        if ($this->isPlatformMySQL()) {
+            $timesheet = $schema->getTable('kimai2_timesheet');
 
-        $timesheet->dropColumn('hourly_rate');
-        $timesheet->dropColumn('fixed_rate');
+            $timesheet->dropColumn('hourly_rate');
+            $timesheet->dropColumn('fixed_rate');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

@@ -28,25 +28,33 @@ final class Version20191116110124 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $customers = $schema->getTable('kimai2_customers');
-        $customers->addColumn('vat_id', 'string', ['length' => 50, 'notnull' => false]);
+        if ($this->isPlatformMySQL()) {
+            $customers = $schema->getTable('kimai2_customers');
+            $customers->addColumn('vat_id', 'string', ['length' => 50, 'notnull' => false]);
 
-        $invoiceTemplates = $schema->getTable('kimai2_invoice_templates');
-        $invoiceTemplates->addColumn('vat_id', 'string', ['length' => 50, 'notnull' => false, 'default' => null]);
-        $invoiceTemplates->addColumn('contact', 'text', ['notnull' => false, 'default' => null]);
-        $invoiceTemplates->addColumn('payment_details', 'text', ['notnull' => false, 'default' => null]);
+            $invoiceTemplates = $schema->getTable('kimai2_invoice_templates');
+            $invoiceTemplates->addColumn('vat_id', 'string', ['length' => 50, 'notnull' => false, 'default' => null]);
+            $invoiceTemplates->addColumn('contact', 'text', ['notnull' => false, 'default' => null]);
+            $invoiceTemplates->addColumn('payment_details', 'text', ['notnull' => false, 'default' => null]);
 
-        $this->addSql("UPDATE kimai2_invoice_templates SET renderer = 'default' WHERE renderer IN ('export', 'open-spreadsheet', 'spreadsheet')");
+            $this->addSql("UPDATE kimai2_invoice_templates SET renderer = 'default' WHERE renderer IN ('export', 'open-spreadsheet', 'spreadsheet')");
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $invoiceTemplates = $schema->getTable('kimai2_invoice_templates');
-        $invoiceTemplates->dropColumn('payment_details');
-        $invoiceTemplates->dropColumn('contact');
-        $invoiceTemplates->dropColumn('vat_id');
+        if ($this->isPlatformMySQL()) {
+            $invoiceTemplates = $schema->getTable('kimai2_invoice_templates');
+            $invoiceTemplates->dropColumn('payment_details');
+            $invoiceTemplates->dropColumn('contact');
+            $invoiceTemplates->dropColumn('vat_id');
 
-        $customers = $schema->getTable('kimai2_customers');
-        $customers->dropColumn('vat_id');
+            $customers = $schema->getTable('kimai2_customers');
+            $customers->dropColumn('vat_id');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }
