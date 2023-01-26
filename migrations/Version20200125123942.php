@@ -28,13 +28,21 @@ final class Version20200125123942 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $users = $schema->getTable('kimai2_users');
-        $users->addColumn('auth', 'string', ['notnull' => false, 'length' => 20]);
+        if ($this->isPlatformMySQL()) {
+            $users = $schema->getTable('kimai2_users');
+            $users->addColumn('auth', 'string', ['notnull' => false, 'length' => 20]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $users = $schema->getTable('kimai2_users');
-        $users->dropColumn('auth');
+        if ($this->isPlatformMySQL()) {
+            $users = $schema->getTable('kimai2_users');
+            $users->dropColumn('auth');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

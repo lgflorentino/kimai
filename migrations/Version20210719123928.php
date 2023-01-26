@@ -26,25 +26,33 @@ final class Version20210719123928 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $activities = $schema->getTable('kimai2_activities');
-        $activities->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false, 'default' => null]);
+        if ($this->isPlatformMySQL()) {
+            $activities = $schema->getTable('kimai2_activities');
+            $activities->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false, 'default' => null]);
 
-        $customers = $schema->getTable('kimai2_customers');
-        $customers->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false, 'default' => null]);
+            $customers = $schema->getTable('kimai2_customers');
+            $customers->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false, 'default' => null]);
 
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false, 'default' => null]);
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false, 'default' => null]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $activities = $schema->getTable('kimai2_activities');
-        $activities->dropColumn('budget_type');
+        if ($this->isPlatformMySQL()) {
+            $activities = $schema->getTable('kimai2_activities');
+            $activities->dropColumn('budget_type');
 
-        $customers = $schema->getTable('kimai2_customers');
-        $customers->dropColumn('budget_type');
+            $customers = $schema->getTable('kimai2_customers');
+            $customers->dropColumn('budget_type');
 
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->dropColumn('budget_type');
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->dropColumn('budget_type');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

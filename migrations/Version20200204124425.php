@@ -28,15 +28,23 @@ final class Version20200204124425 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $invoiceTemplates = $schema->getTable('kimai2_invoice_templates');
-        $invoiceTemplates->addColumn('decimal_duration', 'boolean', ['notnull' => true, 'default' => false]);
-        $invoiceTemplates->addColumn('language', 'string', ['notnull' => false, 'length' => 6]);
+        if ($this->isPlatformMySQL()) {
+            $invoiceTemplates = $schema->getTable('kimai2_invoice_templates');
+            $invoiceTemplates->addColumn('decimal_duration', 'boolean', ['notnull' => true, 'default' => false]);
+            $invoiceTemplates->addColumn('language', 'string', ['notnull' => false, 'length' => 6]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $invoiceTemplates = $schema->getTable('kimai2_invoice_templates');
-        $invoiceTemplates->dropColumn('language');
-        $invoiceTemplates->dropColumn('decimal_duration');
+        if ($this->isPlatformMySQL()) {
+            $invoiceTemplates = $schema->getTable('kimai2_invoice_templates');
+            $invoiceTemplates->dropColumn('language');
+            $invoiceTemplates->dropColumn('decimal_duration');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

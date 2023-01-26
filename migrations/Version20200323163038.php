@@ -26,17 +26,25 @@ final class Version20200323163038 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $schema->getTable('kimai2_activities_rates')->addColumn('internal_rate', 'float', ['notnull' => false]);
-        $schema->getTable('kimai2_projects_rates')->addColumn('internal_rate', 'float', ['notnull' => false]);
-        $schema->getTable('kimai2_customers_rates')->addColumn('internal_rate', 'float', ['notnull' => false]);
-        $schema->getTable('kimai2_timesheet')->addColumn('internal_rate', 'float', ['notnull' => false]);
+        if ($this->isPlatformMySQL()) {
+            $schema->getTable('kimai2_activities_rates')->addColumn('internal_rate', 'float', ['notnull' => false]);
+            $schema->getTable('kimai2_projects_rates')->addColumn('internal_rate', 'float', ['notnull' => false]);
+            $schema->getTable('kimai2_customers_rates')->addColumn('internal_rate', 'float', ['notnull' => false]);
+            $schema->getTable('kimai2_timesheet')->addColumn('internal_rate', 'float', ['notnull' => false]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $schema->getTable('kimai2_timesheet')->dropColumn('internal_rate');
-        $schema->getTable('kimai2_activities_rates')->dropColumn('internal_rate');
-        $schema->getTable('kimai2_projects_rates')->dropColumn('internal_rate');
-        $schema->getTable('kimai2_customers_rates')->dropColumn('internal_rate');
+        if ($this->isPlatformMySQL()) {
+            $schema->getTable('kimai2_timesheet')->dropColumn('internal_rate');
+            $schema->getTable('kimai2_activities_rates')->dropColumn('internal_rate');
+            $schema->getTable('kimai2_projects_rates')->dropColumn('internal_rate');
+            $schema->getTable('kimai2_customers_rates')->dropColumn('internal_rate');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

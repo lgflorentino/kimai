@@ -27,13 +27,21 @@ final class Version20210802152259 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $timesheet = $schema->getTable('kimai2_timesheet');
-        $timesheet->addColumn('date_tz', Types::DATE_MUTABLE, ['notnull' => false]);
+        if ($this->isPlatformMySQL()) {
+            $timesheet = $schema->getTable('kimai2_timesheet');
+            $timesheet->addColumn('date_tz', Types::DATE_MUTABLE, ['notnull' => false]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $timesheet = $schema->getTable('kimai2_timesheet');
-        $timesheet->dropColumn('date_tz');
+        if ($this->isPlatformMySQL()) {
+            $timesheet = $schema->getTable('kimai2_timesheet');
+            $timesheet->dropColumn('date_tz');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

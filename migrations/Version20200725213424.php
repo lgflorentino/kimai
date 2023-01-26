@@ -28,16 +28,24 @@ final class Version20200725213424 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $activityTeams = $schema->createTable('kimai2_activities_teams');
-        $activityTeams->addColumn('activity_id', 'integer', ['length' => 11, 'notnull' => true]);
-        $activityTeams->addColumn('team_id', 'integer', ['length' => 11, 'notnull' => true]);
-        $activityTeams->addForeignKeyConstraint('kimai2_activities', ['activity_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_986998DA81C06096');
-        $activityTeams->addForeignKeyConstraint('kimai2_teams', ['team_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_986998DA296CD8AE');
-        $activityTeams->setPrimaryKey(['activity_id', 'team_id']);
+        if ($this->isPlatformMySQL()) {
+            $activityTeams = $schema->createTable('kimai2_activities_teams');
+            $activityTeams->addColumn('activity_id', 'integer', ['length' => 11, 'notnull' => true]);
+            $activityTeams->addColumn('team_id', 'integer', ['length' => 11, 'notnull' => true]);
+            $activityTeams->addForeignKeyConstraint('kimai2_activities', ['activity_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_986998DA81C06096');
+            $activityTeams->addForeignKeyConstraint('kimai2_teams', ['team_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_986998DA296CD8AE');
+            $activityTeams->setPrimaryKey(['activity_id', 'team_id']);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $schema->dropTable('kimai2_activities_teams');
+        if ($this->isPlatformMySQL()) {
+            $schema->dropTable('kimai2_activities_teams');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

@@ -26,16 +26,24 @@ final class Version20200524142042 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $sessions = $schema->createTable('kimai2_sessions');
-        $sessions->addColumn('id', 'string', ['length' => 128, 'notnull' => true]);
-        $sessions->addColumn('data', 'blob', ['length' => 65535, 'notnull' => true]);
-        $sessions->addColumn('time', 'integer', ['unsigned' => true, 'notnull' => true]);
-        $sessions->addColumn('lifetime', 'integer', ['unsigned' => true, 'notnull' => true]);
-        $sessions->setPrimaryKey(['id']);
+        if ($this->isPlatformMySQL()) {
+            $sessions = $schema->createTable('kimai2_sessions');
+            $sessions->addColumn('id', 'string', ['length' => 128, 'notnull' => true]);
+            $sessions->addColumn('data', 'blob', ['length' => 65535, 'notnull' => true]);
+            $sessions->addColumn('time', 'integer', ['unsigned' => true, 'notnull' => true]);
+            $sessions->addColumn('lifetime', 'integer', ['unsigned' => true, 'notnull' => true]);
+            $sessions->setPrimaryKey(['id']);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $schema->dropTable('kimai2_sessions');
+        if ($this->isPlatformMySQL()) {
+            $schema->dropTable('kimai2_sessions');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

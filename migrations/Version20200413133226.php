@@ -26,13 +26,21 @@ final class Version20200413133226 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $tags = $schema->getTable('kimai2_tags');
-        $tags->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+        if ($this->isPlatformMySQL()) {
+            $tags = $schema->getTable('kimai2_tags');
+            $tags->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $tags = $schema->getTable('kimai2_tags');
-        $tags->dropColumn('color');
+        if ($this->isPlatformMySQL()) {
+            $tags = $schema->getTable('kimai2_tags');
+            $tags->dropColumn('color');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

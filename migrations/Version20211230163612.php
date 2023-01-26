@@ -26,13 +26,21 @@ final class Version20211230163612 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $invoices = $schema->getTable('kimai2_invoices');
-        $invoices->addColumn('comment', 'text', ['notnull' => false]);
+        if ($this->isPlatformMySQL()) {
+            $invoices = $schema->getTable('kimai2_invoices');
+            $invoices->addColumn('comment', 'text', ['notnull' => false]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $invoices = $schema->getTable('kimai2_invoices');
-        $invoices->dropColumn('comment');
+        if ($this->isPlatformMySQL()) {
+            $invoices = $schema->getTable('kimai2_invoices');
+            $invoices->dropColumn('comment');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

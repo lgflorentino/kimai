@@ -26,13 +26,21 @@ final class Version20220722125847 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->addColumn('global_activities', 'boolean', ['notnull' => true, 'default' => true]);
+        if ($this->isPlatformMySQL()) {
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->addColumn('global_activities', 'boolean', ['notnull' => true, 'default' => true]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->dropColumn('global_activities');
+        if ($this->isPlatformMySQL()) {
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->dropColumn('global_activities');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

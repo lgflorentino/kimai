@@ -26,7 +26,11 @@ final class Version20200323163039 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $this->addSql('UPDATE kimai2_timesheet SET internal_rate = rate');
+        if ($this->isPlatformMySQL()) {
+            $this->addSql('UPDATE kimai2_timesheet SET internal_rate = rate');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void

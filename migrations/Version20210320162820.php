@@ -28,13 +28,21 @@ final class Version20210320162820 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $invoices = $schema->getTable('kimai2_invoices');
-        $invoices->addColumn('payment_date', 'date', ['default' => null, 'notnull' => false]);
+        if ($this->isPlatformMySQL()) {
+            $invoices = $schema->getTable('kimai2_invoices');
+            $invoices->addColumn('payment_date', 'date', ['default' => null, 'notnull' => false]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $invoices = $schema->getTable('kimai2_invoices');
-        $invoices->dropColumn('payment_date');
+        if ($this->isPlatformMySQL()) {
+            $invoices = $schema->getTable('kimai2_invoices');
+            $invoices->dropColumn('payment_date');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

@@ -26,23 +26,31 @@ final class Version20200705152310 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $invoices = $schema->getTable('kimai2_invoices');
-        $invoices->getColumn('invoice_filename')->setLength(150);
+        if ($this->isPlatformMySQL()) {
+            $invoices = $schema->getTable('kimai2_invoices');
+            $invoices->getColumn('invoice_filename')->setLength(150);
 
-        $timesheet = $schema->getTable('kimai2_timesheet');
-        $timesheet->addColumn('billable', 'boolean', ['notnull' => false, 'default' => true]);
-        $timesheet->addColumn('category', 'string', ['length' => 10, 'notnull' => true, 'default' => 'work']);
-        $timesheet->addColumn('modified_at', 'datetime', ['notnull' => false]);
+            $timesheet = $schema->getTable('kimai2_timesheet');
+            $timesheet->addColumn('billable', 'boolean', ['notnull' => false, 'default' => true]);
+            $timesheet->addColumn('category', 'string', ['length' => 10, 'notnull' => true, 'default' => 'work']);
+            $timesheet->addColumn('modified_at', 'datetime', ['notnull' => false]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $invoices = $schema->getTable('kimai2_invoices');
-        $invoices->getColumn('invoice_filename')->setLength(100);
+        if ($this->isPlatformMySQL()) {
+            $invoices = $schema->getTable('kimai2_invoices');
+            $invoices->getColumn('invoice_filename')->setLength(100);
 
-        $timesheet = $schema->getTable('kimai2_timesheet');
-        $timesheet->dropColumn('billable');
-        $timesheet->dropColumn('category');
-        $timesheet->dropColumn('modified_at');
+            $timesheet = $schema->getTable('kimai2_timesheet');
+            $timesheet->dropColumn('billable');
+            $timesheet->dropColumn('category');
+            $timesheet->dropColumn('modified_at');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

@@ -26,19 +26,27 @@ final class Version20210704111542 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $users = $schema->getTable('kimai2_users');
-        $users->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+        if ($this->isPlatformMySQL()) {
+            $users = $schema->getTable('kimai2_users');
+            $users->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
 
-        $teams = $schema->getTable('kimai2_teams');
-        $teams->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+            $teams = $schema->getTable('kimai2_teams');
+            $teams->addColumn('color', 'string', ['length' => 7, 'notnull' => false, 'default' => null]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $users = $schema->getTable('kimai2_users');
-        $users->dropColumn('color');
+        if ($this->isPlatformMySQL()) {
+            $users = $schema->getTable('kimai2_users');
+            $users->dropColumn('color');
 
-        $teams = $schema->getTable('kimai2_teams');
-        $teams->dropColumn('color');
+            $teams = $schema->getTable('kimai2_teams');
+            $teams->dropColumn('color');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

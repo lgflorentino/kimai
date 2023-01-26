@@ -28,31 +28,39 @@ final class Version20210727104955 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $activitiesMeta = $schema->getTable('kimai2_activities_meta');
-        $activitiesMeta->getColumn('value')->setLength(65535)->setType(Type::getType(Types::TEXT));
-
-        $customersMeta = $schema->getTable('kimai2_customers_meta');
-        $customersMeta->getColumn('value')->setLength(65535)->setType(Type::getType(Types::TEXT));
-
-        $projectsMeta = $schema->getTable('kimai2_projects_meta');
-        $projectsMeta->getColumn('value')->setLength(65535)->setType(Type::getType(Types::TEXT));
-
-        $timesheetMeta = $schema->getTable('kimai2_timesheet_meta');
-        $timesheetMeta->getColumn('value')->setLength(65535)->setType(Type::getType(Types::TEXT));
+        if ($this->isPlatformMySQL()) {
+            $activitiesMeta = $schema->getTable('kimai2_activities_meta');
+            $activitiesMeta->getColumn('value')->setLength(65535)->setType(Type::getType(Types::TEXT));
+    
+            $customersMeta = $schema->getTable('kimai2_customers_meta');
+            $customersMeta->getColumn('value')->setLength(65535)->setType(Type::getType(Types::TEXT));
+    
+            $projectsMeta = $schema->getTable('kimai2_projects_meta');
+            $projectsMeta->getColumn('value')->setLength(65535)->setType(Type::getType(Types::TEXT));
+    
+            $timesheetMeta = $schema->getTable('kimai2_timesheet_meta');
+            $timesheetMeta->getColumn('value')->setLength(65535)->setType(Type::getType(Types::TEXT));
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $activitiesMeta = $schema->getTable('kimai2_activities_meta');
-        $activitiesMeta->getColumn('value')->setLength(255)->setType(Type::getType(Types::STRING));
+        if ($this->isPlatformMySQL()) {
+            $activitiesMeta = $schema->getTable('kimai2_activities_meta');
+            $activitiesMeta->getColumn('value')->setLength(255)->setType(Type::getType(Types::STRING));
 
-        $customersMeta = $schema->getTable('kimai2_customers_meta');
-        $customersMeta->getColumn('value')->setLength(255)->setType(Type::getType(Types::STRING));
+            $customersMeta = $schema->getTable('kimai2_customers_meta');
+            $customersMeta->getColumn('value')->setLength(255)->setType(Type::getType(Types::STRING));
 
-        $projectsMeta = $schema->getTable('kimai2_projects_meta');
-        $projectsMeta->getColumn('value')->setLength(255)->setType(Type::getType(Types::STRING));
+            $projectsMeta = $schema->getTable('kimai2_projects_meta');
+            $projectsMeta->getColumn('value')->setLength(255)->setType(Type::getType(Types::STRING));
 
-        $timesheetMeta = $schema->getTable('kimai2_timesheet_meta');
-        $timesheetMeta->getColumn('value')->setLength(255)->setType(Type::getType(Types::STRING));
+            $timesheetMeta = $schema->getTable('kimai2_timesheet_meta');
+            $timesheetMeta->getColumn('value')->setLength(255)->setType(Type::getType(Types::STRING));
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

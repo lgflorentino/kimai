@@ -26,19 +26,27 @@ final class Version20220531145920 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $activities = $schema->getTable('kimai2_activities');
-        $activities->addColumn('invoice_text', 'text', ['notnull' => false, 'default' => null]);
+        if ($this->isPlatformMySQL()) {
+            $activities = $schema->getTable('kimai2_activities');
+            $activities->addColumn('invoice_text', 'text', ['notnull' => false, 'default' => null]);
 
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->addColumn('invoice_text', 'text', ['notnull' => false, 'default' => null]);
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->addColumn('invoice_text', 'text', ['notnull' => false, 'default' => null]);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $activities = $schema->getTable('kimai2_activities');
-        $activities->dropColumn('invoice_text');
+        if ($this->isPlatformMySQL()) {
+            $activities = $schema->getTable('kimai2_activities');
+            $activities->dropColumn('invoice_text');
 
-        $projects = $schema->getTable('kimai2_projects');
-        $projects->dropColumn('invoice_text');
+            $projects = $schema->getTable('kimai2_projects');
+            $projects->dropColumn('invoice_text');
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }

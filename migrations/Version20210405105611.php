@@ -28,13 +28,21 @@ final class Version20210405105611 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
-        $invoices = $schema->getTable('kimai2_configuration');
-        $invoices->getColumn('value')->setLength(1024);
+        if ($this->isPlatformMySQL()) {
+            $invoices = $schema->getTable('kimai2_configuration');
+            $invoices->getColumn('value')->setLength(1024);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 
     public function down(Schema $schema): void
     {
-        $invoices = $schema->getTable('kimai2_configuration');
-        $invoices->getColumn('value')->setLength(255);
+        if ($this->isPlatformMySQL()) {
+            $invoices = $schema->getTable('kimai2_configuration');
+            $invoices->getColumn('value')->setLength(255);
+        } else {
+            $this->preventEmptyMigrationWarning();
+        }
     }
 }
