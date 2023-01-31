@@ -117,8 +117,8 @@
               Login / Security
             -->
       <trans-unit id="XohImNo" resname="password">
-        <source>password</source>
-        <target>Διαπιστευτήριο</target>
+        <source>Password</source>
+        <target state="translated">Διαπιστευτήριο</target>
       </trans-unit>
       <trans-unit id="hLEZkoC" resname="password_repeat">
         <source>password_repeat</source>
@@ -570,8 +570,8 @@
         <target>Τιμή Φόρου (Φ.Π.Α)</target>
       </trans-unit>
       <trans-unit id="CT59X9u" resname="contact">
-        <source>contact</source>
-        <target>Επικοινωνία</target>
+        <source>Contact</source>
+        <target state="translated">Επικοινωνία</target>
       </trans-unit>
       <trans-unit id="2Ayb_RD" resname="address">
         <source>address</source>
@@ -1204,10 +1204,6 @@
       <trans-unit id="HNFpvnH" resname="globalActivities">
         <source>globalActivities</source>
         <target state="translated">Επέτρεψε καθολικές ενέργειες</target>
-      </trans-unit>
-      <trans-unit id="KB9cJM6" resname="budgetIndependent">
-        <source>budgetIndependent</source>
-        <target state="translated">Εμφάνιση ανεξαρτήτως από"τύπο-προυπολογισμού"</target>
       </trans-unit>
     </body>
   </file>

@@ -623,10 +623,6 @@
         <source>Allowed character: A-Z and _</source>
         <target state="translated">کاراکتر های مجاز: A-Z و _</target>
       </trans-unit>
-      <trans-unit id="HkxjXDU" resname="required_version">
-        <source>required_version</source>
-        <target state="translated">سازگار با</target>
-      </trans-unit>
       <trans-unit id="WRuKTcz" resname="ROLE_SUPER_ADMIN">
         <source>ROLE_SUPER_ADMIN</source>
         <target state="translated">مدیر سیستم</target>
@@ -687,8 +683,8 @@
         <source>stats.amountYear</source>
         <target state="translated">درآمد امسال</target>
       </trans-unit>
-      <trans-unit id="zMY6gkY" resname="stats.userActiveFinancialYear">
-        <source>stats.userActiveFinancialYear</source>
+      <trans-unit id="_Pym9RO" resname="stats.activeUsersFinancialYear">
+        <source>stats.activeUsersFinancialYear</source>
         <target state="translated">کاربران فعال در این سال مالی</target>
       </trans-unit>
       <trans-unit id="Bor.76M" resname="stats.activityTotal">
@@ -787,10 +783,6 @@
         <source>Skipped preview of %rows% more rows …</source>
         <target state="translated">پیش‌نمایش %rows% ردیف‌های بیشتر رد شد…</target>
       </trans-unit>
-      <trans-unit id="F6Jmro7" resname="export.title">
-        <source>export.title</source>
-        <target state="translated">خروجی</target>
-      </trans-unit>
       <trans-unit id="vjmoQGo" resname="export.period">
         <source>export.period</source>
         <target state="translated">دوره</target>
@@ -830,10 +822,6 @@
       <trans-unit id="cjgNYUB" resname="entryState">
         <source>entryState</source>
         <target state="translated">سوابق</target>
-      </trans-unit>
-      <trans-unit id="do7fP0q" resname="entryState.all">
-        <source>entryState.all</source>
-        <target state="translated">همه</target>
       </trans-unit>
       <trans-unit id="spHpd_I" resname="entryState.stopped">
         <source>entryState.stopped</source>
@@ -923,24 +911,24 @@
         <source>stats.amountTotal</source>
         <target state="translated">کل درآمد</target>
       </trans-unit>
-      <trans-unit id="xyiadv3" resname="stats.userActiveToday">
-        <source>stats.userActiveToday</source>
+      <trans-unit id="HzICegM" resname="stats.activeUsersToday">
+        <source>stats.activeUsersToday</source>
         <target state="translated">کاربران فعال امروز</target>
       </trans-unit>
-      <trans-unit id="knMHaeO" resname="stats.userActiveWeek">
-        <source>stats.userActiveWeek</source>
+      <trans-unit id="7oP64Kh" resname="stats.activeUsersWeek">
+        <source>stats.activeUsersWeek</source>
         <target state="translated">کاربران فعال این هفته</target>
       </trans-unit>
-      <trans-unit id="adzVDgb" resname="stats.userActiveMonth">
-        <source>stats.userActiveMonth</source>
+      <trans-unit id="40xQ.Qt" resname="stats.activeUsersMonth">
+        <source>stats.activeUsersMonth</source>
         <target state="translated">کاربران فعال این ماه</target>
       </trans-unit>
-      <trans-unit id="AswjFvh" resname="stats.userActiveYear">
-        <source>stats.userActiveYear</source>
+      <trans-unit id="lGuZo7g" resname="stats.activeUsersYear">
+        <source>stats.activeUsersYear</source>
         <target state="translated">کاربران فعال امسال</target>
       </trans-unit>
-      <trans-unit id="dLTb1Po" resname="stats.userActiveTotal">
-        <source>stats.userActiveTotal</source>
+      <trans-unit id="8FFVmiv" resname="stats.activeUsersTotal">
+        <source>stats.activeUsersTotal</source>
         <target state="translated">کاربران فعال همیشه</target>
       </trans-unit>
       <trans-unit id="lEW82ex" resname="stats.activeRecordings">
@@ -1147,10 +1135,6 @@
         <source>globalsOnly</source>
         <target state="translated">فقط جهانی</target>
       </trans-unit>
-      <trans-unit id="KB9cJM6" resname="budgetIndependent">
-        <source>budgetIndependent</source>
-        <target state="translated">نمایش بدون توجه به "نوع بودجه"</target>
-      </trans-unit>
       <trans-unit id="HNFpvnH" resname="globalActivities">
         <source>globalActivities</source>
         <target state="translated">اجازه فعالیت های سراسری</target>
@@ -1194,10 +1178,6 @@
       <trans-unit id="BjyLITj" resname="stats.userDurationYear">
         <source>stats.userDurationYear</source>
         <target state="translated">ساعت کاری من امسال</target>
-      </trans-unit>
-      <trans-unit id="lGuZo7g" resname="stats.activeUsersYear">
-        <source>stats.activeUsersYear</source>
-        <target state="translated">کاربران فعال امسال</target>
       </trans-unit>
       <trans-unit id="2lL9ACs" resname="help.invoiceTemplate">
         <source>help.invoiceTemplate</source>
@@ -1334,26 +1314,6 @@
       <trans-unit id="9jlbhkf" resname="stats.userAmountTotal">
         <source>stats.userAmountTotal</source>
         <target state="translated">کل درآمد من</target>
-      </trans-unit>
-      <trans-unit id="HzICegM" resname="stats.activeUsersToday">
-        <source>stats.activeUsersToday</source>
-        <target state="translated">کاربران فعال امروز</target>
-      </trans-unit>
-      <trans-unit id="7oP64Kh" resname="stats.activeUsersWeek">
-        <source>stats.activeUsersWeek</source>
-        <target state="translated">کاربران فعال این هفته</target>
-      </trans-unit>
-      <trans-unit id="40xQ.Qt" resname="stats.activeUsersMonth">
-        <source>stats.activeUsersMonth</source>
-        <target state="translated">کاربران فعال این ماه</target>
-      </trans-unit>
-      <trans-unit id="_Pym9RO" resname="stats.activeUsersFinancialYear">
-        <source>stats.activeUsersFinancialYear</source>
-        <target state="translated">کاربران فعال در این سال مالی</target>
-      </trans-unit>
-      <trans-unit id="8FFVmiv" resname="stats.activeUsersTotal">
-        <source>stats.activeUsersTotal</source>
-        <target state="translated">کاربران فعال تا کنون</target>
       </trans-unit>
       <trans-unit id="t.jgy7A" resname="all_invoices">
         <source>all_invoices</source>

@@ -35,10 +35,7 @@
       </trans-unit>
       <trans-unit id="vDd3alC" resname="admin_entity.delete_confirm">
         <source>admin_entity.delete_confirm</source>
-        <target>
-                    Dette data vil også blive slettet!
-                    Alternativt kan du vælge et indlæg hvortil data skal flyttes til:
-                </target>
+        <target>Dette data vil også blive slettet! Alternativt kan du vælge et indlæg hvortil data skal flyttes til:</target>
       </trans-unit>
       <trans-unit id="COyxNde" resname="delete.not_in_use">
         <source>delete.not_in_use</source>
@@ -68,8 +65,8 @@
               Login / Security
             -->
       <trans-unit id="XohImNo" resname="password">
-        <source>password</source>
-        <target>Kodeord</target>
+        <source>Password</source>
+        <target state="translated">Kodeord</target>
       </trans-unit>
       <trans-unit id="hLEZkoC" resname="password_repeat">
         <source>password_repeat</source>
@@ -450,8 +447,8 @@
         <target>VAT-ID</target>
       </trans-unit>
       <trans-unit id="CT59X9u" resname="contact">
-        <source>contact</source>
-        <target>Kontakt</target>
+        <source>Contact</source>
+        <target state="translated">Kontakt</target>
       </trans-unit>
       <trans-unit id="2Ayb_RD" resname="address">
         <source>address</source>
@@ -515,10 +512,6 @@
       <trans-unit id="G.GEdlk" resname="user_role.title">
         <source>user_role.title</source>
         <target>Bruger rolle</target>
-      </trans-unit>
-      <trans-unit id="OWEEQca" resname="Tilladte karaktere: A-Z and _">
-        <source>Tilladte karaktere: A-Z and _</source>
-        <target>Tilladte karaktere: A-Z and _</target>
       </trans-unit>
       <!--
               Admin: Plugins
@@ -1019,7 +1012,7 @@
       </trans-unit>
       <trans-unit id="E7G60OF" resname="Allowed character: A-Z and _">
         <source>Allowed character: A-Z and _</source>
-        <target state="needs-translation">Allowed character: A-Z and _</target>
+        <target state="needs-translation">Tilladte karaktere: A-Z and _</target>
       </trans-unit>
       <trans-unit id="lfSTZGe" resname="stats.workingTimeToday">
         <source>stats.workingTimeToday</source>
@@ -1137,8 +1130,8 @@
         <source>internalRate</source>
         <target state="needs-translation">Internal rate</target>
       </trans-unit>
-      <trans-unit id="zMY6gkY" resname="stats.userActiveFinancialYear">
-        <source>stats.userActiveFinancialYear</source>
+      <trans-unit id="_Pym9RO" resname="stats.activeUsersFinancialYear">
+        <source>stats.activeUsersFinancialYear</source>
         <target state="needs-translation">Active users this financial year</target>
       </trans-unit>
       <trans-unit id="BzwWNMS" resname="status">

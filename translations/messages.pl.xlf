@@ -69,8 +69,8 @@
               Login / Security
             -->
       <trans-unit id="XohImNo" resname="password">
-        <source>password</source>
-        <target>Hasło</target>
+        <source>Password</source>
+        <target state="translated">Hasło</target>
       </trans-unit>
       <trans-unit id="hLEZkoC" resname="password_repeat">
         <source>password_repeat</source>
@@ -463,8 +463,8 @@
         <target state="translated">NIP</target>
       </trans-unit>
       <trans-unit id="CT59X9u" resname="contact">
-        <source>contact</source>
-        <target>Kontakt</target>
+        <source>Contact</source>
+        <target state="translated">Kontakt</target>
       </trans-unit>
       <trans-unit id="2Ayb_RD" resname="address">
         <source>address</source>
@@ -780,10 +780,6 @@
       <trans-unit id="lswYe8s" resname="invoice_bank_account">
         <source>invoice_bank_account</source>
         <target>Konto bankowe</target>
-      </trans-unit>
-      <trans-unit id="eYPvapE" resname="invoice_salutation">
-        <source>invoice_salutation</source>
-        <target>Dziękujemy za skorzystanie z naszych usług Zapraszamy ponownie !</target>
       </trans-unit>
       <!--
               Export
@@ -1205,10 +1201,6 @@
       <trans-unit id="HNFpvnH" resname="globalActivities">
         <source>globalActivities</source>
         <target state="translated">Zezwalaj na globalne działania</target>
-      </trans-unit>
-      <trans-unit id="KB9cJM6" resname="budgetIndependent">
-        <source>budgetIndependent</source>
-        <target state="translated">Pokaż niezależnie od "typu budżetu"</target>
       </trans-unit>
       <trans-unit id="1MfS6X5" resname="remove_filter">
         <source>remove_filter</source>

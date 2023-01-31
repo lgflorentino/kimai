@@ -1,4 +1,3 @@
-
 <?php
 
 /*
@@ -38,8 +37,9 @@ class MigrationTest extends TestCase
     }
 
     public function getMigrations() {
-        $this.migrations = scandir('../../src/Migrations', SCANDIR_SORT_NONE);
-        dd($this.migrations);
+        $this->migrations = scandir(dirname(__FILE__) . '/../../migrations', SCANDIR_SORT_NONE);
+
+        dd($this->migrations);
     }
 
 }

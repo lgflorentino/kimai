@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace DoctrineMigrations;
 
-use Doctrine\DBAL\Schema\Schema;
 use App\Doctrine\AbstractMigration;
+use Doctrine\DBAL\Schema\Schema;
 
 /**
  * All the checks for hasIndex() and hasColumn() are here to simplify testing and development,
@@ -20,7 +20,7 @@ use App\Doctrine\AbstractMigration;
  *
  * @version 2.0
  */
-final class Version20993112235958 extends AbstractMigration
+final class Version20230126002049 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -89,6 +89,7 @@ final class Version20993112235958 extends AbstractMigration
             $this->addSql("UPDATE kimai2_invoice_templates SET `renderer` = 'service-date' WHERE `renderer` = 'freelancer'");
             $this->addSql("UPDATE kimai2_invoice_templates SET `renderer` = 'invoice' WHERE `renderer` = 'default'");
             $this->addSql("UPDATE kimai2_invoice_templates SET `renderer` = 'default' WHERE `renderer` = 'default-pdf'");
+            $this->generateSchemaSQLFile($schema);
         } else {
             $this->preventEmptyMigrationWarning();
         }
@@ -134,5 +135,14 @@ final class Version20993112235958 extends AbstractMigration
         } else {
             $this->preventEmptyMigrationWarning();
         }
+    }
+
+    /*
+     *  helper to generate the MySQL schema up to this migration in raw SQL
+     *  so that the PostgreSQL support can start from the next migration. 
+     */
+    public function generateSchemaSQLFile(Schema $schema): void
+    {
+        file_put_contents('generated_mysql_schema_Version20230126002049.sql', $schema->toSql($this->connection->getDatabasePlatform()));
     }
 }

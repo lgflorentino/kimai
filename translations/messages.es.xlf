@@ -60,9 +60,9 @@
       <!--
               Login / Security
             -->
-      <trans-unit id="XohImNo" resname="password">
-        <source>password</source>
-        <target>Contraseña</target>
+      <trans-unit id="XohImNo" resname="password" approved="yes">
+        <source>Password</source>
+        <target state="final">Contraseña</target>
       </trans-unit>
       <trans-unit id="hLEZkoC" resname="password_repeat">
         <source>password_repeat</source>
@@ -430,9 +430,9 @@
         <source>vat</source>
         <target>Impuesto</target>
       </trans-unit>
-      <trans-unit id="CT59X9u" resname="contact">
-        <source>contact</source>
-        <target>Contacto</target>
+      <trans-unit id="CT59X9u" resname="contact" approved="yes">
+        <source>Contact</source>
+        <target state="final">Contacto</target>
       </trans-unit>
       <trans-unit id="2Ayb_RD" resname="address">
         <source>address</source>
@@ -1197,10 +1197,6 @@
       <trans-unit id="3Clo55j" resname="about.title">
         <source>about.title</source>
         <target state="translated">Acerca de Kimai</target>
-      </trans-unit>
-      <trans-unit id="KB9cJM6" resname="budgetIndependent">
-        <source>budgetIndependent</source>
-        <target state="translated">Mostrar independientemente del "tipo de presupuesto"</target>
       </trans-unit>
       <trans-unit id="HNFpvnH" resname="globalActivities">
         <source>globalActivities</source>

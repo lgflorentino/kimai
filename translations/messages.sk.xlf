@@ -9,10 +9,6 @@
         <source>time_tracking</source>
         <target>Sledovanie času</target>
       </trans-unit>
-      <trans-unit id="PH8JEj3" resname="browser.title">
-        <source>browser.title</source>
-        <target>Profect s.r.o. - Sledovanie času</target>
-      </trans-unit>
       <trans-unit id="inmIkP6" resname="yes">
         <source>yes</source>
         <target>Áno</target>
@@ -40,10 +36,6 @@
       <trans-unit id="vDd3alC" resname="admin_entity.delete_confirm">
         <source>admin_entity.delete_confirm</source>
         <target state="translated">Tieto údaje budú tiež odstránené! Prípadne môžete zvoliť záznam, do ktorého sa prenesú všetky údaje:</target>
-      </trans-unit>
-      <trans-unit id="2hqdj09" resname="confirm.delete_message">
-        <source>confirm.delete_message</source>
-        <target>Vymazanie musíte potvrdiť, pretože sú prepojené objekty, ktoré budú tiež vymazané.</target>
       </trans-unit>
       <trans-unit id="COyxNde" resname="delete.not_in_use">
         <source>delete.not_in_use</source>
@@ -77,8 +69,8 @@
               Login / Security
             -->
       <trans-unit id="XohImNo" resname="password">
-        <source>password</source>
-        <target>Heslo</target>
+        <source>Password</source>
+        <target state="translated">Heslo</target>
       </trans-unit>
       <trans-unit id="hLEZkoC" resname="password_repeat">
         <source>password_repeat</source>
@@ -311,10 +303,6 @@
         <source>dashboard.title</source>
         <target>Prehľad</target>
       </trans-unit>
-      <trans-unit id="vOjbO8l" resname="dashboard.admin">
-        <source>dashboard.admin</source>
-        <target>Administrátor</target>
-      </trans-unit>
       <!--
               Widgets
             -->
@@ -450,10 +438,6 @@
       <!--
               Admin: Projects
             -->
-      <trans-unit id="jiYDwqZ" resname="admin_project.delete_confirm">
-        <source>admin_project.delete_confirm</source>
-        <target>V súčasnosti projekt %project% pre zákazníka %customer% má %activities% činnosti a %records% časových záznamov, ktoré sa započítavajú do celkového počtu %duration%. Tieto aktivity a časové záznamy budú tiež vymazané! Alternatívne môžete vybrať projekt, do ktorého sa prenesú všetky existujúce aktivity a položky:</target>
-      </trans-unit>
       <trans-unit id="Xyjr.V." resname="project_start">
         <source>project_start</source>
         <target>Začiatok projektu</target>
@@ -482,8 +466,8 @@
         <target>IČ DPH</target>
       </trans-unit>
       <trans-unit id="CT59X9u" resname="contact">
-        <source>contact</source>
-        <target>Kontakt</target>
+        <source>Contact</source>
+        <target state="needs-translation">Kontakt</target>
       </trans-unit>
       <trans-unit id="2Ayb_RD" resname="address">
         <source>address</source>
@@ -517,10 +501,6 @@
         <source>currency</source>
         <target>Mena</target>
       </trans-unit>
-      <trans-unit id="daVaZGm" resname="admin_customer.delete_confirm">
-        <source>admin_customer.delete_confirm</source>
-        <target>V súčasnosti zákazník %customer% má %project% projektov s %activity% činnosti, ktoré sa počítajú v %records% časových záznamov do celkového počtu %duration%. Tieto projekty, aktivity a časové záznamy budú tiež vymazané! Prípadne môžete vybrať zákazníka, ktorému sa prenesú všetky údaje:</target>
-      </trans-unit>
       <!--
               Admin: User
             -->
@@ -543,10 +523,6 @@
       <trans-unit id="Zs9VE7N" resname="roles">
         <source>roles</source>
         <target>Rola</target>
-      </trans-unit>
-      <trans-unit id="SlSedyD" resname="admin_user.delete_confirm">
-        <source>admin_user.delete_confirm</source>
-        <target>Momentálny používateľ %user% má %records% časových záznamov, ktoré sa počítajú do celkového počtu %duration%. Tieto časové záznamy budú tiež vymazané!</target>
       </trans-unit>
       <trans-unit id="ZlZ20pG" resname="user_permissions.title">
         <source>user_permissions.title</source>
@@ -1169,8 +1145,8 @@
         <source>stats.amountFinancialYear</source>
         <target state="translated">Obrat tento finančný rok</target>
       </trans-unit>
-      <trans-unit id="zMY6gkY" resname="stats.userActiveFinancialYear">
-        <source>stats.userActiveFinancialYear</source>
+      <trans-unit id="_Pym9RO" resname="stats.activeUsersFinancialYear">
+        <source>stats.activeUsersFinancialYear</source>
         <target state="translated">Aktívny užívatelia tento finančny rok</target>
       </trans-unit>
       <trans-unit id="Uvo1CbP" resname="status.pending">
