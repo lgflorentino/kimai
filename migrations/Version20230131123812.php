@@ -20,6 +20,521 @@ final class Version20230131123812 extends AbstractMigration
 
     public function up(Schema $schema): void
     {
+        $this->createUsersTable($schema);
+        $this->createUserPreferencesTable($schema);
+        $this->createProjectsTable($schema);
+        $this->createActivitiesTable($schema);
+        $this->createActivitiesMetaTable($schema);
+        $this->createActivitiesRatesTable($schema);
+        $this->createActivitiesTeamsTable($schema);
+        $this->createBookmarksTable($schema);
+        $this->createConfigurationTable($schema);
+        $this->createCustomersTable($schema);
+        $this->createCustomersCommentsTable($schema);
+        $this->createCustomersMetaTable($schema);
+        $this->createCustomersRatesTable($schema);
+        $this->createCustomersTeamsTable($schema);
+        $this->createTimesheetTable($schema);
+        $this->createInvoiceTemplatesTable($schema);
+        $this->createForeignKeyConstraints($schema);
+
+    }
+
+    public function down(Schema $schema): void
+    {
+        $schema->dropTable('kimai2_invoice_templates');
+        $schema->dropTable('kimai2_timesheet');
+        $schema->dropTable('kimai2_user_preferences');
+        $schema->dropTable('kimai2_users');
+        $schema->dropTable('kimai2_activities');
+        $schema->dropTable('kimai2_activities_meta');
+        $schema->dropTable('kimai2_activities_rates');
+        $schema->dropTable('kimai2_activities_teams');
+        $schema->dropTable('kimai2_bookmarks');
+        $schema->dropTable('kimai2_configuration');
+        $schema->dropTable('kimai2_customers');
+        $schema->dropTable('kimai2_customers_comments');
+        $schema->dropTable('kimai2_customers_meta');
+        $schema->dropTable('kimai2_customers_rates');
+        $schema->dropTable('kimai2_customers_teams');
+        $schema->dropTable('kimai2_projects');
+
+    }
+    
+    public function isTransactional(): bool
+    {
+        return false;
+    }
+    
+    /* 
+    CREATE TABLE kimai2_activities (
+        id INT AUTO_INCREMENT NOT NULL, 
+        project_id INT DEFAULT NULL, 
+        name VARCHAR(150) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+        comment TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+        visible TINYINT(1) NOT NULL, 
+        color VARCHAR(7) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+        time_budget INT DEFAULT 0 NOT NULL, 
+        budget DOUBLE PRECISION DEFAULT '0' NOT NULL, 
+        budget_type VARCHAR(10) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+        billable TINYINT(1) DEFAULT 1 NOT NULL, 
+        invoice_text LONGTEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+        INDEX IDX_8811FE1C7AB0E8595E237E06 (visible, name), 
+        INDEX IDX_8811FE1C166D1F9C (project_id), 
+        INDEX IDX_8811FE1C7AB0E859166D1F9C5E237E06 (visible, project_id, name), 
+        INDEX IDX_8811FE1C7AB0E859166D1F9C (visible, project_id), 
+        PRIMARY KEY(id)
+    ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createActivitiesTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_activities');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('project_id', 'integer', ['notnull' => false]);
+        $table->addColumn('name', 'string', ['length' => 150]);
+        $table->addColumn('comment', 'text', ['notnull' => false]);
+        $table->addColumn('visible', 'smallint'); // original=tinyint
+        $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
+        $table->addColumn('time_budget', 'integer', ['default' => 0]);
+        $table->addColumn('budget', 'float', ['default' => '0']);
+        $table->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false]);
+        $table->addColumn('billable', 'smallint', ['default' => 1]); // original=tinyint
+        $table->addColumn('invoice_text', 'text', ['notnull' => false]);
+        $table->addIndex(['visible', 'name'], 'IDX_8811FE1C7AB0E8595E237E06'); 
+        $table->addIndex(['project_id'], 'IDX_8811FE1C166D1F9C');
+        $table->addIndex(['visible', 'project_id', 'name'], 'IDX_8811FE1C7AB0E859166D1F9C5E237E06'); 
+        $table->addIndex(['visible', 'project_id'], 'IDX_8811FE1C7AB0E859166D1F9C') ;
+        $table->setPrimaryKey(['id']);
+    }
+
+    /*
+        CREATE TABLE kimai2_activities_meta (
+            id INT AUTO_INCREMENT NOT NULL, 
+            activity_id INT NOT NULL, 
+            name VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            value TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            visible TINYINT(1) DEFAULT 0 NOT NULL, 
+            UNIQUE INDEX UNIQ_A7C0A43D81C060965E237E06 (activity_id, name), 
+            INDEX IDX_A7C0A43D81C06096 (activity_id), 
+            PRIMARY KEY(id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createActivitiesMetaTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_activities_meta');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('activity_id', 'integer');
+        $table->addColumn('name', 'string', ['length' => 50]);
+        $table->addColumn('value', 'text', ['notnull' => false]);
+        $table->addColumn('visible', 'smallint', ['default' => 0]); // original=tinyint
+        $table->addUniqueIndex(['activity_id', 'name'], 'UNIQ_A7C0A43D81C060965E237E06');
+        $table->addIndex(['activity_id'], 'IDX_A7C0A43D81C06096');
+        $table->setPrimaryKey(['id']);
+    }
+    
+    /*
+        CREATE TABLE kimai2_activities_rates (
+            id INT AUTO_INCREMENT NOT NULL, 
+            user_id INT DEFAULT NULL, 
+            activity_id INT DEFAULT NULL, 
+            rate DOUBLE PRECISION NOT NULL, 
+            fixed TINYINT(1) NOT NULL, 
+            internal_rate DOUBLE PRECISION DEFAULT NULL, 
+            INDEX IDX_4A7F11BE81C06096 (activity_id), 
+            INDEX IDX_4A7F11BEA76ED395 (user_id), 
+            UNIQUE INDEX UNIQ_4A7F11BEA76ED39581C06096 (user_id, activity_id), 
+            PRIMARY KEY(id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createActivitiesRatesTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_activities_rates');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('user_id', 'integer', ['notnull' => false]);
+        $table->addColumn('activity_id', 'integer', ['notnull' => false]);
+        $table->addColumn('rate', 'float');
+        $table->addColumn('fixed', 'smallint'); // original=tinyint
+        $table->addColumn('internal_rate', 'float', ['notnull' => false]);
+        $table->addIndex(['activity_id'], 'IDX_4A7F11BE81C06096'); 
+        $table->addIndex(['user_id'], 'IDX_4A7F11BEA76ED395'); 
+        $table->addUniqueIndex(['user_id', 'activity_id'], 'UNIQ_4A7F11BEA76ED39581C06096');
+        $table->setPrimaryKey(['id']);
+    }
+
+    /*
+        CREATE TABLE kimai2_activities_teams (
+            activity_id INT NOT NULL, 
+            team_id INT NOT NULL, 
+            INDEX IDX_986998DA296CD8AE (team_id), 
+            INDEX IDX_986998DA81C06096 (activity_id), 
+            PRIMARY KEY(activity_id, team_id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createActivitiesTeamsTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_activities_teams');
+        $table->addColumn('activity_id', 'integer');
+        $table->addColumn('team_id', 'integer');
+        $table->addIndex(['team_id'], 'IDX_986998DA296CD8AE');
+        $table->addIndex(['activity_id'], 'IDX_986998DA81C06096');
+        $table->setPrimaryKey(['activity_id', 'team_id']);
+    }
+    
+    /*
+        CREATE TABLE kimai2_bookmarks (
+            id INT AUTO_INCREMENT NOT NULL, 
+            user_id INT NOT NULL, 
+            type VARCHAR(20) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            name VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            content LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            INDEX IDX_4016EF25A76ED395 (user_id), 
+            UNIQUE INDEX UNIQ_4016EF25A76ED3955E237E06 (user_id, name), 
+            PRIMARY KEY(id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    public function createBookmarksTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_bookmarks');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('user_id', 'integer');
+        $table->addColumn('type', 'string', ['length' => 20]);
+        $table->addColumn('name', 'string', ['length' => 50]);
+        $table->addIndex(['user_id'], 'IDX_4016EF25A76ED395'); 
+        $table->addUniqueIndex(['user_id', 'name'], 'UNIQ_4016EF25A76ED3955E237E06');
+        $table->setPrimaryKey(['id']);
+    }
+
+    /*   
+        CREATE TABLE kimai2_configuration (
+            id INT AUTO_INCREMENT NOT NULL, 
+            name VARCHAR(100) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            value TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            UNIQUE INDEX UNIQ_1C5D63D85E237E06 (name), 
+            PRIMARY KEY(id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+    */
+    public function createConfigurationTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_configuration');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('name', 'string', ['length' => 100]);
+        $table->addColumn('value', 'text', ['notnull' => false]);
+        $table->addUniqueIndex(['name'], 'UNIQ_1C5D63D85E237E06'); 
+        $table->setPrimaryKey(['id']);
+    }
+
+    /*
+        CREATE TABLE kimai2_customers (
+            id INT AUTO_INCREMENT NOT NULL, 
+            invoice_template_id INT DEFAULT NULL, 
+            name VARCHAR(150) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            number VARCHAR(50) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            comment TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            visible TINYINT(1) NOT NULL, 
+            company VARCHAR(100) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            contact VARCHAR(100) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            address TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            country VARCHAR(2) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            currency VARCHAR(3) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            phone VARCHAR(30) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            fax VARCHAR(30) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            mobile VARCHAR(30) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            email VARCHAR(75) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            homepage VARCHAR(100) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            timezone VARCHAR(64) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            color VARCHAR(7) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            time_budget INT DEFAULT 0 NOT NULL, 
+            budget DOUBLE PRECISION DEFAULT '0' NOT NULL, 
+            vat_id VARCHAR(50) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            budget_type VARCHAR(10) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            billable TINYINT(1) DEFAULT 1 NOT NULL, 
+            invoice_text LONGTEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            INDEX IDX_5A97604412946D8B (invoice_template_id), 
+            INDEX IDX_5A9760447AB0E859 (visible), 
+            PRIMARY KEY(id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createCustomersTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_customers');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('invoice_template_id', 'integer', ['notnull' => false]);
+        $table->addColumn('name', 'string', ['length' => 150]);
+        $table->addColumn('number', 'string', ['length' => 50, 'notnull' => false]);
+        $table->addColumn('comment', 'text', ['notnull' => false]);
+        $table->addColumn('visible', 'smallint'); //original=tinyint
+        $table->addColumn('company', 'string', ['length' => 100, 'notnull' => false]);
+        $table->addColumn('contact', 'string', ['length' => 100, 'notnull' => false]);
+        $table->addColumn('address', 'text', ['notnull' => false]);
+        $table->addColumn('country', 'string', ['length' => 2]);
+        $table->addColumn('currency', 'string', ['length' => 3]);
+        $table->addColumn('phone', 'string', ['length' => 30, 'notnull' => false]);
+        $table->addColumn('fax', 'string', ['length' => 30, 'notnull' => false]);
+        $table->addColumn('mobile', 'string', ['length' => 30, 'notnull' => false]);
+        $table->addColumn('email', 'string', ['length' => 75, 'notnull' => false]);
+        $table->addColumn('homepage', 'string', ['length' => 100, 'notnull' => false]);
+        $table->addColumn('timezone', 'string', ['length' => 64]);
+        $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
+        $table->addColumn('time_budget', 'integer', ['default' => 0]);
+        $table->addColumn('budget', 'float', ['default' => '0']);
+        $table->addColumn('vat_id', 'string', ['length' => 50, 'notnull' => false]);
+        $table->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false]);
+        $table->addColumn('billable', 'smallint', ['default' => 1]); //original=tinyint
+        $table->addColumn('invoice_text', 'text', ['notnull' => false]);
+        $table->addIndex(['invoice_template_id'], 'IDX_5A97604412946D8B');
+        $table->addIndex(['visible'], 'IDX_5A9760447AB0E859'); 
+        $table->setPrimaryKey(['id']);
+    }
+
+    /*
+        CREATE TABLE kimai2_customers_comments (
+            id INT AUTO_INCREMENT NOT NULL, 
+            customer_id INT NOT NULL, 
+            created_by_id INT NOT NULL, 
+            message LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            created_at DATETIME NOT NULL COMMENT '(DC2Type:datetime)', 
+            pinned TINYINT(1) DEFAULT 0 NOT NULL, 
+            INDEX IDX_A5B142D99395C3F3 (customer_id), 
+            INDEX IDX_A5B142D9B03A8386 (created_by_id), 
+            PRIMARY KEY(id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createCustomersCommentsTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_customers_comments');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('customer_id', 'integer');
+        $table->addColumn('created_by_id', 'integer');
+        $table->addColumn('message', 'text');
+        $table->addColumn('created_at', 'datetime');
+        $table->addColumn('pinned', 'smallint', ['default' => 0]); //original=tinyint
+        $table->addIndex(['customer_id'], 'IDX_A5B142D99395C3F3');
+        $table->addIndex(['created_by_id'], 'IDX_A5B142D9B03A8386'); 
+        $table->setPrimaryKey(['id']);
+    }
+
+    /*
+        CREATE TABLE kimai2_customers_meta (
+            id INT AUTO_INCREMENT NOT NULL, 
+            customer_id INT NOT NULL, 
+            name VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, 
+            value TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, 
+            visible TINYINT(1) DEFAULT 0 NOT NULL, 
+            UNIQUE INDEX UNIQ_A48A760F9395C3F35E237E06 (customer_id, name), 
+            INDEX IDX_A48A760F9395C3F3 (customer_id), 
+            PRIMARY KEY(id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createCustomersMetaTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_customers_meta');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('customer_id', 'integer');
+        $table->addColumn('name', 'string', ['length' => 50]);
+        $table->addColumn('value', 'text', ['notnull' => false]);
+        $table->addColumn('visible', 'smallint', ['default' => 0]); // original=tinyint
+        $table->addUniqueIndex(['customer_id', 'name'], 'UNIQ_A48A760F9395C3F35E237E06'); 
+        $table->addIndex(['customer_id'], 'IDX_A48A760F9395C3F3'); 
+        $table->setPrimaryKey(['id']);
+    }
+
+    /*
+        CREATE TABLE kimai2_customers_rates (
+            id INT AUTO_INCREMENT NOT NULL, 
+            user_id INT DEFAULT NULL, 
+            customer_id INT DEFAULT NULL, 
+            rate DOUBLE PRECISION NOT NULL, 
+            fixed TINYINT(1) NOT NULL, 
+            internal_rate DOUBLE PRECISION DEFAULT NULL, 
+            INDEX IDX_82AB0AEC9395C3F3 (customer_id), 
+            UNIQUE INDEX UNIQ_82AB0AECA76ED3959395C3F3 (user_id, customer_id), 
+            INDEX IDX_82AB0AECA76ED395 (user_id), 
+            PRIMARY KEY(id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createCustomersRatesTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_customers_rates');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('user_id', 'integer', ['notnull' => false]);
+        $table->addColumn('customer_id', 'integer', ['notnull' => false]);
+        $table->addColumn('rate', 'float');
+        $table->addColumn('fixed', 'smallint'); // original=tinyint
+        $table->addColumn('internal_rate', 'float', ['notnull' => false]);
+        $table->addIndex(['customer_id'], 'IDX_82AB0AEC9395C3F3'); 
+        $table->addUniqueIndex(['user_id', 'customer_id'], 'UNIQ_82AB0AECA76ED3959395C3F3'); 
+        $table->addIndex(['user_id'], 'IDX_82AB0AECA76ED395'); 
+        $table->setPrimaryKey(['id']);
+    }
+
+    /*
+        CREATE TABLE kimai2_customers_teams (
+            customer_id INT NOT NULL, 
+            team_id INT NOT NULL, 
+            INDEX IDX_50BD8388296CD8AE (team_id), 
+            INDEX IDX_50BD83889395C3F3 (customer_id), 
+            PRIMARY KEY(customer_id, team_id)
+        ) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
+     */
+    /**
+     * @param Schema $schema
+     */
+    public function createCustomersTeamsTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_customers_teams');
+        $table->addColumn('customer_id', 'integer');
+        $table->addColumn('team_id', 'integer');
+        $table->addIndex(['team_id'], 'IDX_50BD8388296CD8AE'); 
+        $table->addIndex(['customer_id'], 'IDX_50BD83889395C3F3');
+        $table->setPrimaryKey(['customer_id', 'team_id']);
+    }
+
+}
+
+    /**
+     * @param Schema $schema
+     */
+    public function createUsersTable(Schema $schema): void
+    {
+        /* addColumn( column_name , column_type, [portable_options, common_options, vendor_specific_options] )*/
+        $table = $schema->createTable('kimai2_users');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('name', 'string', ['length' => 60]);
+        $table->addColumn('mail', 'string', ['length' => 160]);
+        $table->addColumn('password', 'string', ['length' => 254, 'notnull' => false]);
+        $table->addColumn('alias', 'string', ['length' => 60, 'notnull' => false]);
+        $table->addColumn('active', 'smallint'); //original=tinyint
+        $table->addColumn('registration_date', 'datetime', ['notnull' => false]);
+        $table->addColumn('title', 'string', ['length' => 60, 'notnull' => false]);
+        $table->addColumn('avatar', 'string', ['length' => 255, 'notnull' => false]);
+        $table->addColumn('roles', 'text', ['comment' => '(DC2Type:array)']); //commonoption
+        $table->addUniqueIndex(['name'], 'UNIQ_B9AC5BCE5E237E06');
+        $table->addUniqueIndex(['mail'], 'UNIQ_B9AC5BCE5126AC48');
+        $table->setPrimaryKey(['id']);
+    }
+
+    /**
+     * @param Schema $schema
+     */
+    public function createUserPreferencesTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_user_preferences');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('user_id', 'integer', ['notnull' => false]);
+        $table->addColumn('name', 'string', ['length' => 50]);
+        $table->addColumn('value', 'string', ['length' => 255]);
+        $table->addIndex(['user_id'], 'IDX_8D08F631A76ED395');
+        $table->addUniqueIndex(['user_id', 'name'], 'UNIQ_8D08F631A76ED3955E237E06');
+        $table->setPrimaryKey(['id']);
+    }
+
+
+    /**
+     * @param Schema $schema
+     */
+    public function createProjectsTable(Schema $schema)
+    {
+        $table = $schema->createTable('kimai2_projects');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('customer_id', 'integer', ['notnull' => false]);
+        $table->addColumn('name', 'string', ['length' => 150]);
+        $table->addColumn('order_number', 'text', ['notnull' => false]); // will map to tinytext https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/types.html#mapping-matrix
+        $table->addColumn('comment', 'text', ['notnull' => false]);
+        $table->addColumn('visible', 'smallint'); // original=tinyint
+        $table->addColumn('budget', 'decimal', ['precision' => 10, 'scale' => 2]); // decimal is saved as string in php
+        $table->addIndex(['customer_id'], 'IDX_407F12069395C3F3');
+        $table->setPrimaryKey(['id']);
+    }
+
+
+    /**
+     * @param Schema $schema
+     */
+    public function createTimesheetTable($schema)
+    {
+        $table = $schema->createTable('kimai2_timesheet');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('user', 'integer', ['notnull' => false]);
+        $table->addColumn('activity_id', 'integer', ['notnull' => false]);
+        $table->addColumn('start_time', 'datetime');
+        $table->addColumn('end_time', 'datetime', ['notnull' => false]);
+        $table->addColumn('duration', 'integer', ['notnull' => false]);
+        $table->addColumn('description', 'text', ['notnull' => false]);
+        $table->addColumn('rate', 'decimal', ['precision' => 10, 'scale' => 2]);
+        $table->addIndex(['user'], 'IDX_4F60C6B18D93D649');
+        $table->addIndex(['activity_id'], 'IDX_4F60C6B181C06096');
+        $table->setPrimaryKey(['id']);
+    }
+ 
+    /**
+     * @param Schema $schema
+     */
+    public function createInvoiceTemplatesTable($schema)
+    {
+        $table = $schema->createTable('kimai2_invoice_templates');
+        $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('name', 'string', ['length' => 60]);
+        $table->addColumn('title', 'string', ['length' => 255]);
+        $table->addColumn('company', 'string', ['length' => 255]);
+        $table->addColumn('address', 'text', ['notnull' => false]);
+        $table->addColumn('due_days', 'integer');
+        $table->addColumn('vat', 'integer', ['notnull' => false]);
+        $table->addColumn('calculator', 'string', ['length' => 20]);
+        $table->addColumn('number_generator', 'string', ['length' => 20]);
+        $table->addColumn('renderer', 'string', ['length' => 20]);
+        $table->addColumn('payment_terms', 'text', ['notnull' => false]);
+        $table->addUniqueIndex(['name'], 'UNIQ_1626CFE95E237E06');
+        $table->setPrimaryKey(['id']);
+    }
+
+    /**
+     * @param Schema $schema
+     */
+    public function createForeignKeyConstraints(Schema $schema)
+    {
+        $userPreferencesTable = $schema->getTable('kimai2_user_preferences');
+        $usersTable = $schema->getTable('kimai2_users');
+        $projectsTable = $schema->getTable('kimai2_projects');
+        $customersTable = $schema->getTable('kimai2_customers');
+        $activitiesTable = $schema->getTable('kimai2_activities');
+        $timesheetTable = $schema->getTable('kimai2_timesheet');
+
+        $userPreferencesTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_8D08F631A76ED395');
+        $projectsTable->addForeignKeyConstraint($usersTable, ['customer_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_407F12069395C3F3');
+        $activitiesTable->addForeignKeyConstraint($usersTable, ['project_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_8811FE11C166D1F9C');
+        $timesheetTable->addForeignKeyConstraint($usersTable, ['user'], ['id'], [], 'FK_4F60C6B18D93D649');
+        $timesheetTable->addForeignKeyConstraint($usersTable, ['activity_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_4F60C6B181C06096');
+    }
+}
+/**
+ * This SQL was generated from the doctrine command
+ * 'php bin/console doctrine:schema:update --dump-sql' 
+ * around the time of commit 5711c15eac1082a2062a5f21d7c7b75f1d59eb06
+ *
 CREATE TABLE kimai2_activities (id INT AUTO_INCREMENT NOT NULL, project_id INT DEFAULT NULL, name VARCHAR(150) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, comment TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, visible TINYINT(1) NOT NULL, color VARCHAR(7) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, time_budget INT DEFAULT 0 NOT NULL, budget DOUBLE PRECISION DEFAULT '0' NOT NULL, budget_type VARCHAR(10) CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, billable TINYINT(1) DEFAULT 1 NOT NULL, invoice_text LONGTEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, INDEX IDX_8811FE1C7AB0E8595E237E06 (visible, name), INDEX IDX_8811FE1C166D1F9C (project_id), INDEX IDX_8811FE1C7AB0E859166D1F9C5E237E06 (visible, project_id, name), INDEX IDX_8811FE1C7AB0E859166D1F9C (visible, project_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
 CREATE TABLE kimai2_activities_meta (id INT AUTO_INCREMENT NOT NULL, activity_id INT NOT NULL, name VARCHAR(50) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`, value TEXT CHARACTER SET utf8mb4 DEFAULT NULL COLLATE `utf8mb4_unicode_ci`, visible TINYINT(1) DEFAULT 0 NOT NULL, UNIQUE INDEX UNIQ_A7C0A43D81C060965E237E06 (activity_id, name), INDEX IDX_A7C0A43D81C06096 (activity_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
 CREATE TABLE kimai2_activities_rates (id INT AUTO_INCREMENT NOT NULL, user_id INT DEFAULT NULL, activity_id INT DEFAULT NULL, rate DOUBLE PRECISION NOT NULL, fixed TINYINT(1) NOT NULL, internal_rate DOUBLE PRECISION DEFAULT NULL, INDEX IDX_4A7F11BE81C06096 (activity_id), INDEX IDX_4A7F11BEA76ED395 (user_id), UNIQUE INDEX UNIQ_4A7F11BEA76ED39581C06096 (user_id, activity_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB COMMENT = '' 
@@ -87,17 +602,4 @@ ALTER TABLE kimai2_timesheet_tags ADD CONSTRAINT FK_732EECA9BAD26311 FOREIGN KEY
 ALTER TABLE kimai2_user_preferences ADD CONSTRAINT FK_8D08F631A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
 ALTER TABLE kimai2_users_teams ADD CONSTRAINT FK_B5E92CF8296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
 ALTER TABLE kimai2_users_teams ADD CONSTRAINT FK_B5E92CF8A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-
-    }
-
-    public function down(Schema $schema): void
-    {
-        // this down() migration is auto-generated, please modify it to your needs
-
-    }
-
-    public function isTransactional(): bool
-    {
-        return false;
-    }
-}
+ */
