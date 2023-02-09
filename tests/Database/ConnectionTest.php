@@ -10,19 +10,17 @@
 namespace App\Tests\Database;
 
 use Doctrine\DBAL\Connection;
-use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Platforms\MySqlPlatform;
 use Doctrine\DBAL\Platforms\PostgreSqlPlatform;
-
 use PHPUnit\Framework\TestCase;
 
 /**
- * @covers 
+ * @covers
  * @group database
  */
 class ConnectionTest extends TestCase
 {
-    /** 
+    /**
      * an externally provided connection to test
      */
     protected $connection;
@@ -43,4 +41,3 @@ class ConnectionTest extends TestCase
         ];
     }
 }
-

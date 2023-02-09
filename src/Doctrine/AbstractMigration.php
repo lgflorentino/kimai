@@ -56,7 +56,7 @@ abstract class AbstractMigration extends BaseAbstractMigration
     protected function abortIfPlatformNotSupported()
     {
         $platform = $this->connection->getDatabasePlatform();
-        if (!($platform instanceof MySQLPlatform) && 
+        if (!($platform instanceof MySQLPlatform) &&
             !($platform instanceof PostgreSQLPlatform)) {
             $this->abortIf(true, 'Unsupported database platform: ' . \get_class($platform));
         }
@@ -65,21 +65,22 @@ abstract class AbstractMigration extends BaseAbstractMigration
     protected function isPlatformMySQL(): bool
     {
         $platform = $this->connection->getDatabasePlatform();
+
         return $platform instanceof MySQLPlatform;
     }
 
     protected function isPlatformPostgreSQL(): bool
     {
         $platform = $this->connection->getDatabasePlatform();
+
         return $platform instanceof MySQLPlatform;
     }
 
     protected function preventEmptyMigrationWarning(): void
     {
-        if($this->isPlatformMySQL()) {
+        if ($this->isPlatformMySQL()) {
             $this->addSql('#prevent empty warning - no SQL to execute');
-        }
-        else if ($this->isPlatformPostgreSQL()) {
+        } elseif ($this->isPlatformPostgreSQL()) {
             $this->addSql('-- prevent empty warning - no SQL to execute');
         }
     }
