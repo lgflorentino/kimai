@@ -52,7 +52,7 @@ final class Version20230131123812 extends AbstractMigration
             $this->createUserPreferencesTable($schema);
             $this->createUsersTable($schema);
             $this->createUsersTeamsTable($schema);
-            $this->createMigrationVersionsTable($schema)
+            $this->createMigrationVersionsTable($schema);
             $this->createForeignKeyConstraints($schema);
         }
 
@@ -541,8 +541,8 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('comment', 'text', ['notnull' => false]);
         $table->addUniqueIndex(['invoice_number'], 'UNIQ_76C38E372DA68207'); 
         $table->addIndex(['user_id'], 'IDX_76C38E37A76ED395'); 
-        $table->addUniqueIndex(['invoice_filename'], 'UNIQ_76C38E372323B33D')
-        $table->addIndex(['customer_id'], 'IDX_76C38E379395C3F3'
+        $table->addUniqueIndex(['invoice_filename'], 'UNIQ_76C38E372323B33D');
+        $table->addIndex(['customer_id'], 'IDX_76C38E379395C3F3');
         $table->setPrimaryKey(['id']);
     }
 
@@ -611,7 +611,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('order_number', 'text', ['notnull' => false]); // will map to tinytext https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/types.html#mapping-matrix
         $table->addColumn('comment', 'text', ['notnull' => false]);
         $table->addColumn('visible', 'smallint'); // original=tinyint
-        $table->addColumn('budget', 'float', ['default' => '0');
+        $table->addColumn('budget', 'float', ['default' => '0']);
         $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
         $table->addColumn('time_budget', 'integer', ['default' => 0]);
         $table->addColumn('order_date', 'datetime', ['notnull' => false]);
@@ -714,7 +714,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('internal_rate', 'float', ['notnull' => false]); //original=tinyint
         $table->addIndex(['project_id'], 'IDX_41535D55166D1F9C');
         $table->addUniqueIndex(['user_id', 'project_id'], 'UNIQ_41535D55A76ED395166D1F9C');
-        $table->addIndex(['user_id'], 'IDX_41535D55A76ED395')
+        $table->addIndex(['user_id'], 'IDX_41535D55A76ED395');
         $table->setPrimaryKey(['id']);
     }
 
@@ -916,7 +916,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addIndex(['user'], 'IDX_4F60C6B18D93D649');
         $table->addIndex(['project_id'], 'IDX_4F60C6B1166D1F9C');
         $table->addIndex(['start_time', 'end_time'], 'IDX_4F60C6B1502DF58741561401');
-        $table->addIndex(['user', 'project_id', 'activity_id'], 'IDX_TIMESHEET_RECENT_ACTIVITIES'):
+        $table->addIndex(['user', 'project_id', 'activity_id'], 'IDX_TIMESHEET_RECENT_ACTIVITIES');
         $table->addIndex(['date_tz', 'user'], 'IDX_4F60C6B1BDF467148D93D649');
         $table->addIndex(['activity_id'], 'IDX_4F60C6B181C06096');
         $table->addIndex(['end_time', 'user'], 'IDX_4F60C6B1415614018D93D649');
