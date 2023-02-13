@@ -740,7 +740,6 @@ final class Version20230131123812 extends AbstractMigration
         $table->setPrimaryKey(['project_id', 'team_id']);
     }
 
-    /* ===========================================================================#TODO From here down still needs to be converted========================================================================= */
     /*
         CREATE TABLE kimai2_roles (
             id INT AUTO_INCREMENT NOT NULL, 
@@ -756,6 +755,8 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('kimai2_roles');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('name', 'string', ['length' => 50]);
+        $table->addUniqueIndex(['name'], 'roles_name');
         $table->setPrimaryKey(['id']);
     }
 
@@ -777,6 +778,11 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('kimai2_roles_permissions');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('role_id', 'integer');
+        $table->addColumn('permission', 'string', ['length' => 50]);
+        $table->addColumn('allowed', 'smallint', ['default' => 0]);
+        $table->addUniqueIndex(['role_id', 'permission'], 'role_permission');
+        $table->addIndex(['role_id'], 'IDX_D263A3B8D60322AC');
         $table->setPrimaryKey(['id']);
     }
 
@@ -796,6 +802,9 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('kimai2_sessions');
         $table->addColumn('id', 'string', ['length' => 128]);
+        $table->addColumn('data', 'blob');
+        $table->addColumn('time', 'integer', ['unsigned' => true]);
+        $table->addColumn('lifetime', 'integer', ['unsigned' => true]);
         $table->setPrimaryKey(['id']);
     }
 
@@ -815,6 +824,9 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('kimai2_tags');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('name', 'string', ['length' => 100]);
+        $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
+        $table->addUniqueIndex(['name'], 'UNIQ_27CAF54C5E237E06');
         $table->setPrimaryKey(['id']);
     }
 
@@ -834,6 +846,9 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('kimai2_teams');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('name', 'string', ['length' => 100]);
+        $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
+        $table->addUniqueIndex(['name'], 'UNIQ_3BEDDC7F5E237E06');
         $table->setPrimaryKey(['id']);
     }
 
@@ -879,15 +894,35 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('kimai2_timesheet');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
-        $table->addColumn('user', 'integer', ['notnull' => false]);
-        $table->addColumn('activity_id', 'integer', ['notnull' => false]);
+        $table->addColumn('user', 'integer');
+        $table->addColumn('activity_id', 'integer');
+        $table->addColumn('project_id', 'integer');
         $table->addColumn('start_time', 'datetime');
         $table->addColumn('end_time', 'datetime', ['notnull' => false]);
         $table->addColumn('duration', 'integer', ['notnull' => false]);
         $table->addColumn('description', 'text', ['notnull' => false]);
         $table->addColumn('rate', 'float');
+        $table->addColumn('fixed_rate', 'float', ['notnull' => false]);
+        $table->addColumn('hourly_rate', 'float', ['notnull' => false]);
+        $table->addColumn('exported', 'smallint', ['default' => 0]);
+        $table->addColumn('timezone', 'string', ['length' => 64]);
+        $table->addColumn('internal_rate', 'float', ['notnull' => false]);
+        $table->addColumn('billable', 'smallint', ['default' => 1]);
+        $table->addColumn('category', 'string', ['length' => 10, 'default' => 'work']);
+        $table->addColumn('modified_at', 'datetime', ['notnull' => false]);
+        $table->addColumn('date_tz', 'date');
+        $table->addIndex(['user', 'id', 'duration'], 'IDX_TIMESHEET_RESULT_STATS');
+        $table->addIndex(['start_time', 'end_time', 'user'], 'IDX_4F60C6B1502DF587415614018D93D649');
         $table->addIndex(['user'], 'IDX_4F60C6B18D93D649');
+        $table->addIndex(['project_id'], 'IDX_4F60C6B1166D1F9C');
+        $table->addIndex(['start_time', 'end_time'], 'IDX_4F60C6B1502DF58741561401');
+        $table->addIndex(['user', 'project_id', 'activity_id'], 'IDX_TIMESHEET_RECENT_ACTIVITIES'):
+        $table->addIndex(['date_tz', 'user'], 'IDX_4F60C6B1BDF467148D93D649');
         $table->addIndex(['activity_id'], 'IDX_4F60C6B181C06096');
+        $table->addIndex(['end_time', 'user'], 'IDX_4F60C6B1415614018D93D649');
+        $table->addIndex(['user', 'start_time'], 'IDX_4F60C6B18D93D649502DF587');
+        $table->addIndex(['end_time', 'user', 'start_time'], 'IDX_TIMESHEET_TICKTAC'); 
+        $table->addIndex(['start_time'], 'IDX_4F60C6B1502DF587'); 
         $table->setPrimaryKey(['id']);
     }
 
@@ -910,6 +945,12 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('kimai2_timesheet_meta');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('timesheet_id', 'integer');
+        $table->addColumn('name', 'string', ['length' => 50]);
+        $table->addColumn('value', 'text', ['notnull' => false]);
+        $table->addColumn('visible', 'smallint', ['default' => 0]);
+        $table->addUniqueIndex(['timesheet_id', 'name'], 'UNIQ_CB606CBAABDD46BE5E237E06'); 
+        $table->addIndex(['timesheet_id'], 'IDX_CB606CBAABDD46BE');
         $table->setPrimaryKey(['id']);
     }
 
@@ -930,6 +971,8 @@ final class Version20230131123812 extends AbstractMigration
         $table = $schema->createTable('kimai2_timesheet_tags');
         $table->addColumn('timesheet_id', 'integer');
         $table->addColumn('tag_id', 'integer');
+        $table->addIndex(['tag_id'], 'IDX_E3284EFEBAD26311');
+        $table->addIndex(['timesheet_id'], 'IDX_E3284EFEABDD46BE');
         $table->setPrimaryKey(['timesheet_id', 'tag_id']);
     }
 
@@ -953,12 +996,13 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('user_id', 'integer', ['notnull' => false]);
         $table->addColumn('name', 'string', ['length' => 50]);
-        $table->addColumn('value', 'string', ['length' => 255]);
+        $table->addColumn('value', 'string', ['length' => 255, 'notnull' => false]);
         $table->addIndex(['user_id'], 'IDX_8D08F631A76ED395');
         $table->addUniqueIndex(['user_id', 'name'], 'UNIQ_8D08F631A76ED3955E237E06');
         $table->setPrimaryKey(['id']);
     }
 
+    /* ===========================================================================#TODO From here down still needs to be converted========================================================================= */
     /*
         CREATE TABLE kimai2_users (
             id INT AUTO_INCREMENT NOT NULL, 
