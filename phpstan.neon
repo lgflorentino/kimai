@@ -916,33 +916,13 @@ parameters:
             path: src/Configuration/SystemConfiguration.php
 
         -
-            message: "#^Offset \\(int\\|string\\) might not exist on array\\|null\\.$#"
-            count: 1
-            path: src/Configuration/SystemConfiguration.php
-
-        -
-            message: "#^Parameter \\#1 \\$array of function array_filter expects array, array\\|null given\\.$#"
-            count: 2
-            path: src/Configuration/SystemConfiguration.php
-
-        -
             message: "#^Parameter \\#1 \\$key of method App\\\\Configuration\\\\SystemConfiguration\\:\\:set\\(\\) expects string, mixed given\\.$#"
-            count: 1
-            path: src/Configuration/SystemConfiguration.php
-
-        -
-            message: "#^Parameter \\#1 \\$key of method App\\\\Configuration\\\\SystemConfiguration\\:\\:set\\(\\) expects string, string\\|null given\\.$#"
             count: 1
             path: src/Configuration/SystemConfiguration.php
 
         -
             message: "#^Parameter \\#1 \\$string of function trim expects string, bool\\|float\\|int\\|string given\\.$#"
             count: 1
-            path: src/Configuration/SystemConfiguration.php
-
-        -
-            message: "#^Parameter \\#2 \\$array of function array_key_exists expects array, array\\|null given\\.$#"
-            count: 3
             path: src/Configuration/SystemConfiguration.php
 
         -
@@ -1609,16 +1589,6 @@ parameters:
             message: "#^Parameter \\#1 \\$token of method App\\\\User\\\\UserService\\:\\:findUserByConfirmationToken\\(\\) expects string, string\\|null given\\.$#"
             count: 1
             path: src/Controller/Security/SelfRegistrationController.php
-
-        -
-            message: "#^Cannot call method setEnabled\\(\\) on App\\\\Form\\\\Model\\\\Configuration\\|null\\.$#"
-            count: 3
-            path: src/Controller/SystemConfigurationController.php
-
-        -
-            message: "#^Parameter \\#1 \\$model of method App\\\\Repository\\\\ConfigurationRepository\\:\\:saveSystemConfiguration\\(\\) expects App\\\\Form\\\\Model\\\\SystemConfiguration, mixed given\\.$#"
-            count: 1
-            path: src/Controller/SystemConfigurationController.php
 
         -
             message: "#^Parameter \\#1 \\$value of method App\\\\Form\\\\Model\\\\Configuration\\:\\:setValue\\(\\) expects bool\\|int\\|object\\|string\\|null, bool\\|float\\|int\\|string given\\.$#"
@@ -6361,11 +6331,6 @@ parameters:
             path: src/Repository/BookmarkRepository.php
 
         -
-            message: "#^Method App\\\\Repository\\\\ConfigurationRepository\\:\\:saveSystemConfiguration\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Repository/ConfigurationRepository.php
-
-        -
             message: "#^Cannot call method getSearchFields\\(\\) on App\\\\Utils\\\\SearchTerm\\|null\\.$#"
             count: 1
             path: src/Repository/CustomerRepository.php
@@ -8056,76 +8021,6 @@ parameters:
             path: src/Validator/Constraints/UserValidator.php
 
         -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Activity\\) of method App\\\\Voter\\\\ActivityVoter\\:\\:supports\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:supports\\(\\)$#"
-            count: 1
-            path: src/Voter/ActivityVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Activity\\) of method App\\\\Voter\\\\ActivityVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/ActivityVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Customer\\) of method App\\\\Voter\\\\CustomerVoter\\:\\:supports\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:supports\\(\\)$#"
-            count: 1
-            path: src/Voter/CustomerVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Customer\\) of method App\\\\Voter\\\\CustomerVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/CustomerVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Activity\\|App\\\\Entity\\\\Customer\\|App\\\\Entity\\\\Project\\|string\\) of method App\\\\Voter\\\\EntityMultiRoleVoter\\:\\:supports\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:supports\\(\\)$#"
-            count: 1
-            path: src/Voter/EntityMultiRoleVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Activity\\|App\\\\Entity\\\\Customer\\|App\\\\Entity\\\\Project\\|string\\) of method App\\\\Voter\\\\EntityMultiRoleVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/EntityMultiRoleVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Project\\) of method App\\\\Voter\\\\ProjectVoter\\:\\:supports\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:supports\\(\\)$#"
-            count: 1
-            path: src/Voter/ProjectVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Project\\) of method App\\\\Voter\\\\ProjectVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/ProjectVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\User\\) of method App\\\\Voter\\\\QuickEntryVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/QuickEntryVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(null\\) of method App\\\\Voter\\\\ReportingVoter\\:\\:supports\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:supports\\(\\)$#"
-            count: 1
-            path: src/Voter/ReportingVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(null\\) of method App\\\\Voter\\\\ReportingVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/ReportingVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Activity\\) of method App\\\\Voter\\\\RolePermissionVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/RolePermissionVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Team\\) of method App\\\\Voter\\\\TeamVoter\\:\\:supports\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:supports\\(\\)$#"
-            count: 1
-            path: src/Voter/TeamVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Team\\) of method App\\\\Voter\\\\TeamVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/TeamVoter.php
-
-        -
             message: "#^Cannot call method getId\\(\\) on App\\\\Entity\\\\User\\|null\\.$#"
             count: 1
             path: src/Voter/TimesheetVoter.php
@@ -8134,16 +8029,6 @@ parameters:
             message: "#^Cannot call method isVisible\\(\\) on App\\\\Entity\\\\Customer\\|null\\.$#"
             count: 1
             path: src/Voter/TimesheetVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\Timesheet\\) of method App\\\\Voter\\\\TimesheetVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/TimesheetVoter.php
-
-        -
-            message: "#^Parameter \\#2 \\$subject \\(App\\\\Entity\\\\User\\) of method App\\\\Voter\\\\UserVoter\\:\\:voteOnAttribute\\(\\) should be contravariant with parameter \\$subject \\(mixed\\) of method Symfony\\\\Component\\\\Security\\\\Core\\\\Authorization\\\\Voter\\\\Voter\\:\\:voteOnAttribute\\(\\)$#"
-            count: 1
-            path: src/Voter/UserVoter.php
 
         -
             message: "#^Cannot access offset 'billable' on mixed\\.$#"
