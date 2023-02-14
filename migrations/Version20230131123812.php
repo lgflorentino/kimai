@@ -37,7 +37,7 @@ final class Version20230131123812 extends AbstractMigration
             $this->createInvoicesTable($schema);
             $this->createInvoicesMetaTable($schema);
             $this->createProjectsTable($schema);
-            $this->createProjectsCommmentsTable($schema);
+            $this->createProjectsCommentsTable($schema);
             $this->createProjectsMetaTable($schema);
             $this->createProjectsRatesTable($schema);
             $this->createProjectsTeamsTable($schema);
@@ -52,7 +52,7 @@ final class Version20230131123812 extends AbstractMigration
             $this->createUserPreferencesTable($schema);
             $this->createUsersTable($schema);
             $this->createUsersTeamsTable($schema);
-            $this->createMigrationVersionsTable($schema);
+            // $this->createMigrationVersionsTable($schema);
             $this->createForeignKeyConstraints($schema);
         }
 
@@ -129,12 +129,12 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('project_id', 'integer', ['notnull' => false]);
         $table->addColumn('name', 'string', ['length' => 150]);
         $table->addColumn('comment', 'text', ['notnull' => false]);
-        $table->addColumn('visible', 'smallint'); // original=tinyint
+        $table->addColumn('visible', 'boolean'); // original=tinyint
         $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
         $table->addColumn('time_budget', 'integer', ['default' => 0]);
-        $table->addColumn('budget', 'float', ['default' => '0']);
+        $table->addColumn('budget', 'float', ['default' => 0]);
         $table->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false]);
-        $table->addColumn('billable', 'smallint', ['default' => 1]); // original=tinyint
+        $table->addColumn('billable', 'boolean', ['default' => true]); // original=tinyint,default=1
         $table->addColumn('invoice_text', 'text', ['notnull' => false]);
         $table->addIndex(['visible', 'name'], 'IDX_8811FE1C7AB0E8595E237E06'); 
         $table->addIndex(['project_id'], 'IDX_8811FE1C166D1F9C');
@@ -165,7 +165,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('activity_id', 'integer');
         $table->addColumn('name', 'string', ['length' => 50]);
         $table->addColumn('value', 'text', ['notnull' => false]);
-        $table->addColumn('visible', 'smallint', ['default' => 0]); // original=tinyint
+        $table->addColumn('visible', 'boolean', ['default' => 0]); // original=tinyint,default=0
         $table->addUniqueIndex(['activity_id', 'name'], 'UNIQ_A7C0A43D81C060965E237E06');
         $table->addIndex(['activity_id'], 'IDX_A7C0A43D81C06096');
         $table->setPrimaryKey(['id']);
@@ -195,7 +195,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('user_id', 'integer', ['notnull' => false]);
         $table->addColumn('activity_id', 'integer', ['notnull' => false]);
         $table->addColumn('rate', 'float');
-        $table->addColumn('fixed', 'smallint'); // original=tinyint
+        $table->addColumn('fixed', 'boolean'); // original=tinyint
         $table->addColumn('internal_rate', 'float', ['notnull' => false]);
         $table->addIndex(['activity_id'], 'IDX_4A7F11BE81C06096'); 
         $table->addIndex(['user_id'], 'IDX_4A7F11BEA76ED395'); 
@@ -310,7 +310,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('name', 'string', ['length' => 150]);
         $table->addColumn('number', 'string', ['length' => 50, 'notnull' => false]);
         $table->addColumn('comment', 'text', ['notnull' => false]);
-        $table->addColumn('visible', 'smallint'); //original=tinyint
+        $table->addColumn('visible', 'boolean'); //original=tinyint
         $table->addColumn('company', 'string', ['length' => 100, 'notnull' => false]);
         $table->addColumn('contact', 'string', ['length' => 100, 'notnull' => false]);
         $table->addColumn('address', 'text', ['notnull' => false]);
@@ -324,10 +324,10 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('timezone', 'string', ['length' => 64]);
         $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
         $table->addColumn('time_budget', 'integer', ['default' => 0]);
-        $table->addColumn('budget', 'float', ['default' => '0']);
+        $table->addColumn('budget', 'float', ['default' => 0]);
         $table->addColumn('vat_id', 'string', ['length' => 50, 'notnull' => false]);
         $table->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false]);
-        $table->addColumn('billable', 'smallint', ['default' => 1]); //original=tinyint
+        $table->addColumn('billable', 'boolean', ['default' => true]); //original=tinyint,default=1
         $table->addColumn('invoice_text', 'text', ['notnull' => false]);
         $table->addIndex(['invoice_template_id'], 'IDX_5A97604412946D8B');
         $table->addIndex(['visible'], 'IDX_5A9760447AB0E859'); 
@@ -358,7 +358,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('created_by_id', 'integer');
         $table->addColumn('message', 'text');
         $table->addColumn('created_at', 'datetime');
-        $table->addColumn('pinned', 'smallint', ['default' => 0]); //original=tinyint
+        $table->addColumn('pinned', 'boolean', ['default' => false]); //original=tinyint,default=0
         $table->addIndex(['customer_id'], 'IDX_A5B142D99395C3F3');
         $table->addIndex(['created_by_id'], 'IDX_A5B142D9B03A8386'); 
         $table->setPrimaryKey(['id']);
@@ -386,7 +386,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('customer_id', 'integer');
         $table->addColumn('name', 'string', ['length' => 50]);
         $table->addColumn('value', 'text', ['notnull' => false]);
-        $table->addColumn('visible', 'smallint', ['default' => 0]); // original=tinyint
+        $table->addColumn('visible', 'boolean', ['default' => false]); // original=tinyint,default=0
         $table->addUniqueIndex(['customer_id', 'name'], 'UNIQ_A48A760F9395C3F35E237E06'); 
         $table->addIndex(['customer_id'], 'IDX_A48A760F9395C3F3'); 
         $table->setPrimaryKey(['id']);
@@ -416,7 +416,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('user_id', 'integer', ['notnull' => false]);
         $table->addColumn('customer_id', 'integer', ['notnull' => false]);
         $table->addColumn('rate', 'float');
-        $table->addColumn('fixed', 'smallint'); // original=tinyint
+        $table->addColumn('fixed', 'boolean'); // original=tinyint
         $table->addColumn('internal_rate', 'float', ['notnull' => false]);
         $table->addIndex(['customer_id'], 'IDX_82AB0AEC9395C3F3'); 
         $table->addUniqueIndex(['user_id', 'customer_id'], 'UNIQ_82AB0AECA76ED3959395C3F3'); 
@@ -480,7 +480,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('company', 'string', ['length' => 255]);
         $table->addColumn('address', 'text', ['notnull' => false]);
         $table->addColumn('due_days', 'integer');
-        $table->addColumn('vat', 'float', ['default' => '0']);
+        $table->addColumn('vat', 'float', ['default' => 0]);
         $table->addColumn('calculator', 'string', ['length' => 20]);
         $table->addColumn('number_generator', 'string', ['length' => 20]);
         $table->addColumn('renderer', 'string', ['length' => 20]);
@@ -488,7 +488,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('vat_id', 'string', ['length' => 50, 'notnull' => false]);
         $table->addColumn('contact', 'text', ['notnull' => false]);
         $table->addColumn('payment_details', 'text', ['notnull' => false]);
-        $table->addColumn('decimal_duration', 'smallint', ['default' => 0]); // original=tinyint
+        $table->addColumn('decimal_duration', 'boolean', ['default' => false]); // original=tinyint,default=0
         $table->addColumn('language', 'string', ['length' => 20, 'notnull' => false]);
         $table->addUniqueIndex(['name'], 'UNIQ_1626CFE95E237E06'); 
         $table->setPrimaryKey(['id']);
@@ -530,8 +530,8 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('invoice_number', 'string', ['length' => 50]);
         $table->addColumn('created_at', 'datetime');
         $table->addColumn('timezone', 'string', ['length' => 64]);
-        $table->addColumn('total', 'float', ['default' => '0']);
-        $table->addColumn('tax', 'float', ['default' => '0']);
+        $table->addColumn('total', 'float', ['default' => 0]);
+        $table->addColumn('tax', 'float', ['default' => 0]);
         $table->addColumn('currency', 'string', ['length' => 3]);
         $table->addColumn('status', 'string', ['length' => 20]);
         $table->addColumn('due_days', 'integer');
@@ -568,7 +568,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('invoice_id', 'integer');
         $table->addColumn('name', 'string', ['length' => 50]);
         $table->addColumn('value', 'text', ['notnull' => false]);
-        $table->addColumn('visible', 'smallint', ['default' => 0, 'notnull' => false]);
+        $table->addColumn('visible', 'boolean', ['default' => false]); //original=tinyint,default=0
         $table->addUniqueIndex(['invoice_id', 'name'], 'UNIQ_7EDC37D92989F1FD5E237E06');
         $table->addIndex(['invoice_id'], 'IDX_7EDC37D92989F1FD'); 
         $table->setPrimaryKey(['id']);
@@ -610,8 +610,8 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('name', 'string', ['length' => 150]);
         $table->addColumn('order_number', 'text', ['notnull' => false]); // will map to tinytext https://www.doctrine-project.org/projects/doctrine-dbal/en/current/reference/types.html#mapping-matrix
         $table->addColumn('comment', 'text', ['notnull' => false]);
-        $table->addColumn('visible', 'smallint'); // original=tinyint
-        $table->addColumn('budget', 'float', ['default' => '0']);
+        $table->addColumn('visible', 'boolean'); // original=tinyint
+        $table->addColumn('budget', 'float', ['default' => 0]);
         $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
         $table->addColumn('time_budget', 'integer', ['default' => 0]);
         $table->addColumn('order_date', 'datetime', ['notnull' => false]);
@@ -619,11 +619,11 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('end', 'datetime', ['notnull' => false]);
         $table->addColumn('timezone', 'string', ['length' => 64, 'notnull' => false]);
         $table->addColumn('budget_type', 'string', ['length' => 10, 'notnull' => false]);
-        $table->addColumn('billable', 'smallint', ['default' => 1]); //original=tinyint
+        $table->addColumn('billable', 'boolean', ['default' => true]); //original=tinyint,default=1
         $table->addColumn('invoice_text', 'text', ['notnull' => false]);
-        $table->addColumn('global_activities', 'smallint', ['default' => 1]); //original=tinyint
-        $table->addIndex(['customer_id, visible, name'], 'IDX_407F12069395C3F37AB0E8595E237E06');
-        $table->addIndex(['customer_id, visible, id'], 'IDX_407F12069395C3F37AB0E859BF396750');
+        $table->addColumn('global_activities', 'boolean', ['default' => true]); //original=tinyint,default=1
+        $table->addIndex(['customer_id', 'visible', 'name'], 'IDX_407F12069395C3F37AB0E8595E237E06');
+        $table->addIndex(['customer_id', 'visible', 'id'], 'IDX_407F12069395C3F37AB0E859BF396750');
         $table->addIndex(['customer_id'], 'IDX_407F12069395C3F3');
         $table->setPrimaryKey(['id']);
     }
@@ -652,7 +652,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('created_by_id', 'integer');
         $table->addColumn('message', 'text');
         $table->addColumn('created_at', 'datetime');
-        $table->addColumn('pinned', 'smallint', ['default' => 0]); //original=tinyint
+        $table->addColumn('pinned', 'boolean', ['default' => false]); //original=tinyint,default=0
         $table->addIndex(['created_by_id'], 'IDX_29A23638B03A8386'); 
         $table->addIndex(['project_id'], 'IDX_29A23638166D1F9C');
         $table->setPrimaryKey(['id']);
@@ -680,7 +680,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('project_id', 'integer');
         $table->addColumn('name', 'string', ['length' => 50]);
         $table->addColumn('value', 'text', ['notnull' => false]);
-        $table->addColumn('visible', 'smallint', ['default' => 0]); //original=tinyint
+        $table->addColumn('visible', 'boolean', ['default' => false]); //original=tinyint,default=0
         $table->addUniqueIndex(['project_id', 'name'], 'UNIQ_50536EF2166D1F9C5E237E06');
         $table->addIndex(['project_id'], 'IDX_50536EF2166D1F9C');
         $table->setPrimaryKey(['id']);
@@ -710,8 +710,8 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('user_id', 'integer', ['notnull' => false]);
         $table->addColumn('project_id', 'integer', ['notnull' => false]);
         $table->addColumn('rate', 'float');
-        $table->addColumn('fixed', 'smallint');
-        $table->addColumn('internal_rate', 'float', ['notnull' => false]); //original=tinyint
+        $table->addColumn('fixed', 'boolean'); //original=tinyint
+        $table->addColumn('internal_rate', 'float', ['notnull' => false]);
         $table->addIndex(['project_id'], 'IDX_41535D55166D1F9C');
         $table->addUniqueIndex(['user_id', 'project_id'], 'UNIQ_41535D55A76ED395166D1F9C');
         $table->addIndex(['user_id'], 'IDX_41535D55A76ED395');
@@ -780,7 +780,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
         $table->addColumn('role_id', 'integer');
         $table->addColumn('permission', 'string', ['length' => 50]);
-        $table->addColumn('allowed', 'smallint', ['default' => 0]);
+        $table->addColumn('allowed', 'boolean', ['default' => false]); //original=tinyint,default=0
         $table->addUniqueIndex(['role_id', 'permission'], 'role_permission');
         $table->addIndex(['role_id'], 'IDX_D263A3B8D60322AC');
         $table->setPrimaryKey(['id']);
@@ -904,10 +904,10 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('rate', 'float');
         $table->addColumn('fixed_rate', 'float', ['notnull' => false]);
         $table->addColumn('hourly_rate', 'float', ['notnull' => false]);
-        $table->addColumn('exported', 'smallint', ['default' => 0]);
+        $table->addColumn('exported', 'boolean', ['default' => false]); //original=tinyint,default=0
         $table->addColumn('timezone', 'string', ['length' => 64]);
         $table->addColumn('internal_rate', 'float', ['notnull' => false]);
-        $table->addColumn('billable', 'smallint', ['default' => 1]);
+        $table->addColumn('billable', 'boolean', ['default' => true]); //original=tinyint,default=1
         $table->addColumn('category', 'string', ['length' => 10, 'default' => 'work']);
         $table->addColumn('modified_at', 'datetime', ['notnull' => false]);
         $table->addColumn('date_tz', 'date');
@@ -948,7 +948,7 @@ final class Version20230131123812 extends AbstractMigration
         $table->addColumn('timesheet_id', 'integer');
         $table->addColumn('name', 'string', ['length' => 50]);
         $table->addColumn('value', 'text', ['notnull' => false]);
-        $table->addColumn('visible', 'smallint', ['default' => 0]);
+        $table->addColumn('visible', 'boolean', ['default' => false]); //original=tinyint,default=0
         $table->addUniqueIndex(['timesheet_id', 'name'], 'UNIQ_CB606CBAABDD46BE5E237E06'); 
         $table->addIndex(['timesheet_id'], 'IDX_CB606CBAABDD46BE');
         $table->setPrimaryKey(['id']);
@@ -1002,7 +1002,6 @@ final class Version20230131123812 extends AbstractMigration
         $table->setPrimaryKey(['id']);
     }
 
-    /* ===========================================================================#TODO From here down still needs to be converted========================================================================= */
     /*
         CREATE TABLE kimai2_users (
             id INT AUTO_INCREMENT NOT NULL, 
@@ -1039,17 +1038,28 @@ final class Version20230131123812 extends AbstractMigration
         /* addColumn( column_name , column_type, [portable_options, common_options, vendor_specific_options] )*/
         $table = $schema->createTable('kimai2_users');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
-        $table->addColumn('name', 'string', ['length' => 60]);
-        $table->addColumn('mail', 'string', ['length' => 160]);
-        $table->addColumn('password', 'string', ['length' => 254, 'notnull' => false]);
+        $table->addColumn('username', 'string', ['length' => 180]);
+        $table->addColumn('email', 'string', ['length' => 190]);
+        $table->addColumn('password', 'string', ['length' => 255]);
         $table->addColumn('alias', 'string', ['length' => 60, 'notnull' => false]);
-        $table->addColumn('active', 'smallint'); //original=tinyint
+        $table->addColumn('enabled', 'boolean'); //original=tinyint
         $table->addColumn('registration_date', 'datetime', ['notnull' => false]);
-        $table->addColumn('title', 'string', ['length' => 60, 'notnull' => false]);
+        $table->addColumn('title', 'string', ['length' => 50, 'notnull' => false]);
         $table->addColumn('avatar', 'string', ['length' => 255, 'notnull' => false]);
-        $table->addColumn('roles', 'text', ['comment' => '(DC2Type:array)']); //commonoption
-        $table->addUniqueIndex(['name'], 'UNIQ_B9AC5BCE5E237E06');
-        $table->addUniqueIndex(['mail'], 'UNIQ_B9AC5BCE5126AC48');
+        $table->addColumn('roles', 'text');
+        $table->addColumn('last_login', 'datetime', ['notnull' => false]);
+        $table->addColumn('confirmation_token', 'string', ['length' => 180, 'notnull' => false]);
+        $table->addColumn('password_requested_at', 'datetime', ['notnull' => false]);
+        $table->addColumn('api_token', 'string', ['length' => 255, 'notnull' => false]);
+        $table->addColumn('auth', 'string', ['length' => 20, 'notnull' => false]);
+        $table->addColumn('color', 'string', ['length' => 7, 'notnull' => false]);
+        $table->addColumn('account', 'string', ['length' => 30, 'notnull' => false]);
+        $table->addColumn('totp_secret', 'string', ['length' => 255, 'notnull' => false]);
+        $table->addColumn('totp_enabled', 'boolean', ['default' => false]); //original=tinyint,default=0
+        $table->addColumn('system_account', 'boolean', ['default' => false]); //original=tinyint,default=0
+        $table->addUniqueIndex(['username'], 'UNIQ_B9AC5BCEF85E0677');
+        $table->addUniqueIndex(['confirmation_token'], 'UNIQ_B9AC5BCEC05FB297');
+        $table->addUniqueIndex(['email'], 'UNIQ_B9AC5BCEE7927C74');
         $table->setPrimaryKey(['id']);
     }
 
@@ -1072,6 +1082,12 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('kimai2_users_teams');
         $table->addColumn('id', 'integer', ['autoincrement' => true]);
+        $table->addColumn('user_id', 'integer');
+        $table->addColumn('team_id', 'integer');
+        $table->addColumn('teamlead', 'boolean', ['default' => 0]); //original=tinyint,default=0
+        $table->addUniqueIndex(['user_id', 'team_id'], 'UNIQ_B5E92CF8A76ED395296CD8AE');
+        $table->addIndex(['user_id'], 'IDX_B5E92CF8A76ED395');
+        $table->addIndex(['team_id'], 'IDX_B5E92CF8296CD8AE');
         $table->setPrimaryKey(['id']);
     }
 
@@ -1090,64 +1106,152 @@ final class Version20230131123812 extends AbstractMigration
     {
         $table = $schema->createTable('migration_versions');
         $table->addColumn('version', 'string', ['length' => 191]);
+        $table->addColumn('executed_at', 'datetime', ['notnull' => false]);
+        $table->addColumn('execution_time', 'integer', ['notnull' => false]);
         $table->setPrimaryKey(['version']);
     }
 
-    /*
-    ALTER TABLE kimai2_activities ADD CONSTRAINT FK_8811FE1C166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_activities_meta ADD CONSTRAINT FK_A7C0A43D81C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_activities_rates ADD CONSTRAINT FK_4A7F11BE81C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_activities_rates ADD CONSTRAINT FK_4A7F11BEA76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_activities_teams ADD CONSTRAINT FK_986998DA296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_activities_teams ADD CONSTRAINT FK_986998DA81C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_bookmarks ADD CONSTRAINT FK_4016EF25A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_customers ADD CONSTRAINT FK_5A97604412946D8B FOREIGN KEY (invoice_template_id) REFERENCES kimai2_invoice_templates (id) ON DELETE SET NULL
-    ALTER TABLE kimai2_customers_comments ADD CONSTRAINT FK_A5B142D99395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_customers_comments ADD CONSTRAINT FK_A5B142D9B03A8386 FOREIGN KEY (created_by_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_customers_meta ADD CONSTRAINT FK_A48A760F9395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_customers_rates ADD CONSTRAINT FK_82AB0AEC9395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_customers_rates ADD CONSTRAINT FK_82AB0AECA76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_customers_teams ADD CONSTRAINT FK_50BD8388296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_customers_teams ADD CONSTRAINT FK_50BD83889395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_invoices ADD CONSTRAINT FK_76C38E37A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_invoices ADD CONSTRAINT FK_76C38E379395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_invoices_meta ADD CONSTRAINT FK_7EDC37D92989F1FD FOREIGN KEY (invoice_id) REFERENCES kimai2_invoices (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_projects ADD CONSTRAINT FK_407F12069395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_projects_comments ADD CONSTRAINT FK_29A23638166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_projects_comments ADD CONSTRAINT FK_29A23638B03A8386 FOREIGN KEY (created_by_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_projects_meta ADD CONSTRAINT FK_50536EF2166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_projects_rates ADD CONSTRAINT FK_41535D55166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_projects_rates ADD CONSTRAINT FK_41535D55A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_projects_teams ADD CONSTRAINT FK_9345D431296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_projects_teams ADD CONSTRAINT FK_9345D431166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_roles_permissions ADD CONSTRAINT FK_D263A3B8D60322AC FOREIGN KEY (role_id) REFERENCES kimai2_roles (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B181C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B18D93D649 FOREIGN KEY (user) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B1166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_timesheet_meta ADD CONSTRAINT FK_CB606CBAABDD46BE FOREIGN KEY (timesheet_id) REFERENCES kimai2_timesheet (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_timesheet_tags ADD CONSTRAINT FK_732EECA9ABDD46BE FOREIGN KEY (timesheet_id) REFERENCES kimai2_timesheet (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_timesheet_tags ADD CONSTRAINT FK_732EECA9BAD26311 FOREIGN KEY (tag_id) REFERENCES kimai2_tags (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_user_preferences ADD CONSTRAINT FK_8D08F631A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_users_teams ADD CONSTRAINT FK_B5E92CF8296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
-    ALTER TABLE kimai2_users_teams ADD CONSTRAINT FK_B5E92CF8A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
-     */
     /**
      * @param Schema $schema
      */
     public function createForeignKeyConstraints(Schema $schema)
     {
-        $userPreferencesTable = $schema->getTable('kimai2_user_preferences');
-        $usersTable = $schema->getTable('kimai2_users');
-        $projectsTable = $schema->getTable('kimai2_projects');
-        $customersTable = $schema->getTable('kimai2_customers');
         $activitiesTable = $schema->getTable('kimai2_activities');
+        $activitiesMetaTable = $schema->getTable('kimai2_activities_meta');
+        $activitiesRatesTable = $schema->getTable('kimai2_activities_rates');
+        $activitiesTeamsTable = $schema->getTable('kimai2_activities_teams');
+        $bookmarksTable = $schema->getTable('kimai2_bookmarks');
+        $customersTable = $schema->getTable('kimai2_customers');
+        $customersCommentsTable = $schema->getTable('kimai2_customers_comments');
+        $customersMetaTable = $schema->getTable('kimai2_customers_meta');
+        $customersRatesTable = $schema->getTable('kimai2_customers_rates');
+        $customersTeamsTable = $schema->getTable('kimai2_customers_teams');
+        $invoicesTable = $schema->getTable('kimai2_invoices');
+        $invoiceTemplatesTable = $schema->getTable('kimai2_invoice_templates');
+        $invoicesMetaTable = $schema->getTable('kimai2_invoices_meta');
+        $projectsTable = $schema->getTable('kimai2_projects');
+        $projectsCommentsTable = $schema->getTable('kimai2_projects_comments');
+        $projectsMetaTable = $schema->getTable('kimai2_projects_meta');
+        $projectsRatesTable = $schema->getTable('kimai2_projects_rates');
+        $projectsTeamsTable = $schema->getTable('kimai2_projects_teams');
+        $rolesTable = $schema->getTable('kimai2_roles');
+        $rolesPermissionsTable = $schema->getTable('kimai2_roles_permissions');
+        $tagsTable = $schema->getTable('kimai2_tags');
+        $teamsTable = $schema->getTable('kimai2_teams');
         $timesheetTable = $schema->getTable('kimai2_timesheet');
+        $timesheetMetaTable = $schema->getTable('kimai2_timesheet_meta');
+        $timesheetTagsTable = $schema->getTable('kimai2_timesheet_tags');
+        $userPreferencesTable = $schema->getTable('kimai2_user_preferences');
+        $usersTeamsTable = $schema->getTable('kimai2_users_teams');
+        $usersTable = $schema->getTable('kimai2_users');
 
-        $userPreferencesTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_8D08F631A76ED395');
+        // ALTER TABLE kimai2_activities ADD CONSTRAINT FK_8811FE1C166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
+        $activitiesTable->addForeignKeyConstraint($projectsTable, ['project_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_8811FE1C166D1F9C');
+        
+        // ALTER TABLE kimai2_activities_meta ADD CONSTRAINT FK_A7C0A43D81C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE
+        $activitiesMetaTable->addForeignKeyConstraint($activitiesTable, ['activity_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_A7C0A43D81C06096');
+        
+        // ALTER TABLE kimai2_activities_rates ADD CONSTRAINT FK_4A7F11BE81C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE
+        $activitiesRatesTable->addForeignKeyConstraint($activitiesTable, ['activity_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_4A7F11BE81C06096');
+        
+        // ALTER TABLE kimai2_activities_rates ADD CONSTRAINT FK_4A7F11BEA76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $activitiesRatesTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_4A7F11BEA76ED395');
+        
+        // ALTER TABLE kimai2_activities_teams ADD CONSTRAINT FK_986998DA296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
+        $activitiesTeamsTable->addForeignKeyConstraint($teamsTable, ['team_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_986998DA296CD8AE');
+        
+        // ALTER TABLE kimai2_activities_teams ADD CONSTRAINT FK_986998DA81C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE
+        $activitiesTeamsTable->addForeignKeyConstraint($activitiesTable, ['activity_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_986998DA81C06096');
+        
+        // ALTER TABLE kimai2_bookmarks ADD CONSTRAINT FK_4016EF25A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $bookmarksTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_4016EF25A76ED395');
+        
+        // ALTER TABLE kimai2_customers ADD CONSTRAINT FK_5A97604412946D8B FOREIGN KEY (invoice_template_id) REFERENCES kimai2_invoice_templates (id) ON DELETE SET NULL
+        $customersTable->addForeignKeyConstraint($invoiceTemplatesTable, ['invoice_template_id'], ['id'], ['onDelete' => 'SET NULL'], 'FK_5A97604412946D8B'); # need to check onDelete SET NULL correctness
+        
+        // ALTER TABLE kimai2_customers_comments ADD CONSTRAINT FK_A5B142D99395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
+        $customersCommentsTable->addForeignKeyConstraint($customersTable, ['customer_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_A5B142D99395C3F3');
+        
+        // ALTER TABLE kimai2_customers_comments ADD CONSTRAINT FK_A5B142D9B03A8386 FOREIGN KEY (created_by_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $customersCommentsTable->addForeignKeyConstraint($usersTable, ['created_by_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_A5B142D9B03A8386');
+        
+        // ALTER TABLE kimai2_customers_meta ADD CONSTRAINT FK_A48A760F9395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
+        $customersMetaTable->addForeignKeyConstraint($customersTable, ['customer_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_A48A760F9395C3F3');
+        
+        // ALTER TABLE kimai2_customers_rates ADD CONSTRAINT FK_82AB0AEC9395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
+        $customersRatesTable->addForeignKeyConstraint($customersTable, ['customer_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_82AB0AEC9395C3F3');
+        
+        // ALTER TABLE kimai2_customers_rates ADD CONSTRAINT FK_82AB0AECA76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $customersRatesTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_82AB0AECA76ED395');
+        
+        // ALTER TABLE kimai2_customers_teams ADD CONSTRAINT FK_50BD8388296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
+        $customersTeamsTable->addForeignKeyConstraint($teamsTable, ['team_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_50BD8388296CD8AE');
+
+        // ALTER_TABLE kimai2_customers_teams ADD CONSTRAINT FK_50BD83889395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
+        $customersTeamsTable->addForeignKeyConstraint($customersTable, ['customer_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_50BD83889395C3F3');
+
+        // ALTER TABLE kimai2_invoices ADD CONSTRAINT FK_76C38E37A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $invoicesTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_76C38E37A76ED395');
+
+        // ALTER TABLE kimai2_invoices ADD CONSTRAINT FK_76C38E379395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
+        $invoicesTable->addForeignKeyConstraint($customersTable, ['customer_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_76C38E379395C3F3');
+
+        // ALTER TABLE kimai2_invoices_meta ADD CONSTRAINT FK_7EDC37D92989F1FD FOREIGN KEY (invoice_id) REFERENCES kimai2_invoices (id) ON DELETE CASCADE
+        $invoicesMetaTable->addForeignKeyConstraint($invoicesTable, ['invoice_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_7EDC37D92989F1FD');
+
+        // ALTER TABLE kimai2_projects ADD CONSTRAINT FK_407F12069395C3F3 FOREIGN KEY (customer_id) REFERENCES kimai2_customers (id) ON DELETE CASCADE
         $projectsTable->addForeignKeyConstraint($usersTable, ['customer_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_407F12069395C3F3');
-        $activitiesTable->addForeignKeyConstraint($usersTable, ['project_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_8811FE11C166D1F9C');
-        $timesheetTable->addForeignKeyConstraint($usersTable, ['user'], ['id'], [], 'FK_4F60C6B18D93D649');
-        $timesheetTable->addForeignKeyConstraint($usersTable, ['activity_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_4F60C6B181C06096');
+
+        // ALTER TABLE kimai2_projects_comments ADD CONSTRAINT FK_29A23638166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
+        $projectsCommentsTable->addForeignKeyConstraint($projectsTable, ['project_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_29A23638166D1F9C');
+
+        // ALTER TABLE kimai2_projects_comments ADD CONSTRAINT FK_29A23638B03A8386 FOREIGN KEY (created_by_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $projectsCommentsTable->addForeignKeyConstraint($usersTable, ['created_by_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_29A23638B03A8386');
+
+        // ALTER TABLE kimai2_projects_meta ADD CONSTRAINT FK_50536EF2166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
+        $projectsMetaTable->addForeignKeyConstraint($projectsTable, ['project_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_50536EF2166D1F9C');
+
+        // ALTER TABLE kimai2_projects_rates ADD CONSTRAINT FK_41535D55166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
+        $projectsRatesTable->addForeignKeyConstraint($projectsTable, ['project_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_41535D55166D1F9C');
+
+        // ALTER TABLE kimai2_projects_rates ADD CONSTRAINT FK_41535D55A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $projectsRatesTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_41535D55A76ED395');
+
+        // ALTER TABLE kimai2_projects_teams ADD CONSTRAINT FK_9345D431296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
+        $projectsTeamsTable->addForeignKeyConstraint($teamsTable, ['team_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_9345D431296CD8AE');
+
+        // ALTER TABLE kimai2_projects_teams ADD CONSTRAINT FK_9345D431166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
+        $projectsTeamsTable->addForeignKeyConstraint($projectsTable, ['project_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_9345D431166D1F9C');
+
+        // ALTER TABLE kimai2_roles_permissions ADD CONSTRAINT FK_D263A3B8D60322AC FOREIGN KEY (role_id) REFERENCES kimai2_roles (id) ON DELETE CASCADE
+        $rolesPermissionsTable->addForeignKeyConstraint($rolesTable, ['role_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_D263A3B8D60322AC');
+
+        // ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B181C06096 FOREIGN KEY (activity_id) REFERENCES kimai2_activities (id) ON DELETE CASCADE
+        $timesheetTable->addForeignKeyConstraint($activitiesTable, ['activity_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_4F60C6B181C06096');
+
+        // ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B18D93D649 FOREIGN KEY (user) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $timesheetTable->addForeignKeyConstraint($usersTable, ['user'], ['id'], ['onDelete' => 'CASCADE'], 'FK_4F60C6B18D93D649');
+
+        // ALTER TABLE kimai2_timesheet ADD CONSTRAINT FK_4F60C6B1166D1F9C FOREIGN KEY (project_id) REFERENCES kimai2_projects (id) ON DELETE CASCADE
+        $timesheetTable->addForeignKeyConstraint($projectsTable, ['project_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_4F60C6B1166D1F9C');
+
+        // ALTER TABLE kimai2_timesheet_meta ADD CONSTRAINT FK_CB606CBAABDD46BE FOREIGN KEY (timesheet_id) REFERENCES kimai2_timesheet (id) ON DELETE CASCADE
+        $timesheetMetaTable->addForeignKeyConstraint($timesheetTable, ['timesheet_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_CB606CBAABDD46BE');
+
+        // ALTER TABLE kimai2_timesheet_tags ADD CONSTRAINT FK_732EECA9ABDD46BE FOREIGN KEY (timesheet_id) REFERENCES kimai2_timesheet (id) ON DELETE CASCADE
+        $timesheetTagsTable->addForeignKeyConstraint($timesheetTable, ['timesheet_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_732EECA9ABDD46BE');
+
+        // ALTER TABLE kimai2_timesheet_tags ADD CONSTRAINT FK_732EECA9BAD26311 FOREIGN KEY (tag_id) REFERENCES kimai2_tags (id) ON DELETE CASCADE
+        $timesheetTagsTable->addForeignKeyConstraint($tagsTable, ['tag_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_732EECA9BAD26311');
+
+        // ALTER TABLE kimai2_user_preferences ADD CONSTRAINT FK_8D08F631A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $userPreferencesTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_8D08F631A76ED395');
+
+        // ALTER TABLE kimai2_users_teams ADD CONSTRAINT FK_B5E92CF8296CD8AE FOREIGN KEY (team_id) REFERENCES kimai2_teams (id) ON DELETE CASCADE
+        $usersTeamsTable->addForeignKeyConstraint($teamsTable, ['team_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_B5E92CF8296CD8AE');
+
+        // ALTER TABLE kimai2_users_teams ADD CONSTRAINT FK_B5E92CF8A76ED395 FOREIGN KEY (user_id) REFERENCES kimai2_users (id) ON DELETE CASCADE
+        $usersTeamsTable->addForeignKeyConstraint($usersTable, ['user_id'], ['id'], ['onDelete' => 'CASCADE'], 'FK_B5E92CF8A76ED395');
     }
 }
 /**
