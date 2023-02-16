@@ -102,7 +102,7 @@ class Project implements EntityWithMetaFields, EntityWithBudget
      *
      * Attention: Accessor MUST be used, otherwise date will be serialized in UTC.
      */
-    #[ORM\Column(name: 'end', type: 'datetime', nullable: true)]
+    #[ORM\Column(name: '`end`', type: 'datetime', nullable: true)]
     #[Serializer\Expose]
     #[Serializer\Groups(['Project'])]
     #[Serializer\Type(name: "DateTime<'Y-m-d'>")]
