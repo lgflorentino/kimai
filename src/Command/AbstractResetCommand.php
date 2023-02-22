@@ -53,34 +53,21 @@ abstract class AbstractResetCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
 
-        if ($this->askConfirmation($input, $output, 'Do you want to create the database y/N ?')) {
-            try {
-                $command = $this->getApplication()->find('doctrine:database:create');
-                $options = ['--if-not-exists' => true];
-                $command->run(new ArrayInput($options), $output);
-            } catch (Exception $ex) {
-                $io->error('Failed to create database: ' . $ex->getMessage());
-
-                return Command::FAILURE;
-            }
+        /* Test other database connections by making the TEST_GROUP env var available.
+         * Continue with default connection if TEST_GROUP not defined.
+         * */
+        if ($_ENV['TEST_GROUP'] == 'database')
+        {
+            $this->createTestDatabase($input, $output, $io, 'pgsql');
+            $this->runMigrations($input, $output, $io, 'pgsql');
+            dump('Created and ran the migrations for pgsql');
         }
+        
+        $this->createTestDatabase($input, $output, $io, 'default');
+        $this->runMigrations($input, $output, $io, 'default');
+        dd('Created and ran the migrations for default');
 
-        if ($this->askConfirmation($input, $output, 'Do you want to drop and re-create the schema y/N ?')) {
-            if (($result = $this->dropSchema($io, $output)) !== Command::SUCCESS) {
-                return $result;
-            }
 
-            try {
-                $command = $this->getApplication()->find('doctrine:migrations:migrate');
-                $cmdInput = new ArrayInput([]);
-                $cmdInput->setInteractive(false);
-                $command->run($cmdInput, $output);
-            } catch (Exception $ex) {
-                $io->error('Failed to execute a migrations: ' . $ex->getMessage());
-
-                return Command::FAILURE;
-            }
-        }
 
         try {
             $this->loadData($input, $output);
@@ -147,6 +134,45 @@ abstract class AbstractResetCommand extends Command
         $question = new ConfirmationQuestion('<question>' . $question . '</question>', false);
 
         return $questionHelper->ask($input, $output, $question);
+    }
+
+    private function createTestDatabase(InputInterface $input, OutputInterface $output, SymfonyStyle $io, string $dbdriver): int
+    {
+        if ($this->askConfirmation($input, $output, 'Do you want to create the database for connection  ' . $dbdriver . ' y/N ?')) {
+            try {
+                $command = $this->getApplication()->find('doctrine:database:create');
+                $options = ['--if-not-exists' => true, '--connection' => $dbdriver];
+                $command->run(new ArrayInput($options), $output);
+
+                return Command::SUCCESS;
+            } catch (Exception $ex) {
+                $io->error('Failed to create database using ' . $dbdriver . ' driver: ' . $ex->getMessage());
+
+                return Command::FAILURE;
+            }
+        }
+    }
+
+    private function runMigrations(InputInterface $input, OutputInterface $output, SymfonyStyle $io, string $dbdriver): int 
+    {
+        if ($this->askConfirmation($input, $output, 'Do you want to drop and re-create the schema for connection ' . $dbdriver . ' y/N ?')) {
+            if (($result = $this->dropSchema($io, $output)) !== Command::SUCCESS) {
+                return $result;
+            }
+
+            try {
+                $command = $this->getApplication()->find('doctrine:migrations:migrate');
+                $cmdInput = new ArrayInput([]);
+                $cmdInput->setInteractive(false);
+                $command->run($cmdInput, $output);
+
+                return Command::SUCCESS;
+            } catch (Exception $ex) {
+                $io->error('Failed to execute the migrations for connection ' . $dbdriver . $ex->getMessage());
+
+                return Command::FAILURE;
+            }
+        }
     }
 
     abstract protected function loadData(InputInterface $input, OutputInterface $output): void;

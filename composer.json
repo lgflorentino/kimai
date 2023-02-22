@@ -179,7 +179,7 @@
         "tests": "vendor/bin/phpunit tests/",
         "kimai:tests": "@tests",
         "kimai:tests-unit": "vendor/bin/phpunit --exclude-group database --exclude-group integration tests/",
-        "kimai:tests-db": "vendor/bin/phpunit --group database tests/Database",
+        "kimai:tests-db": "TEST_GROUP=database vendor/bin/phpunit --group database tests/Database",
         "kimai:tests-integration": "vendor/bin/phpunit --group integration tests/",
         "kimai:phpstan": "@phpstan",
         "phpstan": [

@@ -9,6 +9,8 @@
 
 namespace App\Tests\Database;
 
+use Doctrine\DBAL\Connection;
+
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,6 +30,8 @@ class MigrationTest extends TestCase
      */
     public function testMigrationSchema()
     {
+        $conn = new Connection;
+        dd();
         $this->assertTrue(true);
     }
 
@@ -35,6 +39,5 @@ class MigrationTest extends TestCase
     {
         $this->migrations = scandir(\dirname(__FILE__) . '/../../migrations', SCANDIR_SORT_NONE);
 
-        dd($this->migrations);
     }
 }
