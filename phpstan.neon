@@ -1041,26 +1041,6 @@ parameters:
             path: src/Controller/CalendarController.php
 
         -
-            message: "#^Parameter \\#1 \\$address of method JeroenDesloovere\\\\VCard\\\\VCard\\:\\:addEmail\\(\\) expects string, string\\|null given\\.$#"
-            count: 1
-            path: src/Controller/CustomerController.php
-
-        -
-            message: "#^Parameter \\#1 \\$company of method JeroenDesloovere\\\\VCard\\\\VCard\\:\\:addCompany\\(\\) expects string, string\\|null given\\.$#"
-            count: 1
-            path: src/Controller/CustomerController.php
-
-        -
-            message: "#^Parameter \\#1 \\$country of static method Symfony\\\\Component\\\\Intl\\\\Countries\\:\\:getName\\(\\) expects string, string\\|null given\\.$#"
-            count: 1
-            path: src/Controller/CustomerController.php
-
-        -
-            message: "#^Parameter \\#1 \\$filename of static method App\\\\Utils\\\\FileHelper\\:\\:convertToAsciiFilename\\(\\) expects string, string\\|null given\\.$#"
-            count: 1
-            path: src/Controller/CustomerController.php
-
-        -
             message: "#^Parameter \\#1 \\$name of class App\\\\Entity\\\\Team constructor expects string, string\\|null given\\.$#"
             count: 1
             path: src/Controller/CustomerController.php
@@ -1072,11 +1052,6 @@ parameters:
 
         -
             message: "#^Parameter \\#2 \\$replace of method App\\\\Repository\\\\CustomerRepository\\:\\:deleteCustomer\\(\\) expects App\\\\Entity\\\\Customer\\|null, mixed given\\.$#"
-            count: 1
-            path: src/Controller/CustomerController.php
-
-        -
-            message: "#^Parameter \\#2 \\$string of function explode expects string, string\\|null given\\.$#"
             count: 1
             path: src/Controller/CustomerController.php
 
@@ -1164,11 +1139,6 @@ parameters:
             message: "#^Cannot call method getId\\(\\) on App\\\\Entity\\\\Customer\\|null\\.$#"
             count: 1
             path: src/Controller/ExportController.php
-
-        -
-            message: "#^Parameter \\#1 \\$route of method Symfony\\\\Bundle\\\\FrameworkBundle\\\\Controller\\\\AbstractController\\:\\:redirectToRoute\\(\\) expects string, bool\\|float\\|int\\|string\\|null given\\.$#"
-            count: 1
-            path: src/Controller/HomepageController.php
 
         -
             message: "#^Cannot call method getEntries\\(\\) on App\\\\Invoice\\\\CalculatorInterface\\|null\\.$#"
@@ -2091,34 +2061,9 @@ parameters:
             path: src/Entity/Customer.php
 
         -
-            message: "#^Method App\\\\Entity\\\\CustomerComment\\:\\:setCreatedAt\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Entity/CustomerComment.php
-
-        -
-            message: "#^Method App\\\\Entity\\\\CustomerComment\\:\\:setCreatedBy\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Entity/CustomerComment.php
-
-        -
-            message: "#^Method App\\\\Entity\\\\CustomerComment\\:\\:setMessage\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Entity/CustomerComment.php
-
-        -
-            message: "#^Method App\\\\Entity\\\\CustomerComment\\:\\:setPinned\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Entity/CustomerComment.php
-
-        -
             message: "#^Method App\\\\Entity\\\\EntityWithMetaFields\\:\\:getMetaFields\\(\\) return type with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
             count: 1
             path: src/Entity/EntityWithMetaFields.php
-
-        -
-            message: "#^Cannot call method getDueDays\\(\\) on App\\\\Entity\\\\InvoiceTemplate\\|null\\.$#"
-            count: 1
-            path: src/Entity/Invoice.php
 
         -
             message: "#^Cannot call method getTax\\(\\) on App\\\\Invoice\\\\CalculatorInterface\\|null\\.$#"
@@ -2127,11 +2072,6 @@ parameters:
 
         -
             message: "#^Cannot call method getTotal\\(\\) on App\\\\Invoice\\\\CalculatorInterface\\|null\\.$#"
-            count: 1
-            path: src/Entity/Invoice.php
-
-        -
-            message: "#^Cannot call method getVat\\(\\) on App\\\\Entity\\\\InvoiceTemplate\\|null\\.$#"
             count: 1
             path: src/Entity/Invoice.php
 
@@ -2214,26 +2154,6 @@ parameters:
             message: "#^Property App\\\\Entity\\\\Project\\:\\:\\$teams with generic interface Doctrine\\\\Common\\\\Collections\\\\Collection does not specify its types\\: TKey, T$#"
             count: 1
             path: src/Entity/Project.php
-
-        -
-            message: "#^Method App\\\\Entity\\\\ProjectComment\\:\\:setCreatedAt\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Entity/ProjectComment.php
-
-        -
-            message: "#^Method App\\\\Entity\\\\ProjectComment\\:\\:setCreatedBy\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Entity/ProjectComment.php
-
-        -
-            message: "#^Method App\\\\Entity\\\\ProjectComment\\:\\:setMessage\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Entity/ProjectComment.php
-
-        -
-            message: "#^Method App\\\\Entity\\\\ProjectComment\\:\\:setPinned\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Entity/ProjectComment.php
 
         -
             message: "#^Method App\\\\Entity\\\\Tag\\:\\:__toString\\(\\) should return string but returns string\\|null\\.$#"
@@ -2786,16 +2706,6 @@ parameters:
             path: src/EventSubscriber/Actions/DashboardSubscriber.php
 
         -
-            message: "#^Cannot access offset 'document' on mixed\\.$#"
-            count: 1
-            path: src/EventSubscriber/Actions/InvoiceDocumentSubscriber.php
-
-        -
-            message: "#^Cannot access offset 'token' on mixed\\.$#"
-            count: 1
-            path: src/EventSubscriber/Actions/InvoiceDocumentSubscriber.php
-
-        -
             message: "#^Cannot access offset 'invoice' on mixed\\.$#"
             count: 1
             path: src/EventSubscriber/Actions/InvoiceSubscriber.php
@@ -2901,151 +2811,6 @@ parameters:
             path: src/Export/Base/AbstractSpreadsheetRenderer.php
 
         -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:getColumns\\(\\) has parameter \\$columns with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:getColumns\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setDuration\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setDuration\\(\\) has parameter \\$duration with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setDuration\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setDurationTotal\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setDurationTotal\\(\\) has parameter \\$endCoordinate with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setDurationTotal\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setDurationTotal\\(\\) has parameter \\$startCoordinate with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setFormattedDate\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setFormattedDate\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setFormattedDateTime\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setFormattedDateTime\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setFormattedTime\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setFormattedTime\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRate\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRate\\(\\) has parameter \\$currency with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRate\\(\\) has parameter \\$rate with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRate\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRateStyle\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRateStyle\\(\\) has parameter \\$currency with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRateStyle\\(\\) has parameter \\$rate with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRateStyle\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRateTotal\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRateTotal\\(\\) has parameter \\$endCoordinate with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRateTotal\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:setRateTotal\\(\\) has parameter \\$startCoordinate with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Parameter \\#1 \\$columnIndex of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getCellByColumnAndRow\\(\\) expects int, float\\|int given\\.$#"
-            count: 6
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Parameter \\#1 \\$columnIndex1 of method PhpOffice\\\\PhpSpreadsheet\\\\Worksheet\\\\Worksheet\\:\\:getStyleByColumnAndRow\\(\\) expects int, float\\|int given\\.$#"
-            count: 3
-            path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
             message: "#^Parameter \\#1 \\$file of class Symfony\\\\Component\\\\HttpFoundation\\\\BinaryFileResponse constructor expects SplFileInfo\\|string, mixed given\\.$#"
             count: 1
             path: src/Export/Base/AbstractSpreadsheetRenderer.php
@@ -3079,41 +2844,6 @@ parameters:
             message: "#^Property App\\\\Export\\\\Base\\\\AbstractSpreadsheetRenderer\\:\\:\\$columns type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Export/Base/AbstractSpreadsheetRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\CsvRenderer\\:\\:setDuration\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/CsvRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\CsvRenderer\\:\\:setDuration\\(\\) has parameter \\$duration with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/CsvRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\CsvRenderer\\:\\:setDuration\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/CsvRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\CsvRenderer\\:\\:setRateStyle\\(\\) has parameter \\$column with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/CsvRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\CsvRenderer\\:\\:setRateStyle\\(\\) has parameter \\$currency with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/CsvRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\CsvRenderer\\:\\:setRateStyle\\(\\) has parameter \\$rate with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/CsvRenderer.php
-
-        -
-            message: "#^Method App\\\\Export\\\\Base\\\\CsvRenderer\\:\\:setRateStyle\\(\\) has parameter \\$row with no type specified\\.$#"
-            count: 1
-            path: src/Export/Base/CsvRenderer.php
 
         -
             message: "#^Cannot call method getBudget\\(\\) on App\\\\Entity\\\\Project\\|null\\.$#"
@@ -3406,11 +3136,6 @@ parameters:
             path: src/Form/API/TimesheetApiEditForm.php
 
         -
-            message: "#^Strict comparison using \\=\\=\\= between false and false will always evaluate to true\\.$#"
-            count: 1
-            path: src/Form/API/TimesheetApiEditForm.php
-
-        -
             message: "#^Method App\\\\Form\\\\AbstractRateForm\\:\\:addFields\\(\\) has no return type specified\\.$#"
             count: 1
             path: src/Form/AbstractRateForm.php
@@ -3556,11 +3281,6 @@ parameters:
             path: src/Form/Extension/SelectWithApiDataExtension.php
 
         -
-            message: "#^Strict comparison using \\!\\=\\= between non\\-falsy\\-string and '' will always evaluate to true\\.$#"
-            count: 1
-            path: src/Form/Extension/SelectWithApiDataExtension.php
-
-        -
             message: "#^Parameter \\#1 \\$haystack of function stripos expects string, bool\\|float\\|int\\|string given\\.$#"
             count: 2
             path: src/Form/Helper/ActivityHelper.php
@@ -3609,11 +3329,6 @@ parameters:
             message: "#^Property App\\\\Form\\\\Helper\\\\CustomerHelper\\:\\:\\$pattern \\(string\\|null\\) does not accept bool\\|float\\|int\\|string\\|null\\.$#"
             count: 1
             path: src/Form/Helper/CustomerHelper.php
-
-        -
-            message: "#^Cannot call method getName\\(\\) on App\\\\Entity\\\\Customer\\|null\\.$#"
-            count: 1
-            path: src/Form/Helper/ProjectHelper.php
 
         -
             message: "#^Parameter \\#1 \\$haystack of function stripos expects string, bool\\|float\\|int\\|string given\\.$#"
@@ -5116,16 +4831,6 @@ parameters:
             path: src/Form/Type/EntityMetaDefinitionType.php
 
         -
-            message: "#^Parameter \\#1 \\$string of function strtolower expects string, string\\|null given\\.$#"
-            count: 1
-            path: src/Form/Type/InvoiceRendererType.php
-
-        -
-            message: "#^Parameter \\#1 \\$string of function ucfirst expects string, string\\|null given\\.$#"
-            count: 1
-            path: src/Form/Type/InvoiceRendererType.php
-
-        -
             message: "#^PHPDoc tag @var for variable \\$collection contains generic class Doctrine\\\\Common\\\\Collections\\\\ArrayCollection but does not specify its types\\: TKey, T$#"
             count: 1
             path: src/Form/Type/MetaFieldsCollectionType.php
@@ -5194,11 +4899,6 @@ parameters:
             message: "#^Parameter \\#1 \\$teams of method App\\\\Repository\\\\Query\\\\BaseQuery\\:\\:setTeams\\(\\) expects array\\<App\\\\Entity\\\\Team\\>\\|null, iterable\\<App\\\\Entity\\\\Team\\> given\\.$#"
             count: 1
             path: src/Form/Type/TeamType.php
-
-        -
-            message: "#^Cannot cast mixed to int\\.$#"
-            count: 1
-            path: src/Form/Type/TimePickerType.php
 
         -
             message: "#^Parameter \\#1 \\$format of static method DateTime\\:\\:createFromFormat\\(\\) expects string, mixed given\\.$#"
@@ -5631,11 +5331,6 @@ parameters:
             path: src/Invoice/Renderer/AbstractTwigRenderer.php
 
         -
-            message: "#^Strict comparison using \\!\\=\\= between float and \\-1 will always evaluate to true\\.$#"
-            count: 1
-            path: src/Invoice/Renderer/AdvancedValueBinder.php
-
-        -
             message: "#^Cannot call method getEntries\\(\\) on App\\\\Invoice\\\\CalculatorInterface\\|null\\.$#"
             count: 3
             path: src/Invoice/Renderer/DocxRenderer.php
@@ -5857,11 +5552,6 @@ parameters:
 
         -
             message: "#^PHPDoc tag @var for variable \\$attr has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Ldap/LdapManager.php
-
-        -
-            message: "#^PHPDoc tag @var for variable \\$email has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Ldap/LdapManager.php
 
@@ -6191,16 +5881,6 @@ parameters:
             path: src/Project/ProjectStatisticService.php
 
         -
-            message: "#^Strict comparison using \\!\\=\\= between DateTime and false will always evaluate to true\\.$#"
-            count: 1
-            path: src/Project/ProjectStatisticService.php
-
-        -
-            message: "#^Strict comparison using \\!\\=\\= between null and list\\<array\\{id\\: int\\|numeric\\-string, duration\\: int\\|numeric\\-string, rate\\: float\\|int\\|numeric\\-string, internalRate\\: float\\|int\\|numeric\\-string, counter\\: int\\<0, max\\>\\|numeric\\-string, billable\\: bool, exported\\: bool\\}\\> will always evaluate to true\\.$#"
-            count: 1
-            path: src/Project/ProjectStatisticService.php
-
-        -
             message: "#^Property App\\\\Reporting\\\\AbstractUserList\\:\\:\\$date has no type specified\\.$#"
             count: 1
             path: src/Reporting/AbstractUserList.php
@@ -6291,17 +5971,7 @@ parameters:
             path: src/Repository/ActivityRepository.php
 
         -
-            message: "#^Parameter \\#2 \\$lockMode \\(null\\) of method App\\\\Repository\\\\ActivityRepository\\:\\:find\\(\\) should be contravariant with parameter \\$lockMode \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\Activity\\>\\:\\:find\\(\\)$#"
-            count: 1
-            path: src/Repository/ActivityRepository.php
-
-        -
             message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, iterable\\<App\\\\Entity\\\\Team\\> given\\.$#"
-            count: 1
-            path: src/Repository/ActivityRepository.php
-
-        -
-            message: "#^Parameter \\#3 \\$lockVersion \\(null\\) of method App\\\\Repository\\\\ActivityRepository\\:\\:find\\(\\) should be contravariant with parameter \\$lockVersion \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\Activity\\>\\:\\:find\\(\\)$#"
             count: 1
             path: src/Repository/ActivityRepository.php
 
@@ -6386,17 +6056,7 @@ parameters:
             path: src/Repository/CustomerRepository.php
 
         -
-            message: "#^Parameter \\#2 \\$lockMode \\(null\\) of method App\\\\Repository\\\\CustomerRepository\\:\\:find\\(\\) should be contravariant with parameter \\$lockMode \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\Customer\\>\\:\\:find\\(\\)$#"
-            count: 1
-            path: src/Repository/CustomerRepository.php
-
-        -
             message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, iterable\\<App\\\\Entity\\\\Team\\> given\\.$#"
-            count: 1
-            path: src/Repository/CustomerRepository.php
-
-        -
-            message: "#^Parameter \\#3 \\$lockVersion \\(null\\) of method App\\\\Repository\\\\CustomerRepository\\:\\:find\\(\\) should be contravariant with parameter \\$lockVersion \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\Customer\\>\\:\\:find\\(\\)$#"
             count: 1
             path: src/Repository/CustomerRepository.php
 
@@ -6631,17 +6291,7 @@ parameters:
             path: src/Repository/ProjectRepository.php
 
         -
-            message: "#^Parameter \\#2 \\$lockMode \\(null\\) of method App\\\\Repository\\\\ProjectRepository\\:\\:find\\(\\) should be contravariant with parameter \\$lockMode \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\Project\\>\\:\\:find\\(\\)$#"
-            count: 1
-            path: src/Repository/ProjectRepository.php
-
-        -
             message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, iterable\\<App\\\\Entity\\\\Team\\> given\\.$#"
-            count: 1
-            path: src/Repository/ProjectRepository.php
-
-        -
-            message: "#^Parameter \\#3 \\$lockVersion \\(null\\) of method App\\\\Repository\\\\ProjectRepository\\:\\:find\\(\\) should be contravariant with parameter \\$lockVersion \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\Project\\>\\:\\:find\\(\\)$#"
             count: 1
             path: src/Repository/ProjectRepository.php
 
@@ -6729,11 +6379,6 @@ parameters:
             message: "#^Property App\\\\Repository\\\\Result\\\\TimesheetResult\\:\\:\\$resultCache \\(array\\<App\\\\Entity\\\\Timesheet\\>\\|null\\) does not accept mixed\\.$#"
             count: 1
             path: src/Repository/Result/TimesheetResult.php
-
-        -
-            message: "#^Method App\\\\Repository\\\\RolePermissionRepository\\:\\:saveRolePermission\\(\\) has no return type specified\\.$#"
-            count: 1
-            path: src/Repository/RolePermissionRepository.php
 
         -
             message: "#^Method App\\\\Repository\\\\RoleRepository\\:\\:deleteRole\\(\\) has no return type specified\\.$#"
@@ -6966,17 +6611,7 @@ parameters:
             path: src/Repository/TimesheetRepository.php
 
         -
-            message: "#^Parameter \\#2 \\$lockMode \\(null\\) of method App\\\\Repository\\\\TimesheetRepository\\:\\:find\\(\\) should be contravariant with parameter \\$lockMode \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\Timesheet\\>\\:\\:find\\(\\)$#"
-            count: 1
-            path: src/Repository/TimesheetRepository.php
-
-        -
             message: "#^Parameter \\#2 \\.\\.\\.\\$arrays of function array_merge expects array, iterable\\<App\\\\Entity\\\\Team\\> given\\.$#"
-            count: 1
-            path: src/Repository/TimesheetRepository.php
-
-        -
-            message: "#^Parameter \\#3 \\$lockVersion \\(null\\) of method App\\\\Repository\\\\TimesheetRepository\\:\\:find\\(\\) should be contravariant with parameter \\$lockVersion \\(int\\|null\\) of method Doctrine\\\\ORM\\\\EntityRepository\\<App\\\\Entity\\\\Timesheet\\>\\:\\:find\\(\\)$#"
             count: 1
             path: src/Repository/TimesheetRepository.php
 
@@ -7169,11 +6804,6 @@ parameters:
             message: "#^Method App\\\\Timesheet\\\\DateTimeFactory\\:\\:createWeekDateTime\\(\\) has parameter \\$year with no type specified\\.$#"
             count: 1
             path: src/Timesheet/DateTimeFactory.php
-
-        -
-            message: "#^Method App\\\\Timesheet\\\\FavoriteRecordService\\:\\:favoriteEntries\\(\\) should return array\\<App\\\\Model\\\\FavoriteTimesheet\\> but returns array\\<int, App\\\\Model\\\\FavoriteTimesheet\\|bool\\>\\.$#"
-            count: 1
-            path: src/Timesheet/FavoriteRecordService.php
 
         -
             message: "#^Parameter \\#2 \\$isFavorite of class App\\\\Model\\\\FavoriteTimesheet constructor expects bool, App\\\\Model\\\\FavoriteTimesheet\\|bool given\\.$#"
@@ -8111,26 +7741,6 @@ parameters:
             path: src/Widget/Type/AbstractActiveUsers.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractActiveUsers\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractActiveUsers.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractActiveUsers\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractActiveUsers.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractAmountPeriod\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractAmountPeriod.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractAmountPeriod\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractAmountPeriod.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\AbstractAmountPeriod\\:\\:getRevenue\\(\\) has no return type specified\\.$#"
             count: 1
             path: src/Widget/Type/AbstractAmountPeriod.php
@@ -8142,16 +7752,6 @@ parameters:
 
         -
             message: "#^Method App\\\\Widget\\\\Type\\\\AbstractCounterDuration\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractCounterDuration.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractCounterDuration\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractCounterDuration.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractCounterDuration\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/AbstractCounterDuration.php
 
@@ -8171,16 +7771,6 @@ parameters:
             path: src/Widget/Type/AbstractSimpleStatisticChart.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractUserRevenuePeriod\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractUserRevenuePeriod.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractUserRevenuePeriod\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractUserRevenuePeriod.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\AbstractUserRevenuePeriod\\:\\:getRevenue\\(\\) has no return type specified\\.$#"
             count: 1
             path: src/Widget/Type/AbstractUserRevenuePeriod.php
@@ -8189,16 +7779,6 @@ parameters:
             message: "#^Method App\\\\Widget\\\\Type\\\\AbstractUserRevenuePeriod\\:\\:getRevenue\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/AbstractUserRevenuePeriod.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractWidget\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractWidget.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AbstractWidget\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AbstractWidget.php
 
         -
             message: "#^Method App\\\\Widget\\\\Type\\\\AbstractWidget\\:\\:getUser\\(\\) should return App\\\\Entity\\\\User but returns App\\\\Entity\\\\User\\|null\\.$#"
@@ -8226,27 +7806,7 @@ parameters:
             path: src/Widget/Type/ActiveTimesheets.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveTimesheets\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveTimesheets.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveTimesheets\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveTimesheets.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersMonth\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersMonth.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersMonth\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersMonth.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersMonth\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/ActiveUsersMonth.php
 
@@ -8256,27 +7816,7 @@ parameters:
             path: src/Widget/Type/ActiveUsersToday.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersToday\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersToday.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersToday\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersToday.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersTotal\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersTotal.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersTotal\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersTotal.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersTotal\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/ActiveUsersTotal.php
 
@@ -8286,27 +7826,7 @@ parameters:
             path: src/Widget/Type/ActiveUsersWeek.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersWeek\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersWeek.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersWeek\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersWeek.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersYear\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersYear.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersYear\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/ActiveUsersYear.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\ActiveUsersYear\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/ActiveUsersYear.php
 
@@ -8316,27 +7836,7 @@ parameters:
             path: src/Widget/Type/AmountMonth.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountMonth\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountMonth.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountMonth\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountMonth.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\AmountToday\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountToday.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountToday\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountToday.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountToday\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/AmountToday.php
 
@@ -8346,27 +7846,7 @@ parameters:
             path: src/Widget/Type/AmountTotal.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountTotal\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountTotal.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountTotal\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountTotal.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\AmountWeek\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountWeek.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountWeek\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountWeek.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountWeek\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/AmountWeek.php
 
@@ -8376,27 +7856,7 @@ parameters:
             path: src/Widget/Type/AmountYear.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountYear\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountYear.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\AmountYear\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/AmountYear.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\DailyWorkingTimeChart\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DailyWorkingTimeChart.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DailyWorkingTimeChart\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DailyWorkingTimeChart.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DailyWorkingTimeChart\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/DailyWorkingTimeChart.php
 
@@ -8406,27 +7866,7 @@ parameters:
             path: src/Widget/Type/DurationMonth.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationMonth\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationMonth.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationMonth\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationMonth.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\DurationToday\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationToday.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationToday\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationToday.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationToday\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/DurationToday.php
 
@@ -8436,42 +7876,12 @@ parameters:
             path: src/Widget/Type/DurationTotal.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationTotal\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationTotal.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationTotal\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationTotal.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\DurationWeek\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/DurationWeek.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationWeek\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationWeek.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationWeek\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationWeek.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\DurationYear\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationYear.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationYear\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/DurationYear.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\DurationYear\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/DurationYear.php
 
@@ -8496,16 +7906,6 @@ parameters:
             path: src/Widget/Type/PaginatedWorkingTimeChart.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\PaginatedWorkingTimeChart\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/PaginatedWorkingTimeChart.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\PaginatedWorkingTimeChart\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/PaginatedWorkingTimeChart.php
-
-        -
             message: "#^Strict comparison using \\!\\=\\= between App\\\\Entity\\\\User and null will always evaluate to true\\.$#"
             count: 1
             path: src/Widget/Type/PaginatedWorkingTimeChart.php
@@ -8516,27 +7916,7 @@ parameters:
             path: src/Widget/Type/TotalsActivity.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\TotalsActivity\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/TotalsActivity.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\TotalsActivity\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/TotalsActivity.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\TotalsCustomer\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/TotalsCustomer.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\TotalsCustomer\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/TotalsCustomer.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\TotalsCustomer\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/TotalsCustomer.php
 
@@ -8546,27 +7926,7 @@ parameters:
             path: src/Widget/Type/TotalsProject.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\TotalsProject\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/TotalsProject.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\TotalsProject\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/TotalsProject.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\TotalsUser\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/TotalsUser.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\TotalsUser\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/TotalsUser.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\TotalsUser\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/TotalsUser.php
 
@@ -8576,27 +7936,7 @@ parameters:
             path: src/Widget/Type/UserAmountMonth.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountMonth\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountMonth.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountMonth\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountMonth.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountToday\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountToday.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountToday\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountToday.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountToday\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/UserAmountToday.php
 
@@ -8606,27 +7946,7 @@ parameters:
             path: src/Widget/Type/UserAmountTotal.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountTotal\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountTotal.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountTotal\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountTotal.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountWeek\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountWeek.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountWeek\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountWeek.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountWeek\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/UserAmountWeek.php
 
@@ -8636,27 +7956,7 @@ parameters:
             path: src/Widget/Type/UserAmountYear.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountYear\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountYear.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserAmountYear\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserAmountYear.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationMonth\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationMonth.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationMonth\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationMonth.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationMonth\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/UserDurationMonth.php
 
@@ -8666,27 +7966,7 @@ parameters:
             path: src/Widget/Type/UserDurationToday.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationToday\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationToday.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationToday\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationToday.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationTotal\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationTotal.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationTotal\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationTotal.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationTotal\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/UserDurationTotal.php
 
@@ -8696,27 +7976,7 @@ parameters:
             path: src/Widget/Type/UserDurationWeek.php
 
         -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationWeek\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationWeek.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationWeek\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationWeek.php
-
-        -
             message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationYear\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationYear.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationYear\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/Type/UserDurationYear.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\Type\\\\UserDurationYear\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/Type/UserDurationYear.php
 
@@ -8742,16 +8002,6 @@ parameters:
 
         -
             message: "#^Method App\\\\Widget\\\\WidgetInterface\\:\\:getData\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/WidgetInterface.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\WidgetInterface\\:\\:getOptions\\(\\) has parameter \\$options with no value type specified in iterable type array\\.$#"
-            count: 1
-            path: src/Widget/WidgetInterface.php
-
-        -
-            message: "#^Method App\\\\Widget\\\\WidgetInterface\\:\\:getOptions\\(\\) return type has no value type specified in iterable type array\\.$#"
             count: 1
             path: src/Widget/WidgetInterface.php
 
