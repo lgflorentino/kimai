@@ -56,7 +56,7 @@ final class Version20210802152814 extends AbstractMigration
     {
         if ($this->isPlatformMySQL()) {
             $timesheet = $schema->getTable('kimai2_timesheet');
-            $timesheet->changeColumn('date_tz', ['notnull' => false]);
+            $timesheet->modifyColumn('date_tz', ['notnull' => false]);
 
             $this->preventEmptyMigrationWarning();
         } else {

@@ -28,7 +28,7 @@ final class Version20210802160837 extends AbstractMigration
     {
         if ($this->isPlatformMySQL()) {
             $timesheet = $schema->getTable('kimai2_timesheet');
-            $timesheet->changeColumn('date_tz', ['notnull' => true]);
+            $timesheet->modifyColumn('date_tz', ['notnull' => true]);
             $timesheet->addIndex(['date_tz', 'user'], 'IDX_4F60C6B1BDF467148D93D649');
         } else {
             $this->preventEmptyMigrationWarning();
@@ -39,7 +39,7 @@ final class Version20210802160837 extends AbstractMigration
     {
         if ($this->isPlatformMySQL()) {
             $timesheet = $schema->getTable('kimai2_timesheet');
-            $timesheet->changeColumn('date_tz', ['notnull' => false]);
+            $timesheet->modifyColumn('date_tz', ['notnull' => false]);
             $timesheet->dropIndex('IDX_4F60C6B1BDF467148D93D649');
         } else {
             $this->preventEmptyMigrationWarning();
