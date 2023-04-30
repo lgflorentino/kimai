@@ -45,6 +45,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 #[Serializer\VirtualProperty('UserAsId', exp: 'object.getUser().getId()', options: [new Serializer\SerializedName('user'), new Serializer\Type(name: 'integer'), new Serializer\Groups(['Not_Expanded'])])]
 #[Serializer\VirtualProperty('TagsAsArray', exp: 'object.getTagsAsArray()', options: [new Serializer\SerializedName('tags'), new Serializer\Type(name: 'array<string>'), new Serializer\Groups(['Default'])])]
 #[Constraints\Timesheet]
+#[Constraints\TimesheetDeactivated]
 class Timesheet implements EntityWithMetaFields, ExportableItem
 {
     /**
@@ -183,7 +184,8 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
     /**
      * Internal property used to determine whether the billable field should be calculated automatically.
      */
-    private string $billableMode = self::BILLABLE_DEFAULT;
+    #[Assert\NotNull]
+    private ?string $billableMode = self::BILLABLE_DEFAULT;
     #[ORM\Column(name: 'category', type: 'string', length: 10, nullable: false, options: ['default' => 'work'])]
     #[Assert\NotNull]
     private ?string $category = self::WORK;
@@ -551,12 +553,12 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
         return $this;
     }
 
-    public function getBillableMode(): string
+    public function getBillableMode(): ?string
     {
         return $this->billableMode;
     }
 
-    public function setBillableMode(string $billableMode): void
+    public function setBillableMode(?string $billableMode): void
     {
         $this->billableMode = $billableMode;
     }
@@ -672,6 +674,8 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
             $this->id = null;
         }
 
+        // field will not be set, if it contains a value
+        $this->modifiedAt = null;
         $this->exported = false;
 
         $currentMeta = $this->meta;
