@@ -180,9 +180,10 @@ final class TimesheetController extends BaseApiController
             $query->setPageSize((int) $size);
         }
 
+        /** @var array<string> $tags */
         $tags = $paramFetcher->get('tags');
         if (\is_array($tags) && \count($tags) > 0) {
-            $tags = $this->tagRepository->findTagsByName($tags);
+            $tags = $this->tagRepository->findTagsByName($tags, true);
             foreach ($tags as $tag) {
                 $query->addTag($tag);
             }
@@ -249,6 +250,7 @@ final class TimesheetController extends BaseApiController
             $query->setModifiedAfter($factory->createDateTime($modifiedAfter));
         }
 
+        $query->setIsApiCall(true);
         $data = $this->repository->getPagerfantaForQuery($query);
         $results = (array) $data->getCurrentPageResults();
 

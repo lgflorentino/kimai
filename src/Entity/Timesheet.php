@@ -127,21 +127,21 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
     #[Serializer\Expose]
     #[Serializer\Groups(['Default'])]
     private ?int $duration = 0;
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\User')]
+    #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(name: '`user`', referencedColumnName: 'id', onDelete: 'CASCADE', nullable: false)]
     #[Assert\NotNull]
     #[Serializer\Expose]
     #[Serializer\Groups(['Subresource', 'Expanded'])]
     #[OA\Property(ref: '#/components/schemas/User')]
     private ?User $user = null;
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Activity')]
+    #[ORM\ManyToOne(targetEntity: Activity::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false)]
     #[Assert\NotNull]
     #[Serializer\Expose]
     #[Serializer\Groups(['Subresource', 'Expanded'])]
     #[OA\Property(ref: '#/components/schemas/ActivityExpanded')]
     private ?Activity $activity = null;
-    #[ORM\ManyToOne(targetEntity: 'App\Entity\Project')]
+    #[ORM\ManyToOne(targetEntity: Project::class)]
     #[ORM\JoinColumn(onDelete: 'CASCADE', nullable: false)]
     #[Assert\NotNull]
     #[Serializer\Expose]
@@ -203,7 +203,7 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
     #[ORM\JoinTable(name: 'kimai2_timesheet_tags')]
     #[ORM\JoinColumn(name: 'timesheet_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     #[ORM\InverseJoinColumn(name: 'tag_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
-    #[ORM\ManyToMany(targetEntity: 'App\Entity\Tag', inversedBy: 'timesheets', cascade: ['persist'])]
+    #[ORM\ManyToMany(targetEntity: Tag::class, inversedBy: 'timesheets', cascade: ['persist'])]
     #[Assert\Valid]
     private Collection $tags;
     /**
@@ -211,7 +211,7 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
      *
      * @var Collection<TimesheetMeta>
      */
-    #[ORM\OneToMany(targetEntity: 'App\Entity\TimesheetMeta', mappedBy: 'timesheet', cascade: ['persist'])]
+    #[ORM\OneToMany(targetEntity: TimesheetMeta::class, mappedBy: 'timesheet', cascade: ['persist'])]
     #[Serializer\Expose]
     #[Serializer\Groups(['Timesheet'])]
     #[Serializer\Type(name: 'array<App\Entity\TimesheetMeta>')]
@@ -239,7 +239,7 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
      * Make sure begin and end date have the correct timezone.
      * This will be called once for each item after being loaded from the database.
      */
-    protected function localizeDates()
+    protected function localizeDates(): void
     {
         if ($this->localized) {
             return;
@@ -432,7 +432,7 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
     /**
      * @param Tag $tag
      */
-    public function removeTag(Tag $tag)
+    public function removeTag(Tag $tag): void
     {
         if (!$this->tags->contains($tag)) {
             return;
@@ -453,11 +453,14 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
      */
     public function getTagsAsArray(): array
     {
+        /** @var array<Tag> $tags */
+        $tags = $this->getTags()->toArray();
+
         return array_map(
-            function (Tag $element) {
-                return $element->getName();
+            function ($element) {
+                return (string) $element->getName();
             },
-            $this->getTags()->toArray()
+            $tags
         );
     }
 
@@ -613,6 +616,15 @@ class Timesheet implements EntityWithMetaFields, ExportableItem
         }
 
         return $all;
+    }
+
+    public function resetRates(): void
+    {
+        $this->setRate(0.00);
+        $this->setInternalRate(null);
+        $this->setHourlyRate(null);
+        $this->setFixedRate(null);
+        $this->setBillableMode(Timesheet::BILLABLE_AUTOMATIC);
     }
 
     public function getMetaField(string $name): ?MetaTableTypeInterface

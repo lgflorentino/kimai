@@ -115,8 +115,8 @@ final class ProjectController extends BaseApiController
         }
 
         $ignoreDates = false;
-        if (null !== $paramFetcher->get('ignoreDates')) {
-            $ignoreDates = \intval($paramFetcher->get('ignoreDates')) === 1;
+        if (null !== ($ign = $paramFetcher->get('ignoreDates'))) {
+            $ignoreDates = $ign === 1 || $ign === '1';
         }
 
         if (!$ignoreDates) {
@@ -144,6 +144,7 @@ final class ProjectController extends BaseApiController
             $query->setSearchTerm(new SearchTerm($term));
         }
 
+        $query->setIsApiCall(true);
         $data = $this->repository->getProjectsForQuery($query);
         $view = new View($data, 200);
         $view->getContext()->setGroups(self::GROUPS_COLLECTION);

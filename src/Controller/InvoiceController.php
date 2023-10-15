@@ -387,7 +387,7 @@ final class InvoiceController extends AbstractController
 
     #[Route(path: '/export', name: 'invoice_export', methods: ['GET'])]
     #[IsGranted('view_invoice')]
-    public function exportAction(Request $request, EntityWithMetaFieldsExporter $exporter)
+    public function exportAction(Request $request, EntityWithMetaFieldsExporter $exporter): Response
     {
         $query = new InvoiceArchiveQuery();
         $query->setCurrentUser($this->getUser());
@@ -433,7 +433,7 @@ final class InvoiceController extends AbstractController
         $table->addColumn('calculator', ['class' => 'd-none', 'orderBy' => false, 'title' => 'invoice_calculator', 'translation_domain' => 'invoice-calculator']);
         $table->addColumn('renderer', ['class' => 'd-none', 'orderBy' => false, 'title' => 'invoice_renderer', 'translation_domain' => 'invoice-renderer']);
         $table->addColumn('language', ['class' => 'd-none text-nowrap', 'orderBy' => false]);
-        $table->addColumn('actions', ['class' => 'actions', 'orderBy' => false]);
+        $table->addColumn('actions', ['class' => 'actions']);
 
         $page = $this->createPageSetup('admin_invoice_template.title');
         $page->setDataTable($table);

@@ -85,6 +85,7 @@ final class UserController extends BaseApiController
             $query->setSearchTerm(new SearchTerm($term));
         }
 
+        $query->setIsApiCall(true);
         $data = $this->repository->getUsersForQuery($query);
         $view = new View($data, 200);
         $view->getContext()->setGroups(self::GROUPS_COLLECTION);
@@ -197,6 +198,7 @@ final class UserController extends BaseApiController
             'include_roles' => $this->isGranted('roles', $profile),
             'include_active_flag' => ($profile->getId() !== $this->getUser()->getId()),
             'include_preferences' => $this->isGranted('preferences', $profile),
+            'include_supervisor' => $this->isGranted('supervisor', $profile),
         ]);
 
         $form->setData($profile);

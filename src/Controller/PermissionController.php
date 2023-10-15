@@ -46,7 +46,7 @@ final class PermissionController extends AbstractController
 
     #[Route(path: '', name: 'admin_user_permissions', methods: ['GET', 'POST'])]
     #[IsGranted('role_permissions')]
-    public function permissions(EventDispatcherInterface $dispatcher, CsrfTokenManagerInterface $csrfTokenManager, RoleService $roleService)
+    public function permissions(EventDispatcherInterface $dispatcher, CsrfTokenManagerInterface $csrfTokenManager, RoleService $roleService): Response
     {
         $all = $this->roleRepository->findAll();
         $existing = [];
@@ -69,6 +69,7 @@ final class PermissionController extends AbstractController
         }
 
         // be careful, the order of the search keys is important!
+        // @CloudRequired (names should not change)
         $permissionOrder = [
             new PermissionSection('Export', '_export'),
             new PermissionSection('Invoice', '_invoice'),

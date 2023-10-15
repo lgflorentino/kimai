@@ -193,7 +193,7 @@ final class UserController extends AbstractController
 
     #[Route(path: '/export', name: 'user_export', methods: ['GET'])]
     #[IsGranted('view_user')]
-    public function exportAction(Request $request, UserExporter $exporter)
+    public function exportAction(Request $request, UserExporter $exporter): Response
     {
         $query = new UserQuery();
         $query->setCurrentUser($this->getUser());
@@ -233,6 +233,7 @@ final class UserController extends AbstractController
             'method' => 'POST',
             'include_active_flag' => true,
             'include_preferences' => true,
+            'include_supervisor' => $this->isGranted('supervisor_other_profile'),
             'include_teams' => $this->isGranted('teams_other_profile'),
             'include_roles' => $this->isGranted('roles_other_profile'),
         ]);

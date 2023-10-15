@@ -202,6 +202,7 @@ abstract class TimesheetAbstractController extends AbstractController
     protected function duplicate(Timesheet $timesheet, Request $request): Response
     {
         $copyTimesheet = clone $timesheet;
+        $copyTimesheet->resetRates();
 
         $event = new TimesheetMetaDefinitionEvent($copyTimesheet);
         $this->dispatcher->dispatch($event);
@@ -417,7 +418,7 @@ abstract class TimesheetAbstractController extends AbstractController
         ]);
     }
 
-    protected function multiDelete(Request $request)
+    protected function multiDelete(Request $request): Response
     {
         $form = $this->getMultiUpdateActionForm();
         $form->handleRequest($request);
@@ -445,7 +446,7 @@ abstract class TimesheetAbstractController extends AbstractController
         return $this->redirectToRoute($this->getTimesheetRoute());
     }
 
-    protected function prepareQuery(TimesheetQuery $query)
+    protected function prepareQuery(TimesheetQuery $query): void
     {
         $query->setUser($this->getUser());
     }
